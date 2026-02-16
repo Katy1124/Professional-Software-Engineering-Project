@@ -20,7 +20,7 @@ export default function AdminDashboard() {
         <div className="row align-items-center">
 
           <div className="col">
-            <div className="card">
+            <div className="card active-tickets">
               <div className="card-body">
                 <p style={{fontSize: '20px'}}>Active Tickets</p>
                 <p style={{fontSize: '40px', fontWeight: 'bold'}}>23</p>
@@ -29,7 +29,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="col">
-            <div className="card">
+            <div className="card pending-tickets">
               <div class="card-body">
                 <p style={{fontSize: '20px'}}>Pending Tickets</p>
                 <p style={{fontSize: '40px', fontWeight: 'bold'}}>5</p>
@@ -38,7 +38,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="col">
-            <div className="card">
+            <div className="card resolved-tickets">
               <div className="card-body">
                 <p style={{fontSize: '20px'}}>Resolved Tickets</p>
                 <p style={{fontSize: '40px', fontWeight: 'bold'}}>16</p>
@@ -54,14 +54,14 @@ export default function AdminDashboard() {
         <p className='quick-links'>Quick Links</p>
         <div className="row justify-content-center">
           <div className="col-4">
-            <div className="card">
+            <div className="card tickets">
               <div className="card-body">
                 <p style={{fontSize: '20px'}}>Tickets</p>
               </div>
             </div>
           </div>
           <div className="col-4">
-            <div className="card">
+            <div className="card quotes">
               <div className="card-body">
                 <p style={{fontSize: '20px'}}>Quotes</p>
               </div>
@@ -71,7 +71,7 @@ export default function AdminDashboard() {
 
         <div class="row justify-content-center">
           <div class="col-4">
-            <div className="card">
+            <div className="card edits">
               <div class="card-body">
                 <p style={{fontSize: '20px'}}>Edits</p>
               </div>

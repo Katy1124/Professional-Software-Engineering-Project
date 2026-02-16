@@ -16,8 +16,27 @@
     background-color: #D3B7DE;
     margin-top: 10px;
     color: black;
+    transition: all 0.3s ease;
 }
 
+.active-tickets:hover {
+    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+.pending-tickets:hover {
+    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+.resolved-tickets:hover {
+    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+.tickets:hover {
+    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+.quotes:hover {
+    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+.edits:hover {
+    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
 
 .admin-dashboard {
   width: 100%;
