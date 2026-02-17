@@ -1,6 +1,6 @@
 :root {
   --giacom-dark-blue: #100235;
-  --giacom-purple: #67236B;
+  --giacom-purple: #67236a;
   --giacom-pink: #ec008c;
   --giacom-gold: #ffb91d;
 }
@@ -28,14 +28,58 @@ html, body {
   flex-shrink: 0;
 }
 
-.ticket-header .header-logo {
-  height: 40px;
-  width: auto;
+.ticket-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
 }
 
-.ticket-header span {
+.ticket-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   color: #d1d5db;
   font-size: 1rem;
+}
+
+.ticket-hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.ticket-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+}
+
+.ticket-logo {
+  color: white;
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.ticket-logo-dot {
+  color: var(--giacom-pink);
+}
+
+.ticket-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--giacom-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .ticket-main {
