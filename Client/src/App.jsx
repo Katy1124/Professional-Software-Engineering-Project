@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import CustomerDashboard from './pages/customerDashboard';
+import TicketCreateForm from './pages/ticket';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<h2>Home Page</h2>} />
         <Route path="/dashboard" element={<CustomerDashboard />} />
+        <Route path="/ticketpage" element={<TicketCreateForm />} />
       </Routes>
     </BrowserRouter>
   );
