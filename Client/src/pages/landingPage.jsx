@@ -4,10 +4,31 @@ import './landingPage.css';
 export default function LandingPage() { 
     return (
         <div className="landing-page">
-            <img src={giacomLogo} alt="GIACOM" width="110" height="24"></img>
-            <div className='landing-text'>
-                
+
+            <div className='image'>
+                <img src={giacomLogo} alt="GIACOM" width="110" height="24"></img>
             </div>
+
+            <div className='landing-text'>
+                <div className="row">
+                    <h1>SmartQuote</h1>
+                </div>
+                <div className="row">
+                    <h2>Intelligent Quoting System for Support & Incident Tickets</h2>
+                </div>
+            </div>
+
+            <div className='buttons'>
+                <div className='row'>
+                    <div classname="col"> 
+
+                    </div>
+                    <div classname="col"> 
+                        
+                    </div>
+                </div>
+            </div>
+
         </div>
      )
 }

@@ -2,13 +2,31 @@
   width: 100%;
   position: relative;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  text-align: center;
 }
 
-.landing-page img {
+.landing-page .image {
   position: absolute;
   top: 20px;
   left: 20px;
+  
+}
+.landing-page .image img {
   width: 500px;
   height: 100px;
-  z-index: 10;
+  
+}
+
+.landing-page .landing-text {
+    margin-top: -150px;
+}
+.landing-page h1 {
+    color: white;
+}
+.landing-page h2 {
+    color: white;
 }
