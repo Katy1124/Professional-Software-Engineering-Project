@@ -1,0 +1,137 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236B;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.dashboard-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--giacom-dark-blue);
+  overflow: hidden;
+}
+
+.dashboard-header {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(135, 35, 107, 0.2);
+  flex-shrink: 0;
+}
+
+.dashboard-header .header-logo {
+  height: 40px;
+  width: auto;
+}
+
+.dashboard-header span {
+  color: #d1d5db;
+  font-size: 1rem;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: var(--giacom-purple);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(236,0,140,0.3);
+}
+
+.stat-card h3 {
+  color: white;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.stat-card .stat-number {
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.cta-button {
+  background-color: var(--giacom-pink);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+}
+
+.cta-button p {
+  color: white;
+  font-size: 1.125rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.quick-links-section {
+  margin-top: auto;
+}
+
+.quick-links-title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.quick-link-btn {
+  background-color: var(--giacom-purple);
+  border: none;
+  border-radius: 16px;
+  padding: 2rem;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quick-link-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(236,0,140,0.3);
+}
