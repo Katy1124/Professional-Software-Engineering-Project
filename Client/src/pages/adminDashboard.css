@@ -1,40 +1,40 @@
-.custom-nav {
+.admin-dashboard .custom-nav {
     background-color: #3C173E;
 }
 
-.custom-link {
+.admin-dashboard .custom-link {
     color: white;
     font-size: large;
     transition: all 0.3s ease;
 }
-.custom-link:hover {
+.admin-dashboard .custom-link:hover {
     color: white;
     text-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
 
-.card {
+.admin-dashboard .card {
     background-color: #D3B7DE;
     margin-top: 10px;
     color: black;
     transition: all 0.3s ease;
 }
 
-.active-tickets:hover {
+.admin-dashboard .active-tickets:hover {
     box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
-.pending-tickets:hover {
+.admin-dashboard .pending-tickets:hover {
     box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
-.resolved-tickets:hover {
+.admin-dashboard .resolved-tickets:hover {
     box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
-.tickets:hover {
+.admin-dashboard .tickets:hover {
     box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
-.quotes:hover {
+.admin-dashboard .quotes:hover {
     box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
-.edits:hover {
+.admin-dashboard .edits:hover {
     box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
 
@@ -55,14 +55,14 @@ html, body, #root {
 }
 
 
-.quick-links {
+.admin-dashboard.quick-links {
     color: white;
     margin-top: 40px;
     text-align: center;
     font-weight: bold;
 }
 
-.footer {
+.admin-dashboard .footer {
     background-color: #3C173E;
     height: 50px;
 }

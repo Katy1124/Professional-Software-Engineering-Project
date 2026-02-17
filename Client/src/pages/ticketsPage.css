@@ -1,45 +1,38 @@
-.custom-nav {
+.tickets-page .custom-nav {
     background-color: #3C173E;
 }
 
 
-.custom-link {
+.tickets-page .custom-link {
     color: white;
     font-size: large;
     transition: all 0.3s ease;
 }
-.custom-link:hover {
+.tickets-page .custom-link:hover {
     color: white;
     text-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
 
-.card {
+.tickets-page .card {
     background-color: #D3B7DE;
     margin-top: 10px;
     color: black;
     transition: all 0.3s ease;
 }
 
-.active-tickets:hover {
-    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+
+.tickets-page .view-button{
+    background-color: #67236A;
+    color: white;
+    transition: all 0.3s ease;
+    border: none;
 }
-.pending-tickets:hover {
-    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
-}
-.resolved-tickets:hover {
-    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
-}
-.tickets:hover {
-    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
-}
-.quotes:hover {
-    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
-}
-.edits:hover {
-    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+.tickets-page .view-button:hover {
+    background-color: #bc52c2;
 }
 
-.tickets-page {
+
+.tickets-page .tickets-page {
   width: 100%;
   min-height: 100vh;
   margin: 0;
@@ -55,15 +48,7 @@ html, body, #root {
   overflow-x: hidden;
 }
 
-
-.quick-links {
-    color: white;
-    margin-top: 40px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.footer {
+.tickets-page .footer {
     margin-top: 10px;
     background-color: #3C173E;
     height: 50px;

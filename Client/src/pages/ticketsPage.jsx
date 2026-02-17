@@ -21,8 +21,7 @@ export default function TicketsPage() {
         <div className="row align-items-center">
 
           <div className="col">
-            <Link to="/ticketsPage" style={{ textDecoration: 'none' }}>
-              <div className="card active-tickets">
+              <div className="card tickets">
                 <div className="card-body">
                   <p style={{fontSize: '40px', fontWeight: 'bold'}}>Ticket 108</p>
                   <p style={{fontSize: '20px'}}>User15645</p>
@@ -31,14 +30,15 @@ export default function TicketsPage() {
                   <p><span>Impact: </span><span>Medium</span></p>
                   <p><span>Date: </span><span>05/02/2026</span></p>
                   <p><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white'}}>Active</span></p>
-                  <button style={{backgroundColor: '#67236A', color: 'white'}}>View</button>
+                  <Link to="/ticketsPage" style={{ textDecoration: 'none' }}>
+                    <button className="view-button">View</button>
+                  </Link>
                 </div>
               </div>
-            </Link>
           </div>
 
           <div className="col">
-            <div className="card pending-tickets">
+            <div className="card tickets">
               <div class="card-body">
                 <p style={{fontSize: '40px', fontWeight: 'bold'}}>Ticket 232</p>
                   <p style={{fontSize: '20px'}}>User2323</p>
@@ -47,13 +47,13 @@ export default function TicketsPage() {
                   <p><span>Impact: </span><span>Critical</span></p>
                   <p><span>Date: </span><span>02/02/2026</span></p>
                   <p><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white'}}>Active</span></p>
-                  <button style={{backgroundColor: '#67236A', color: 'white'}}>View</button>
+                  <button className="view-button">View</button>
               </div>
             </div>
           </div>
 
           <div className="col">
-            <div className="card resolved-tickets">
+            <div className="card tickets">
               <div className="card-body">
                 <p style={{fontSize: '40px', fontWeight: 'bold'}}>Ticket 300</p>
                   <p style={{fontSize: '20px'}}>User98769</p>
@@ -62,7 +62,7 @@ export default function TicketsPage() {
                   <p><span>Impact: </span><span>Critical</span></p>
                   <p><span>Date: </span><span>03/02/2026</span></p>
                   <p><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#B58229', color: 'white'}}>Pending</span></p>
-                  <button style={{backgroundColor: '#67236A', color: 'white'}}>View</button>
+                  <button className="view-button">View</button>
               </div>
             </div>
           </div>
