@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+import LandingPage from './pages/landingPage';
 import CustomerDashboard from './pages/customerDashboard';
 import AdminDashboard from './pages/adminDashboard';
 import TicketsPage from './pages/ticketsPage';
@@ -8,14 +9,14 @@ function App() {
   return (
     <BrowserRouter>
       {/* This Navigation stays on every page */}
-      <nav>
-        <Link to="/">Home</Link> | 
+      {/* <nav>
+        <Link to="/landing">Home</Link> | 
         <Link to="/customer"> Go to Customer Dashboard</Link> |
         <Link to="/admin"> Go to Admin Dashboard</Link>
-      </nav>
+      </nav> */}
 
       <Routes>
-        <Route path="/" element={<h2>Home Page</h2>} />
+        <Route path="/landing" element={<LandingPage />} />
         <Route path="/customer" element={<CustomerDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/ticketsPage" element={<TicketsPage />} />

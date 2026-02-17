@@ -9,10 +9,10 @@ export default function TicketsPage() {
 
       <nav className="navbar custom-nav">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/landing">
             <img src={giacomLogo} alt="GIACOM" width="110" height="24"></img></a>
-          <a className="navbar custom-link" href="#">Customer Dash</a>
-          <a className="navbar custom-link" href="#">Admin Dash</a>
+          <a className="navbar custom-link" href="/customer">Customer Dash</a>
+          <a className="navbar custom-link" href="/admin">Admin Dash</a>
         </div>
       </nav>
 
