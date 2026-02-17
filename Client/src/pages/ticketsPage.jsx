@@ -17,7 +17,7 @@ export default function TicketsPage() {
       </nav>
 
 
-      <div class="container text-center">
+      <div className="container-fluid text-center">
         <div className="row align-items-center">
 
           <div className="col">

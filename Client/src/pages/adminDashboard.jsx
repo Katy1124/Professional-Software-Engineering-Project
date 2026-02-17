@@ -83,11 +83,6 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
-
-      <div className="container">
-        <h1>Admin Dashboard</h1>
-        <p>Welcome to the admin dashboard! Here you can manage users, view reports, and configure settings.</p>
-      </div>
       
       <footer className="footer" />
     </div>
