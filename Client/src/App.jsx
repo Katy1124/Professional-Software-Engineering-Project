@@ -9,11 +9,11 @@ function App() {
   return (
     <BrowserRouter>
       {/* This Navigation stays on every page */}
-      <nav>
+      {/* <nav>
         <Link to="/landing">Home</Link> | 
         <Link to="/customer"> Go to Customer Dashboard</Link> |
         <Link to="/admin"> Go to Admin Dashboard</Link>
-      </nav>
+      </nav> */}
 
       <Routes>
         <Route path="/landing" element={<LandingPage />} />

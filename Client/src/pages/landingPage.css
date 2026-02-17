@@ -22,7 +22,7 @@
 }
 
 .landing-page .landing-text {
-    margin-top: -150px;
+    margin-top: 100px;
 }
 .landing-page h1 {
     color: white;
@@ -32,21 +32,25 @@
 }
 
 .landing-page .buttons {
-    margin-top: 20px;
+    margin-top: 100px;
 }
 .landing-page .buttons .admin-button {
+    width: 500px;
+    height: 100px;
     margin: 0 10px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 40px;
     background-color: #3C173E;
     color: white;
     transition: all 0.3s ease;
     border: none;
 }
 .landing-page .buttons .customer-button {
+    width: 500px;
+    height: 100px;
     margin: 0 10px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 40px;
     background-color: #3C173E;
     color: white;
     transition: all 0.3s ease;

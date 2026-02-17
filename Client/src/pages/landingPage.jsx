@@ -21,12 +21,12 @@ export default function LandingPage() {
             <div className='buttons'>
                 <div className='row'>
                     <div className="col"> 
-                        <Link to="/ticketsPage" style={{ textDecoration: 'none' }}>
+                        <Link to="/admin" style={{ textDecoration: 'none' }}>
                             <button className="admin-button">Administrators</button>
                         </Link>
                     </div>
                     <div className="col"> 
-                        <Link to="/ticketsPage" style={{ textDecoration: 'none' }}>
+                        <Link to="/customer" style={{ textDecoration: 'none' }}>
                             <button className="customer-button">Customers</button>
                         </Link>
                     </div>
