@@ -30,3 +30,33 @@
 .landing-page h2 {
     color: white;
 }
+
+.landing-page .buttons {
+    margin-top: 20px;
+}
+.landing-page .buttons .admin-button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3C173E;
+    color: white;
+    transition: all 0.3s ease;
+    border: none;
+}
+.landing-page .buttons .customer-button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3C173E;
+    color: white;
+    transition: all 0.3s ease;
+    border: none;
+}
+.landing-page .buttons .admin-button:hover {
+    color: white;
+    background-color: #67236A;
+}
+.landing-page .buttons .customer-button:hover {
+    color: white;
+    background-color: #67236A;
+}

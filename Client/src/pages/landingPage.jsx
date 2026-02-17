@@ -20,11 +20,15 @@ export default function LandingPage() {
 
             <div className='buttons'>
                 <div className='row'>
-                    <div classname="col"> 
-
+                    <div className="col"> 
+                        <Link to="/ticketsPage" style={{ textDecoration: 'none' }}>
+                            <button className="admin-button">Administrators</button>
+                        </Link>
                     </div>
-                    <div classname="col"> 
-                        
+                    <div className="col"> 
+                        <Link to="/ticketsPage" style={{ textDecoration: 'none' }}>
+                            <button className="customer-button">Customers</button>
+                        </Link>
                     </div>
                 </div>
             </div>
