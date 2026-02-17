@@ -83,7 +83,7 @@ html, body {
 }
 
 .cta-button {
-  background: linear-gradient(to right, var(--giacom-pink), var(--giacom-gold));
+  background-color: var(--giacom-pink);
   border-radius: 16px;
   padding: 1.5rem;
   text-align: center;
