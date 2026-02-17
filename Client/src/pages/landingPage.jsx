@@ -4,7 +4,10 @@ import './landingPage.css';
 export default function LandingPage() { 
     return (
         <div className="landing-page">
-            <p>LANDING!!!!!!!!!!!!!</p>
+            <img src={giacomLogo} alt="GIACOM" width="110" height="24"></img>
+            <div className='landing-text'>
+                
+            </div>
         </div>
      )
 }
