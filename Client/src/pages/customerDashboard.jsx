@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './CustomerDashboard.css';
+import '../css/CustomerDashboard.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function CustomerDashboard() {

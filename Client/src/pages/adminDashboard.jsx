@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
-import './adminDashboard.css';
+import '../css/adminDashboard.css';
 
 
 export default function AdminDashboard() {

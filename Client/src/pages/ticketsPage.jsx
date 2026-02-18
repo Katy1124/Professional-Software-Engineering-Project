@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
-import './ticketsPage.css';
+import '../css/ticketsPage.css';
 
 export default function TicketsPage() {
   return (
