@@ -4,6 +4,7 @@ import LandingPage from './pages/landingPage';
 import CustomerDashboard from './pages/customerDashboard';
 import AdminDashboard from './pages/adminDashboard';
 import TicketsPage from './pages/ticketsPage';
+import ViewTicket from './pages/viewTicket';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/customer" element={<CustomerDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/ticketsPage" element={<TicketsPage />} />
+        <Route path="/viewTicket" element={<ViewTicket />} />
       </Routes>
     </BrowserRouter>
   );

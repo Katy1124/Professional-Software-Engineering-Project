@@ -1,38 +1,42 @@
-.tickets-page .custom-nav {
+.view-ticket .custom-nav {
     background-color: #3C173E;
 }
 
 
-.tickets-page .custom-link {
+.view-ticket .custom-nav {
+    background-color: #3C173E;
+}
+
+
+.view-ticket .custom-link {
     color: white;
     font-size: large;
     transition: all 0.3s ease;
 }
-.tickets-page .custom-link:hover {
+.view-ticket .custom-link:hover {
     color: white;
     text-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
 
-.tickets-page .card {
+.view-ticket .card {
     background-color: #D3B7DE;
     margin-top: 10px;
     color: black;
     transition: all 0.3s ease;
+    width: 1000px;
 }
 
-
-.tickets-page .view-button{
+.view-ticket .view-button{
     background-color: #67236A;
     color: white;
     transition: all 0.3s ease;
     border: none;
 }
-.tickets-page .view-button:hover {
+.view-ticket .view-button:hover {
     background-color: #bc52c2;
 }
 
-
-.tickets-page .tickets-page {
+.view-ticket {
   width: 100%;
   min-height: 100vh;
   margin: 0;
@@ -48,8 +52,15 @@ html, body, #root {
   overflow-x: hidden;
 }
 
-.tickets-page .footer {
+.view-ticket .footer {
     margin-top: 10px;
     background-color: #3C173E;
     height: 50px;
+}
+
+.view-ticket .ticket {
+    display: flex;
+    flex-direction: col;
+    align-items: center;
+    justify-content: center;
 }
