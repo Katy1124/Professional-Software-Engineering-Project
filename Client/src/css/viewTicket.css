@@ -64,3 +64,12 @@ html, body, #root {
     align-items: center;
     justify-content: center;
 }
+
+.view-ticket .information {
+    width: 500px;
+}
+
+.view-ticket .information .col {
+    background-color: #AF98B8;
+    border: #3C173E 1px solid;
+}
