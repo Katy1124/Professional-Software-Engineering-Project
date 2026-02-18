@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<h2>Home Page</h2>} />
         <Route path="/dashboard" element={<CustomerDashboard />} />
-        <Route path="/ticketpage" element={<TicketCreateForm />} />
+        <Route path="/ticketform" element={<TicketCreateForm />} />
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/customer" element={<CustomerDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
