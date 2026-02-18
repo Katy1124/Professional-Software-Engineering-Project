@@ -25,7 +25,7 @@ export default function TicketForm() {
           <div className="ticket-hamburger">
             <span /><span /><span />
           </div>
-          <div className="ticket-logo">GIACOM<span className="ticket-logo-dot">.</span></div>
+          <img src="/giacom-master-white-logo-1.png" alt="GIACOM" className="ticket-logo-img" />
         </div>
         <div className="ticket-header-right">
           <span>[User]</span>
