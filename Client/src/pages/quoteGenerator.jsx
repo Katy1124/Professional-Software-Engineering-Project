@@ -10,6 +10,7 @@ export default function QuoteEstimate() {
     overrideHours: '10.5',
     overrideRate: '£75',
     internalNotes: '',
+    files: [],
   });
 
   const ticket = {
@@ -47,7 +48,6 @@ export default function QuoteEstimate() {
       </header>
 
       <main className="quote-main">
-        {/* Left Sidebar - Ticket Details (OUTSIDE) */}
         <aside className="quote-sidebar">
           <div className="quote-ticket-card">
             <div className="quote-ticket-header">Selected Ticket: {ticket.id}</div>
@@ -77,17 +77,14 @@ export default function QuoteEstimate() {
               <span className="quote-status-badge">{ticket.status}</span>
             </div>
           </div>
+
+          <button className="quote-change-ticket-btn">Change Ticket</button>
         </aside>
 
-        {/* Right Big Card - All Actions */}
         <div className="quote-big-card">
-          <div className="quote-header-row">
-            <h1 className="quote-title">Quote Estimate</h1>
-            <button className="quote-change-btn">Change Ticket</button>
-          </div>
+          <h1 className="quote-title">Quote Estimate</h1>
 
           <div className="quote-layout">
-            {/* Quote Breakdown */}
             <div className="quote-section">
               <label className="quote-label">Quote Breakdown</label>
               <textarea
@@ -96,9 +93,41 @@ export default function QuoteEstimate() {
                 value={quote.breakdown}
                 onChange={e => set('breakdown', e.target.value)}
               />
+              
+              <div className="quote-attachments">
+                <label className="quote-label">Attachments</label>
+                <label className="quote-file-upload">
+                  <input type="file" hidden multiple onChange={e => set('files', Array.from(e.target.files))} />
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+                  </svg>
+                  <span>Choose files or drag and drop</span>
+                </label>
+              </div>
+
+              <div className="quote-cost-summary">
+                <h3 className="quote-cost-title">Cost Summary</h3>
+                <div className="quote-cost-grid">
+                  <div className="quote-cost-row">
+                    <span className="quote-cost-label">Hourly Rate:</span>
+                    <span className="quote-cost-value">{costSummary.hourlyRate}</span>
+                  </div>
+                  <div className="quote-cost-row">
+                    <span className="quote-cost-label">Total Cost:</span>
+                    <span className="quote-cost-value quote-cost-highlight">{costSummary.totalCost}</span>
+                  </div>
+                  <div className="quote-cost-row">
+                    <span className="quote-cost-label">Severity:</span>
+                    <span className="quote-cost-value">{costSummary.severity}</span>
+                  </div>
+                  <div className="quote-cost-row">
+                    <span className="quote-cost-label">Estimated Time:</span>
+                    <span className="quote-cost-value">{costSummary.estimatedTime}</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Admin Controls */}
             <div className="quote-admin-controls">
               <h3 className="quote-admin-title">Admin Controls</h3>
 
@@ -132,34 +161,10 @@ export default function QuoteEstimate() {
                 />
               </div>
 
-              {/* Action Buttons inside Admin Controls */}
               <div className="quote-admin-actions">
                 <button className="quote-btn-save">Save Quote Revision</button>
                 <button className="quote-btn-approve">Approve Quote</button>
                 <button className="quote-btn-reject">Reject / Request Changes</button>
-              </div>
-            </div>
-          </div>
-
-          {/* Cost Summary */}
-          <div className="quote-cost-summary">
-            <h3 className="quote-cost-title">Cost Summary</h3>
-            <div className="quote-cost-grid">
-              <div className="quote-cost-row">
-                <span className="quote-cost-label">Hourly Rate:</span>
-                <span className="quote-cost-value">{costSummary.hourlyRate}</span>
-              </div>
-              <div className="quote-cost-row">
-                <span className="quote-cost-label">Total Cost:</span>
-                <span className="quote-cost-value quote-cost-highlight">{costSummary.totalCost}</span>
-              </div>
-              <div className="quote-cost-row">
-                <span className="quote-cost-label">Severity:</span>
-                <span className="quote-cost-value">{costSummary.severity}</span>
-              </div>
-              <div className="quote-cost-row">
-                <span className="quote-cost-label">Estimated Time:</span>
-                <span className="quote-cost-value">{costSummary.estimatedTime}</span>
               </div>
             </div>
           </div>
