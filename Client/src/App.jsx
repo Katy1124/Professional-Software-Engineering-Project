@@ -5,6 +5,7 @@ import CustomerDashboard from './pages/customerDashboard';
 import TicketCreateForm from './pages/ticket';
 import AdminDashboard from './pages/adminDashboard';
 import TicketsPage from './pages/ticketsPage';
+import ViewTicket from './pages/viewTicket';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/customer" element={<CustomerDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/ticketsPage" element={<TicketsPage />} />
+        <Route path="/viewTicket" element={<ViewTicket />} />
       </Routes>
     </BrowserRouter>
   );
