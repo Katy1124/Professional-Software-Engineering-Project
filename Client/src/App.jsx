@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import LandingPage from './pages/landingPage';
 import CustomerDashboard from './pages/customerDashboard';
+import TicketCreateForm from './pages/ticket';
 import AdminDashboard from './pages/adminDashboard';
 import TicketsPage from './pages/ticketsPage';
 import ViewTicket from './pages/viewTicket';
@@ -17,6 +18,9 @@ function App() {
       </nav> */}
 
       <Routes>
+        <Route path="/" element={<h2>Home Page</h2>} />
+        <Route path="/dashboard" element={<CustomerDashboard />} />
+        <Route path="/ticketform" element={<TicketCreateForm />} />
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/customer" element={<CustomerDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />

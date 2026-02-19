@@ -22,10 +22,13 @@
 
 
 .tickets-page .view-button{
+    font-size: 20px;
+    padding: 5px;
     background-color: #67236A;
     color: white;
     transition: all 0.3s ease;
     border: none;
+    border-radius: 5px;
 }
 .tickets-page .view-button:hover {
     background-color: #bc52c2;
