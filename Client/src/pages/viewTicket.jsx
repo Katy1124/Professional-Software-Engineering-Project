@@ -28,46 +28,46 @@ export default function ViewTicket() {
                   
                   <div className="container information">
                     <div className='row title' style={{fontSize: '25px', fontWeight: 'bold'}}>
-                        <div className='col one'>
+                        <div className='col-2' style={{marginLeft: '90px', marginBottom: '10px'}}>
                             Title:  
                         </div>
-                        <div className='col two'>   
+                        <div className='col-5' style={{marginLeft: '170px', marginBottom: '10px'}}>   
                             Sign-up button not working
                         </div> 
                     </div>
                     
                     <div className='row type'>
-                        <div className='col'  style={{width: '10px'}}>
+                        <div className='col-2' style={{marginLeft: '90px', marginBottom: '10px'}}>
                             <p>Ticket Type:</p>
                         </div>
-                        <div className='col' >
+                        <div className='col-2' style={{marginLeft: '190px', marginBottom: '10px'}}>
                             <p>Incident</p>
                         </div> 
                     </div>
                     
                     <div className='row severity'>
-                        <div className='col'>
+                        <div className='col-3' style={{marginLeft: '90px', marginBottom: '10px'}}>
                             <p>Severity: Medium</p>
                         </div>
-                        <div className='col'>
+                        <div className='col-4' style={{marginLeft: '115px', marginBottom: '10px'}}>
                             <p>Business Impact: Medium</p>
                         </div>
                     </div>
                     
                     <div className='row estimate'>
-                        <div className='col'>
+                        <div className='col-3' style={{marginLeft: '90px', marginBottom: '10px'}}>
                             <p>Users Affected: ~100</p>
                         </div>
-                        <div className='col'>
+                        <div className='col-4' style={{marginLeft: '115px', marginBottom: '10px'}}>
                             <p>Resolution Date: 04/02/2026</p>
                         </div>
                     </div>
                     
-                    <div className='row desc'> 
-                        <div className='col'>
+                    <div className='row desc' style={{minHeight: '150px'}}> 
+                        <div className='col-5' style={{marginLeft: '90px'}}>
                             <p>Description:</p>
                         </div>
-                        <div className='col'>
+                        <div className='col-5' style={{marginLeft: '30px'}}>
                             <p>Attachments:</p>
                         </div>
                     </div>

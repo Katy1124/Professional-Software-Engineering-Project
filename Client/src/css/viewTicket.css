@@ -65,11 +65,23 @@ html, body, #root {
     justify-content: center;
 }
 
-.view-ticket .information {
+/* .view-ticket .information {
     width: 500px;
-}
+} */
 
-.view-ticket .information .col {
+.view-ticket .information .type .col-2 {
     background-color: #AF98B8;
-    border: #3C173E 1px solid;
+    font-size: 20px;
+}
+.view-ticket .information .severity .col-3, .col-4 {
+    background-color: #AF98B8;
+    font-size: 20px;
+}
+.view-ticket .information .estimate .col-3, .col-4 {
+    background-color: #AF98B8;
+    font-size: 20px;
+}
+.view-ticket .information .desc .col-5 {
+    background-color: #AF98B8;
+    font-size: 20px;
 }
