@@ -28,10 +28,10 @@ export default function ViewTicket() {
                   
                   <div className="container information">
                     <div className='row title' style={{fontSize: '25px', fontWeight: 'bold'}}>
-                        <div className='col'>
+                        <div className='col one'>
                             Title:  
                         </div>
-                        <div className='col'>   
+                        <div className='col two'>   
                             Sign-up button not working
                         </div> 
                     </div>
