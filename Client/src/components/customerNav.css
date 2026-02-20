@@ -42,6 +42,7 @@
     display: none;
     flex-direction: column;
     width: 200px;
+    height: 100vh;
     position: absolute;
     top: 10;
     left: 0;
