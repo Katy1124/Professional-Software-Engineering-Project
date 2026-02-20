@@ -32,10 +32,42 @@ export default function CustomerNav() {
                 </div>
                 <ul>
                     <div className={`navbar-links ${isOn ? 'on' : ''}`}>
-                        <NavLink to="/customer" onClick={closeMenu}><li className='nav-link'>Dashboard</li></NavLink>
-                        <NavLink to="/customerTickets" onClick={closeMenu}><li className='nav-link'>My Tickets</li></NavLink>
-                        <NavLink to="/customerQuotes" onClick={closeMenu}><li className='nav-link'>My Quotes</li></NavLink>
-                        <NavLink to="/createTicket" onClick={closeMenu}><li className='nav-link'>Create Ticket</li></NavLink>
+                        <NavLink to="/customer" onClick={closeMenu}>
+                            <li className='nav-link'>
+                                <div className="card menu-item">
+                                    <div className="card-body">
+                                        <p style={{fontSize: '20px'}}>Dashboard</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </NavLink>
+                        <NavLink to="/customerTickets" onClick={closeMenu}>
+                            <li className='nav-link'>
+                                <div className="card menu-item">
+                                    <div className="card-body">
+                                        <p style={{fontSize: '20px'}}>My Tickets</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </NavLink>
+                        <NavLink to="/customerQuotes" onClick={closeMenu}>
+                            <li className='nav-link'>
+                                <div className="card menu-item">
+                                    <div className="card-body">
+                                        <p style={{fontSize: '20px'}}>My Quotes</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </NavLink>
+                        <NavLink to="/createTicket" onClick={closeMenu}>
+                            <li className='nav-link'>
+                                <div className="card menu-item">
+                                    <div className="card-body">
+                                        <p style={{fontSize: '20px'}}>Create Ticket</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </NavLink>
                     </div>
                 </ul>
             </nav>

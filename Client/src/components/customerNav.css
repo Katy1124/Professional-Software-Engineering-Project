@@ -63,7 +63,7 @@
     margin: 0;
 }
 .customerNavbar .navbar .navbar-links .nav-link {
-    border-bottom: 2px solid #77327b;
+    /* border-bottom: 2px solid #77327b; */
     padding: 15px 20px;
     color: white;
     display: block;
@@ -74,4 +74,17 @@ html, body, #root {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+}
+
+.customerNavbar .card {
+    background-color: #bc52c2;
+    margin-top: 10px;
+    color: white;
+    transition: all 0.3s ease;
+    height: 10px;
+    justify-content: center; 
+}
+.customerNavbar .card:hover {
+    background-color: #e896ed;
+
 }
