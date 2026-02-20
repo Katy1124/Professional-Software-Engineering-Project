@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './CustomerDashboard.css';
 import { useNavigate } from 'react-router-dom';
+import CustomerNav from '../components/customerNav';
 
 export default function CustomerDashboard() {
   const navigate = useNavigate();
@@ -21,8 +22,9 @@ export default function CustomerDashboard() {
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <img src="/giacom-master-white-logo-1.png" alt="GIACOM" className="header-logo" />
-        <span>Welcome [User]</span>
+        {/* <img src="/giacom-master-white-logo-1.png" alt="GIACOM" className="header-logo" />
+        <span>Welcome [User]</span> */}
+        <CustomerNav />
       </header>
 
       <main className="dashboard-main">
