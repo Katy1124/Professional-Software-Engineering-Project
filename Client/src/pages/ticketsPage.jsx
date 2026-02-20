@@ -1,71 +1,78 @@
-import { Link } from 'react-router-dom';
-import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
-import '../css/ticketsPage.css';
+import { useEffect, useState } from "react";
+import giacomLogo from "../assets/giacom-master-white-logo-1.png";
+import "../css/ticketsPage.css";
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5039";
 
 export default function TicketsPage() {
-  return (
-    
-    <div className="tickets-page">
+  const [tickets, setTickets] = useState([]);
+  const [error, setError] = useState("");
 
+  useEffect(() => {
+    (async () => {
+      try {
+        setError("");
+
+        const res = await fetch(`${API_BASE}/api/Tickets`, {
+          headers: { Accept: "application/json" },
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`HTTP ${res.status}: ${text}`);
+        }
+
+        const data = await res.json();
+        console.log("Tickets API returned:", data);
+
+        // handles either [] or { $values: [] } just in case
+        const list = Array.isArray(data) ? data : (data?.$values ?? []);
+        setTickets(list);
+      } catch (e) {
+        console.error(e);
+        setError(e.message || "Failed to load tickets");
+        setTickets([]);
+      }
+    })();
+  }, []);
+
+  return (
+    <div className="tickets-page">
       <nav className="navbar custom-nav">
         <div className="container-fluid">
           <a className="navbar-brand" href="/landing">
-            <img src={giacomLogo} alt="GIACOM" width="110" height="24"></img></a>
+            <img src={giacomLogo} alt="GIACOM" width="110" height="24" />
+          </a>
           <a className="navbar custom-link" href="/customer">Customer Dash</a>
           <a className="navbar custom-link" href="/admin">Admin Dash</a>
         </div>
       </nav>
 
+      <div className="container-fluid">
+        {error && <div style={{ color: "red" }}>{error}</div>}
 
-      <div className="container-fluid text-center">
-        <div className="row align-items-center">
-
-          <div className="col">
-              <div className="card tickets">
-                <div className="card-body">
-                  <p style={{fontSize: '60px', fontWeight: 'bold'}}>Ticket 108</p>
-                  <p style={{fontSize: '40px'}}>User15645</p>
-                  <p style={{fontSize: '20px'}}>Sign-up button not working</p>
-                  <p style={{fontSize: '20px'}}><span>Severity: </span><span>Medium</span></p>
-                  <p style={{fontSize: '20px'}}><span>Impact: </span><span>Medium</span></p>
-                  <p style={{fontSize: '20px'}}><span>Date: </span><span>05/02/2026</span></p>
-                  <p style={{fontSize: '20px'}}><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white'}}>Active</span></p>
-                  <button className="view-button">View</button>
+        {tickets.length === 0 ? (
+          <p>No tickets found</p>
+        ) : (
+          <div className="row align-items-center">
+            {tickets.map(t => (
+              <div className="col" key={t.id}>
+                <div className="card tickets">
+                  <div className="card-body">
+                    <p style={{ fontSize: "40px", fontWeight: "bold" }}>
+                      Ticket {t.id}
+                    </p>
+                    <p style={{ fontSize: "20px" }}>{t.title}</p>
+                    <p style={{ fontSize: "16px" }}>{t.description}</p>
+                    <p>Severity: {t.severity}</p>
+                    <p>Users affected: {t.users_Affected}</p>
+                    <button className="view-button">View</button>
+                  </div>
                 </div>
               </div>
+            ))}
           </div>
-
-          <div className="col">
-            <div className="card tickets">
-              <div class="card-body">
-                <p style={{fontSize: '60px', fontWeight: 'bold'}}>Ticket 232</p>
-                  <p style={{fontSize: '40px'}}>User2323</p>
-                  <p style={{fontSize: '20px'}}>Order system down</p>
-                  <p style={{fontSize: '20px'}}><span>Severity: </span><span>Critical</span></p>
-                  <p style={{fontSize: '20px'}}><span>Impact: </span><span>Critical</span></p>
-                  <p style={{fontSize: '20px'}}><span>Date: </span><span>02/02/2026</span></p>
-                  <p style={{fontSize: '20px'}}><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white'}}>Active</span></p>
-                  <button className="view-button">View</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="col">
-            <div className="card tickets">
-              <div className="card-body">
-                <p style={{fontSize: '60px', fontWeight: 'bold'}}>Ticket 300</p>
-                  <p style={{fontSize: '40px'}}>User98769</p>
-                  <p style={{fontSize: '20px'}}>Employees not able to login</p>
-                  <p style={{fontSize: '20px'}}><span>Severity: </span><span>High</span></p>
-                  <p style={{fontSize: '20px'}}><span>Impact: </span><span>Critical</span></p>
-                  <p style={{fontSize: '20px'}}><span>Date: </span><span>03/02/2026</span></p>
-                  <p style={{fontSize: '20px'}}><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#B58229', color: 'white'}}>Pending</span></p>
-                  <button className="view-button">View</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        )}
       </div>
 
       <footer className="footer" />
