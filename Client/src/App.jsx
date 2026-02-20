@@ -5,6 +5,7 @@ import CustomerDashboard from './pages/customerDashboard';
 import TicketCreateForm from './pages/ticket';
 import AdminDashboard from './pages/adminDashboard';
 import TicketsPage from './pages/ticketsPage';
+import ViewTicket from './pages/viewTicket';
 
 function App() {
   return (
@@ -17,13 +18,12 @@ function App() {
       </nav> */}
 
       <Routes>
-        <Route path="/" element={<h2>Home Page</h2>} />
-        <Route path="/dashboard" element={<CustomerDashboard />} />
-        <Route path="/ticketform" element={<TicketCreateForm />} />
-        <Route path="/landing" element={<LandingPage />} />
-        <Route path="/customer" element={<CustomerDashboard />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/customer" element={<CustomerDashboard />} />
+        <Route path="/ticketform" element={<TicketCreateForm />} />
         <Route path="/ticketsPage" element={<TicketsPage />} />
+        <Route path="/viewTicket" element={<ViewTicket />} />
       </Routes>
     </BrowserRouter>
   );
