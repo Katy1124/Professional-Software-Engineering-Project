@@ -41,15 +41,21 @@
     background-color: #3C173E;
     display: none;
     flex-direction: column;
-    width: 200px;
+    width: 260px;
     height: 100vh;
     position: absolute;
     top: 10;
     left: 0;
     z-index: 1001;
+
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
 }
 .customerNavbar .navbar .navbar-links.on {
     display: flex;
+    transform: translateX(0);
 }
 .customerNavbar .navbar .navbar-links ul {
     list-style: none;
