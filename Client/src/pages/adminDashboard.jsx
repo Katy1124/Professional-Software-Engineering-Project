@@ -56,15 +56,15 @@ export default function AdminDashboard() {
       {/* Quick Links */}
       <div className="container text-center">
         <p className='quick-links'>Quick Links</p>
-        <div className="row justify-content-center">
-          <div className="col-4">
+        <div className="row justify-content-center" style={{paddingTop: '5px'}}>
+          <div className="col-4 links">
             <div className="card tickets">
               <div className="card-body">
                 <p style={{fontSize: '20px'}}>Tickets</p>
               </div>
             </div>
           </div>
-          <div className="col-4">
+          <div className="col-4 links">
             <div className="card quotes">
               <div className="card-body">
                 <p style={{fontSize: '20px'}}>Quotes</p>
@@ -74,7 +74,7 @@ export default function AdminDashboard() {
         </div>
 
         <div class="row justify-content-center">
-          <div class="col-4">
+          <div class="col-4 links" style={{marginTop: '10px', marginBottom: '10px'}}>
             <div className="card edits">
               <div class="card-body">
                 <p style={{fontSize: '20px'}}>Edits</p>
