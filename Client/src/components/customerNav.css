@@ -1,0 +1,9 @@
+.customerNavbar .navbar ul {
+    list-style: none;
+}
+
+.customerNavbar .navbar .navbar-header {
+    display: flex;
+    align-items: center;
+    background-color: yellow;
+}

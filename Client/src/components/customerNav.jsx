@@ -11,14 +11,21 @@ export default function CustomerNav() {
     return (
         <div className='customerNavbar'>
             <nav className='navbar'>
+                <div className='navbar-header'>
+                    <div className='navbar-toggler'>
+                        <button 
+                            className={`hamburger ${isOn ? 'is-active' : ''}`}
+                            onClick={() => setIsOn(!isOn)}
+                            aria-label="Menu"
+                            aria-expanded={isOn}
+                            >On/Off
+                        </button>
+                    </div>
+                    <div className='navbar-brand'>
+                        <img src={giacomLogo} alt="Giacom Logo" style={{width: '200px'}}/>
+                    </div>
+                </div>
                 <ul>
-                    <li className='navbar-toggler'><button 
-                    className={`hamburger ${isOn ? 'is-active' : ''}`}
-                    onClick={() => setIsOpen(!isOn)}
-                    aria-label="Menu"
-                    aria-expanded={isOn}
-                    >On/Off</button></li>
-                    <li className='navbar-brand'><img src={giacomLogo} alt="Giacom Logo"/></li>
                     <div className='collapse navbar-collapse'>
                         <NavLink to="/customer"><li className='nav-link'>Dashboard</li></NavLink>
                         <NavLink to="/customerTickets"><li className='nav-link'>My Tickets</li></NavLink>
