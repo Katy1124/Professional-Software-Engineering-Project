@@ -15,7 +15,7 @@ export default function ViewTicket() {
         <div className="row align-items-center justify-content-center">
 
           <div className="col d-flex justify-content-center">
-              <div className="card tickets">
+              <div className="card singleTicket">
                 <div className="card-body">
                   <p style={{fontSize: '40px', fontWeight: 'bold'}}><span style={{paddingRight: '100px'}}>Ticket 108 </span><span style={{paddingLeft: '100px'}}>Sent by: User15645</span></p>
                   <p style={{fontSize: '25px', textAlign: 'left', paddingLeft: '100px', fontWeight: 'bold'}}>01/02/2026</p>

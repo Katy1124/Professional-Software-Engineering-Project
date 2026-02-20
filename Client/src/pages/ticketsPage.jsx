@@ -24,7 +24,9 @@ export default function TicketsPage() {
                   <p style={{fontSize: '20px'}}><span>Impact: </span><span>Medium</span></p>
                   <p style={{fontSize: '20px'}}><span>Date: </span><span>05/02/2026</span></p>
                   <p style={{fontSize: '20px'}}><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white'}}>Active</span></p>
-                  <button className="view-button">View</button>
+                  <Link to="/viewTicket" style={{ textDecoration: 'none' }}>
+                    <button className="view-button">View</button>
+                  </Link>
                 </div>
               </div>
           </div>
@@ -39,7 +41,9 @@ export default function TicketsPage() {
                   <p style={{fontSize: '20px'}}><span>Impact: </span><span>Critical</span></p>
                   <p style={{fontSize: '20px'}}><span>Date: </span><span>02/02/2026</span></p>
                   <p style={{fontSize: '20px'}}><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white'}}>Active</span></p>
-                  <button className="view-button">View</button>
+                  <Link to="/viewTicket" style={{ textDecoration: 'none' }}>
+                    <button className="view-button">View</button>
+                  </Link>
               </div>
             </div>
           </div>
@@ -54,7 +58,9 @@ export default function TicketsPage() {
                   <p style={{fontSize: '20px'}}><span>Impact: </span><span>Critical</span></p>
                   <p style={{fontSize: '20px'}}><span>Date: </span><span>03/02/2026</span></p>
                   <p style={{fontSize: '20px'}}><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#B58229', color: 'white'}}>Pending</span></p>
-                  <button className="view-button">View</button>
+                  <Link to="/viewTicket" style={{ textDecoration: 'none' }}>
+                    <button className="view-button">View</button>
+                  </Link>
               </div>
             </div>
           </div>

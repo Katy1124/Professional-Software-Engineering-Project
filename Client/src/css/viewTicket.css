@@ -18,7 +18,7 @@
     text-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
 
-.view-ticket .card {
+.view-ticket .card.singleTicket {
     background-color: #D3B7DE;
     margin-top: 10px;
     color: black;
