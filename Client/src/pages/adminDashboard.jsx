@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
 import './adminDashboard.css';
+import AdminNav from '../components/adminNav';
 
 
 export default function AdminDashboard() {
@@ -8,14 +9,7 @@ export default function AdminDashboard() {
     
     <div className="admin-dashboard">
 
-      <nav className="navbar custom-nav">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="/landing">
-            <img src={giacomLogo} alt="GIACOM" width="110" height="24"></img></a>
-          <a className="navbar custom-link" href="/customer">Customer Dash</a>
-          <a className="navbar custom-link" href="/admin">Admin Dash</a>
-        </div>
-      </nav>
+      <AdminNav />
 
       {/* Tickets */}
       <div class="container text-center">
