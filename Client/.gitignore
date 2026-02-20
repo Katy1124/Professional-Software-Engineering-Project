@@ -27,3 +27,6 @@ dist-ssr
 **/obj/
 **/Debug/
 **/Release/
+.env
+**/.env
+.env.*
