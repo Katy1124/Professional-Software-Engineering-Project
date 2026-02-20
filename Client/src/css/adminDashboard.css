@@ -1,7 +1,3 @@
-.admin-dashboard .custom-nav {
-    background-color: #3C173E;
-}
-
 .admin-dashboard .custom-link {
     color: white;
     font-size: large;
@@ -41,8 +37,8 @@
 .admin-dashboard {
   width: 100%;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  padding-top: 90px; 
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
