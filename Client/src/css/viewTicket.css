@@ -1,0 +1,87 @@
+.view-ticket .custom-nav {
+    background-color: #3C173E;
+}
+
+
+.view-ticket .custom-nav {
+    background-color: #3C173E;
+}
+
+
+.view-ticket .custom-link {
+    color: white;
+    font-size: large;
+    transition: all 0.3s ease;
+}
+.view-ticket .custom-link:hover {
+    color: white;
+    text-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+
+.view-ticket .card {
+    background-color: #D3B7DE;
+    margin-top: 10px;
+    color: black;
+    transition: all 0.3s ease;
+    width: 1000px;
+}
+
+.view-ticket .view-button{
+    background-color: #67236A;
+    color: white;
+    transition: all 0.3s ease;
+    border: none;
+}
+.view-ticket .view-button:hover {
+    background-color: #bc52c2;
+}
+
+.view-ticket {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.view-ticket .footer {
+    margin-top: 10px;
+    background-color: #3C173E;
+    height: 50px;
+}
+
+.view-ticket .ticket {
+    display: flex;
+    flex-direction: col;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .view-ticket .information {
+    width: 500px;
+} */
+
+.view-ticket .information .type .col-2 {
+    background-color: #AF98B8;
+    font-size: 20px;
+}
+.view-ticket .information .severity .col-3, .col-4 {
+    background-color: #AF98B8;
+    font-size: 20px;
+}
+.view-ticket .information .estimate .col-3, .col-4 {
+    background-color: #AF98B8;
+    font-size: 20px;
+}
+.view-ticket .information .desc .col-5 {
+    background-color: #AF98B8;
+    font-size: 20px;
+}
