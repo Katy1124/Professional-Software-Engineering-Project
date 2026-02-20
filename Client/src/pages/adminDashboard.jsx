@@ -1,0 +1,86 @@
+import { Link } from 'react-router-dom';
+import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
+import '../css/adminDashboard.css';
+import AdminNav from '../components/adminNav';
+
+
+export default function AdminDashboard() {
+  return (
+    
+    <div className="admin-dashboard">
+
+      <AdminNav />
+
+      <div class="container text-center">
+        <div className="row align-items-center">
+
+          <div className="col">
+              <div className="card active-tickets">
+                <div className="card-body">
+                  <p style={{fontSize: '20px'}}>Active Tickets</p>
+                  <p style={{fontSize: '40px', fontWeight: 'bold'}}>23</p>
+                </div>
+              </div>
+          </div>
+
+          <div className="col">
+            <div className="card pending-tickets">
+              <div class="card-body">
+                <p style={{fontSize: '20px'}}>Pending Tickets</p>
+                <p style={{fontSize: '40px', fontWeight: 'bold'}}>5</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="col">
+            <div className="card resolved-tickets">
+              <div className="card-body">
+                <p style={{fontSize: '20px'}}>Resolved Tickets</p>
+                <p style={{fontSize: '40px', fontWeight: 'bold'}}>16</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div className="container text-center">
+        <p className='quick-links'>Quick Links</p>
+        <div className="row justify-content-center" style={{paddingTop: '5px'}}>
+          <div className="col-4 links">
+            <Link to="/ticketsPage" style={{ textDecoration: 'none' }}>
+              <div className="card tickets">
+                <div className="card-body">
+                  <p style={{fontSize: '20px'}}>Tickets</p>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="col-4 links">
+            <Link to="/customerQuote" style={{ textDecoration: 'none' }}>
+              <div className="card quotes">
+                <div className="card-body">
+                  <p style={{fontSize: '20px'}}>Quotes</p>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-4 links" style={{marginTop: '10px', marginBottom: '10px'}}>
+            <Link to="/adminQuote" style={{ textDecoration: 'none' }}>
+              <div className="card edits">
+                <div class="card-body">
+                  <p style={{fontSize: '20px'}}>Edits</p>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+      
+      <footer className="footer" />
+    </div>
+  );
+}
