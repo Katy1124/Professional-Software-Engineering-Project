@@ -1,0 +1,349 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
+.quote-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--giacom-dark-blue);
+  overflow: hidden;
+}
+
+.quote-main {
+  flex: 1;
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  width: 100%;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.quote-header {
+  padding: 0.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(135, 35, 107, 0.2);
+  flex-shrink: 0;
+}
+
+.quote-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.quote-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #d1d5db;
+  font-size: 1rem;
+}
+
+.quote-hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.quote-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+}
+
+.header-logo {
+  height: 40px;
+  width: auto;
+}
+
+.quote-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--giacom-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quote-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quote-ticket-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quote-ticket-header {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+}
+
+.quote-ticket-detail {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.quote-ticket-info {
+  margin-bottom: 1rem;
+}
+
+.quote-info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+  font-size: 0.85rem;
+}
+
+.quote-info-label {
+  color: #666;
+  font-weight: 500;
+}
+
+.quote-info-value {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.quote-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.quote-status-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.quote-status-badge {
+  background-color: #22c55e;
+  color: white;
+  padding: 0.2rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.quote-change-ticket-btn {
+  width: 100%;
+  background-color: var(--giacom-gold);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.quote-change-ticket-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 185, 29, 0.4);
+}
+
+.quote-big-card {
+  background-color: var(--giacom-purple);
+  border-radius: 16px;
+  padding: 1.5rem;
+  flex: 1;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.quote-title {
+  color: white;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.quote-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1rem;
+  flex: 1;
+  overflow: hidden;
+}
+
+.quote-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.quote-breakdown-display {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.quote-section-title {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.quote-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 0.9rem;
+}
+
+.quote-breakdown-row:last-child {
+  border-bottom: none;
+}
+
+.quote-breakdown-task {
+  color: white;
+  font-weight: 500;
+}
+
+.quote-breakdown-hours {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.quote-cost-summary {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+}
+
+.quote-cost-title {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+}
+
+.quote-cost-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.quote-cost-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quote-cost-label {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.quote-cost-value {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.quote-cost-highlight {
+  background-color: var(--giacom-gold);
+  color: #1a1a1a;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.quote-customer-actions {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.quote-btn-accept,
+.quote-btn-modify,
+.quote-btn-decline {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.quote-btn-accept {
+  background-color: #22c55e;
+  color: white;
+}
+
+.quote-btn-accept:hover {
+  background-color: #16a34a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+.quote-btn-modify {
+  background-color: var(--giacom-gold);
+  color: #1a1a1a;
+}
+
+.quote-btn-modify:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 185, 29, 0.4);
+}
+
+.quote-btn-decline {
+  background-color: #ef4444;
+  color: white;
+}
+
+.quote-btn-decline:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+}
