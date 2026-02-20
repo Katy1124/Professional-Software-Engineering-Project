@@ -1,12 +1,17 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
+import burger from '../assets/menu.png';
 import './customerNav.css';
 
 export default function CustomerNav() {
     const [isOn, setIsOn] = useState(false);
 
-    const closeMenu = () => setIsOpen(false);
+    const openMenu = () => {
+        console.log("Button Clicked! Current state:", !isOn);
+        setIsOn(!isOn)
+    }
+    const closeMenu = () => setIsOn(false);
 
     return (
         <div className='customerNavbar'>
@@ -15,10 +20,10 @@ export default function CustomerNav() {
                     <div className='navbar-toggler'>
                         <button 
                             className={`hamburger ${isOn ? 'is-active' : ''}`}
-                            onClick={() => setIsOn(!isOn)}
+                            onClick={openMenu}
                             aria-label="Menu"
                             aria-expanded={isOn}
-                            >On/Off
+                            ><img src={burger} alt="Menu Icon" style={{width: '20px'}}/>
                         </button>
                     </div>
                     <div className='navbar-brand'>
@@ -26,14 +31,16 @@ export default function CustomerNav() {
                     </div>
                 </div>
                 <ul>
-                    <div className='collapse navbar-collapse'>
-                        <NavLink to="/customer"><li className='nav-link'>Dashboard</li></NavLink>
-                        <NavLink to="/customerTickets"><li className='nav-link'>My Tickets</li></NavLink>
-                        <NavLink to="/customerQuotes"><li className='nav-link'>My Quotes</li></NavLink>
-                        <NavLink to="/createTicket"><li className='nav-link'>Create Ticket</li></NavLink>
+                    <div className={`navbar-links ${isOn ? 'on' : ''}`}>
+                        <NavLink to="/customer" onClick={closeMenu}><li className='nav-link'>Dashboard</li></NavLink>
+                        <NavLink to="/customerTickets" onClick={closeMenu}><li className='nav-link'>My Tickets</li></NavLink>
+                        <NavLink to="/customerQuotes" onClick={closeMenu}><li className='nav-link'>My Quotes</li></NavLink>
+                        <NavLink to="/createTicket" onClick={closeMenu}><li className='nav-link'>Create Ticket</li></NavLink>
                     </div>
                 </ul>
             </nav>
         </div>
     )
 }
+
+// <a href="https://www.flaticon.com/free-icons/open-menu" title="open menu icons">Open menu icons created by Pixel perfect - Flaticon</a>

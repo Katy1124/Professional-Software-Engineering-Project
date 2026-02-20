@@ -1,9 +1,66 @@
-.customerNavbar .navbar ul {
-    list-style: none;
+.customerNavbar {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.customerNavbar .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .customerNavbar .navbar .navbar-header {
     display: flex;
     align-items: center;
-    background-color: yellow;
+    background-color: #3C173E;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+.customerNavbar .navbar .navbar-header .hamburger {
+    background-color: #bc52c2;
+    transition: all 0.3s ease;
+    border: none;
+}
+.customerNavbar .navbar .navbar-header .hamburger:hover {
+    background-color: #e896ed;
+}
+.customerNavbar .navbar .navbar-header .hamburger:active {
+    background-color: #e896ed;
+}
+
+.customerNavbar .navbar .navbar-links {
+    background-color: red;
+    display: none;
+    flex-direction: column;
+    width: 100%;
+}
+.customerNavbar .navbar .navbar-links.on {
+    display: flex;
+}
+.customerNavbar .navbar .navbar-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.customerNavbar .navbar .navbar-links .nav-link {
+    border: 2px solid black;
+    padding: 15px 20px;
+    color: white;
+    display: block;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
