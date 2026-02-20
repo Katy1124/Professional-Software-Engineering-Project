@@ -22,10 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-# Build results
-bin/
-obj/
-
-# Visual Studio
-.vs/
-*.user
