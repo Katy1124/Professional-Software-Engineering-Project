@@ -55,7 +55,15 @@ html, body, #root {
 }
 
 
-.admin-dashboard.quick-links {
+.admin-dashboard .quick-links {
+    color: white;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.admin-dashboard .links {
+    background-color: transparent;
     color: white;
     margin-top: 40px;
     text-align: center;

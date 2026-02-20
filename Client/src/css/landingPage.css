@@ -44,6 +44,7 @@
     color: white;
     transition: all 0.3s ease;
     border: none;
+    border-radius: 10px;
 }
 .landing-page .buttons .customer-button {
     width: 500px;
@@ -55,6 +56,7 @@
     color: white;
     transition: all 0.3s ease;
     border: none;
+    border-radius: 10px;
 }
 .landing-page .buttons .admin-button:hover {
     color: white;
