@@ -15,14 +15,12 @@ export default function AdminDashboard() {
         <div className="row align-items-center">
 
           <div className="col">
-            <Link to="/ticketsPage" style={{ textDecoration: 'none' }}>
               <div className="card active-tickets">
                 <div className="card-body">
                   <p style={{fontSize: '20px'}}>Active Tickets</p>
                   <p style={{fontSize: '40px', fontWeight: 'bold'}}>23</p>
                 </div>
               </div>
-            </Link>
           </div>
 
           <div className="col">
@@ -50,28 +48,34 @@ export default function AdminDashboard() {
         <p className='quick-links'>Quick Links</p>
         <div className="row justify-content-center" style={{paddingTop: '5px'}}>
           <div className="col-4 links">
-            <div className="card tickets">
-              <div className="card-body">
-                <p style={{fontSize: '20px'}}>Tickets</p>
+            <Link to="/ticketsPage" style={{ textDecoration: 'none' }}>
+              <div className="card tickets">
+                <div className="card-body">
+                  <p style={{fontSize: '20px'}}>Tickets</p>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
           <div className="col-4 links">
-            <div className="card quotes">
-              <div className="card-body">
-                <p style={{fontSize: '20px'}}>Quotes</p>
+            <Link to="/customerQuote" style={{ textDecoration: 'none' }}>
+              <div className="card quotes">
+                <div className="card-body">
+                  <p style={{fontSize: '20px'}}>Quotes</p>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
 
         <div class="row justify-content-center">
           <div class="col-4 links" style={{marginTop: '10px', marginBottom: '10px'}}>
-            <div className="card edits">
-              <div class="card-body">
-                <p style={{fontSize: '20px'}}>Edits</p>
+            <Link to="/adminQuote" style={{ textDecoration: 'none' }}>
+              <div className="card edits">
+                <div class="card-body">
+                  <p style={{fontSize: '20px'}}>Edits</p>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

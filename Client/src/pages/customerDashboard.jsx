@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/CustomerDashboard.css';
 import { useNavigate } from 'react-router-dom';
@@ -37,19 +38,25 @@ export default function CustomerDashboard() {
           ))}
         </div>
 
-        <div className="cta-button" onClick={() => console.log('Navigate to:', routes.createTicket)}>
-          <p>Create a New Ticket</p>
-        </div>
+        <Link to="/ticketForm" style={{ textDecoration: 'none' }}>
+          <div className="cta-button" onClick={() => console.log('Navigate to:', routes.createTicket)}>
+            <p>Create a New Ticket</p>
+          </div>
+        </Link>
 
         <div className="quick-links-section">
           <h2 className="quick-links-title">Quick Links</h2>
           <div className="quick-links-grid">
-            <button onClick={() => console.log('Navigate to:', routes.myTickets)} className="quick-link-btn">
-              My Tickets
-            </button>
-            <button onClick={() => console.log('Navigate to:', routes.myQuotes)} className="quick-link-btn">
-              My Quotes
-            </button>
+            <Link to="/ticketsPage" style={{ textDecoration: 'none' }} className="quick-link-btn">
+              <button onClick={() => console.log('Navigate to:', routes.myTickets)} className="quick-link-btn">
+                My Tickets
+              </button>
+            </Link>
+            <Link to="/customerQuote" style={{ textDecoration: 'none' }} className="quick-link-btn">
+              <button onClick={() => console.log('Navigate to:', routes.myQuotes)} className="quick-link-btn">
+                My Quotes
+              </button>
+            </Link>
           </div>
         </div>
       </main>

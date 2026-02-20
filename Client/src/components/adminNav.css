@@ -26,9 +26,12 @@
     margin: 0px;
 }
 .adminNavbar .navbar .navbar-header .hamburger {
+    width: 50px;
+    height: 40px;
     background-color: #bc52c2;
     transition: all 0.3s ease;
     border: none;
+    border-radius: 10px;
 }
 .adminNavbar .navbar .navbar-header .hamburger:hover {
     background-color: #e896ed;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../css/quoteGenerator.css';
+import AdminNav from '../components/adminNav';
 
 export default function QuoteEstimate() {
   const [quote, setQuote] = useState({
@@ -32,7 +33,7 @@ export default function QuoteEstimate() {
   return (
     <div className="quote-container">
       <header className="quote-header">
-        <div className="quote-header-left">
+        {/* <div className="quote-header-left">
           <div className="quote-hamburger">
             <span /><span /><span />
           </div>
@@ -41,7 +42,8 @@ export default function QuoteEstimate() {
         <div className="quote-header-right">
           <span>Welcome [User]</span>
           <div className="quote-avatar">U</div>
-        </div>
+        </div> */}
+        <AdminNav />
       </header>
 
       <main className="quote-main">

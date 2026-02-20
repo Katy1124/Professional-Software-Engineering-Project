@@ -12,20 +12,14 @@ import ViewTicket from './pages/viewTicket';
 function App() {
   return (
     <BrowserRouter>
-      {/* This Navigation stays on every page */}
-      {/* <nav>
-        <Link to="/landing">Home</Link> | 
-        <Link to="/customer"> Go to Customer Dashboard</Link> |
-        <Link to="/admin"> Go to Admin Dashboard</Link>
-      </nav> */}
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/customer" element={<CustomerDashboard />} />
-        <Route path="/ticketform" element={<TicketCreateForm />} />
+        <Route path="/ticketForm" element={<TicketCreateForm />} />
         <Route path="/ticketsPage" element={<TicketsPage />} />
-        <Route path="/customerquote" element={<CustomerQuote/>} />
+        <Route path="/customerQuote" element={<CustomerQuote/>} />
         <Route path="/adminQuote" element={<QuoteGenerator />} />
         <Route path="/viewTicket" element={<ViewTicket />} />
       </Routes>

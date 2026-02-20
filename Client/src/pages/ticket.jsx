@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../css/TicketForm.css';
 import { useNavigate } from 'react-router-dom';
+import CustomerNav from '../components/customerNav';
 
 export default function TicketForm() {
   const navigate = useNavigate();
@@ -21,16 +22,7 @@ export default function TicketForm() {
   return (
     <div className="ticket-container">
       <header className="ticket-header">
-        <div className="ticket-header-left">
-          <div className="ticket-hamburger">
-            <span /><span /><span />
-          </div>
-          <img src="/giacom-master-white-logo-1.png" alt="GIACOM" className="ticket-logo-img" />
-        </div>
-        <div className="ticket-header-right">
-          <span>[User]</span>
-          <div className="ticket-avatar">U</div>
-        </div>
+        <CustomerNav />
       </header>
 
       <main className="ticket-main">

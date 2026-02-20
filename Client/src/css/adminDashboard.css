@@ -15,15 +15,6 @@
     transition: all 0.3s ease;
 }
 
-.admin-dashboard .active-tickets:hover {
-    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
-}
-.admin-dashboard .pending-tickets:hover {
-    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
-}
-.admin-dashboard .resolved-tickets:hover {
-    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
-}
 .admin-dashboard .tickets:hover {
     box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }

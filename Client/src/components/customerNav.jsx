@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
 import burger from '../assets/menu.png';
@@ -26,9 +27,11 @@ export default function CustomerNav() {
                             ><img src={burger} alt="Menu Icon" style={{width: '20px'}}/>
                         </button>
                     </div>
-                    <div className='navbar-brand'>
-                        <img src={giacomLogo} alt="Giacom Logo" style={{width: '200px'}}/>
-                    </div>
+                    <Link to="/" style={{ textDecoration: 'none' }}>
+                        <div className='navbar-brand'>
+                            <img src={giacomLogo} alt="Giacom Logo" style={{width: '200px'}}/>
+                        </div>
+                    </Link>
                 </div>
                 <ul>
                     <div className={`navbar-links ${isOn ? 'on' : ''}`}>
@@ -41,7 +44,7 @@ export default function CustomerNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/customerTickets" onClick={closeMenu}>
+                        <NavLink to="/ticketsPage" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">
@@ -50,7 +53,7 @@ export default function CustomerNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/customerQuotes" onClick={closeMenu}>
+                        <NavLink to="/customerQuote" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">
@@ -59,7 +62,7 @@ export default function CustomerNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/createTicket" onClick={closeMenu}>
+                        <NavLink to="/ticketForm" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">
