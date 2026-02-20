@@ -17,7 +17,6 @@ export default function AdminDashboard() {
         </div>
       </nav>
 
-      {/* Tickets */}
       <div class="container text-center">
         <div className="row align-items-center">
 
@@ -53,7 +52,6 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Quick Links */}
       <div className="container text-center">
         <p className='quick-links'>Quick Links</p>
         <div className="row justify-content-center" style={{paddingTop: '5px'}}>
