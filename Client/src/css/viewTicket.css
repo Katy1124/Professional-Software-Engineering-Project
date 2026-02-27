@@ -73,11 +73,13 @@ html, body, #root {
     background-color: #AF98B8;
     font-size: 20px;
 }
-.view-ticket .information .severity .col-3, .col-4 {
+.view-ticket .information .severity .col-3,
+.view-ticket .information .severity .col-4 {
     background-color: #AF98B8;
     font-size: 20px;
 }
-.view-ticket .information .estimate .col-3, .col-4 {
+.view-ticket .information .estimate .col-3,
+.view-ticket .information .estimate .col-4 {
     background-color: #AF98B8;
     font-size: 20px;
 }

@@ -35,7 +35,6 @@ html, body, #root {
   font-size: 1rem;
 }
 
-/* Main content area */
 .customer-dashboard-main {
   flex: 1;
   display: flex;
@@ -44,7 +43,6 @@ html, body, #root {
   padding: 2rem;
 }
 
-/* Individual ticket stat card */
 .customer-stat-card {
   background-color: var(--giacom-purple);
   border: none;
@@ -72,7 +70,6 @@ html, body, #root {
   margin: 0;
 }
 
-/* Create a new ticket button */
 .customer-create-ticket-btn {
   background-color: var(--giacom-pink);
   border-radius: 16px;
@@ -94,7 +91,6 @@ html, body, #root {
   font-weight: 500;
 }
 
-/* Quick links section at the bottom */
 .customer-quick-links-section {
   margin-top: auto;
 }
@@ -106,7 +102,6 @@ html, body, #root {
   margin-bottom: 1.5rem;
 }
 
-/* Individual quick link card */
 .customer-quick-link-card {
   background-color: var(--giacom-purple);
   border: none;
