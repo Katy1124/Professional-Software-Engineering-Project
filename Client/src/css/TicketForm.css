@@ -5,6 +5,7 @@
 :root {
   --giacom-dark-blue: #100235;
   --giacom-purple: #67236a;
+  --light-purple: #78407b;
   --giacom-pink: #ec008c;
   --giacom-gold: #ffb91d;
 }
@@ -231,4 +232,55 @@ justify-content: center;
 .ticket-btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 24px rgba(236,0,140,0.3);
+}
+
+/* new css */
+
+/* dropdown */
+.custom-select-trigger {
+    background-color: var(--light-purple);
+    border: 1px solid #b987bc;
+    color: #ffffff;
+}
+.custom-select-trigger:hover {
+    background-color: #b987bc;
+    border: 1px solid #b987bc;
+    color: #ffffff;
+}
+.custom-select-trigger:active,
+.custom-select-trigger.show {
+    background-color: var(--light-purple) !important;
+    border-color: #b987bc !important;
+    color: #ffffff !important;
+    box-shadow: none;
+}
+.custom-dropdown-list {
+    background-color: var(--light-purple);
+    border: 1px solid #b987bc;
+    padding: 0;
+}
+.custom-dropdown-list .dropdown-item {
+    border-bottom: 1px solid #b987bc;
+}
+.custom-dropdown-list .dropdown-item:hover {
+    background-color: #b987bc;
+    color: white
+}
+
+/* text boxes */
+#ticket-title,
+#ticket-desc {
+    background-color: var(--light-purple);
+    border: 1px solid #b987bc;
+    color: #ffffff;
+}
+#ticket-title:active,
+#ticket-title:focus,
+#ticket-desc:active,
+#ticket-desc:focus {
+  background-color: #e2c7e4;
+  border: 1px solid #b987bc;
+  box-shadow: none;
+  color: #4b414b;
+  
 }
