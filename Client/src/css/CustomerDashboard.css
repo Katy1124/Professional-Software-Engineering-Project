@@ -12,7 +12,7 @@ html, body, #root {
   overflow-x: hidden;
 }
 
-.dashboard-container {
+.customer-dashboard-wrapper {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -21,7 +21,7 @@ html, body, #root {
   overflow: hidden;
 }
 
-.dashboard-header {
+.customer-dashboard-header {
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -30,17 +30,13 @@ html, body, #root {
   flex-shrink: 0;
 }
 
-.dashboard-header .header-logo {
-  height: 40px;
-  width: auto;
-}
-
-.dashboard-header span {
+.customer-dashboard-header span {
   color: #d1d5db;
   font-size: 1rem;
 }
 
-.dashboard-main {
+/* Main content area */
+.customer-dashboard-main {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -48,91 +44,81 @@ html, body, #root {
   padding: 2rem;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.stat-card {
+/* Individual ticket stat card */
+.customer-stat-card {
   background-color: var(--giacom-purple);
+  border: none;
   border-radius: 16px;
-  padding: 2rem;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
 }
 
-.stat-card:hover {
+.customer-stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(236,0,140,0.3);
+  box-shadow: 0 12px 24px rgba(236, 0, 140, 0.3);
 }
 
-.stat-card h3 {
+.customer-stat-label {
   color: white;
   font-size: 1.25rem;
   margin-bottom: 1rem;
   font-weight: 500;
 }
 
-.stat-card .stat-number {
+.customer-stat-count {
   color: white;
   font-size: 4rem;
   font-weight: bold;
   margin: 0;
 }
 
-.cta-button {
+/* Create a new ticket button */
+.customer-create-ticket-btn {
   background-color: var(--giacom-pink);
   border-radius: 16px;
   padding: 1.5rem;
   text-align: center;
   cursor: pointer;
   margin-bottom: 2rem;
+  transition: all 0.2s ease;
 }
 
-.cta-button:hover {
+.customer-create-ticket-btn:hover {
   transform: translateY(-2px);
 }
 
-.cta-button p {
+.customer-create-ticket-btn p {
   color: white;
   font-size: 1.125rem;
   margin: 0;
   font-weight: 500;
 }
 
-.quick-links-section {
+/* Quick links section at the bottom */
+.customer-quick-links-section {
   margin-top: auto;
 }
 
-.quick-links-title {
+.customer-quick-links-title {
   color: white;
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
 }
 
-.quick-links-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.quick-link-btn {
+/* Individual quick link card */
+.customer-quick-link-card {
   background-color: var(--giacom-purple);
   border: none;
   border-radius: 16px;
-  padding: 2rem;
+  text-align: center;
   color: white;
   font-size: 1.5rem;
   font-weight: 500;
-  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.quick-link-btn:hover {
+.customer-quick-link-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(236,0,140,0.3);
+  box-shadow: 0 12px 24px rgba(236, 0, 140, 0.3);
 }
