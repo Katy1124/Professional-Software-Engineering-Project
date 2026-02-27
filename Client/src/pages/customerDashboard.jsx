@@ -19,6 +19,7 @@ export default function CustomerDashboard() {
       </header>
 
       <main className="customer-dashboard-main">
+        <div className="container-fluid px-0">
         <div className="row g-4 mb-4">
           {stats.map((stat, idx) => (
             <div key={idx} className="col-4">
@@ -30,6 +31,7 @@ export default function CustomerDashboard() {
               </div>
             </div>
           ))}
+        </div>
         </div>
 
         <Link to="/ticketForm" style={{ textDecoration: 'none' }}>
