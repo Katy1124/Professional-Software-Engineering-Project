@@ -282,5 +282,16 @@ justify-content: center;
   border: 1px solid #b987bc;
   box-shadow: none;
   color: #4b414b;
-  
+}
+
+/* attachments */
+#formFileMultiple {
+  background-color: var(--light-purple);
+  border: 1px solid #b987bc;
+  color: #ffffff;
+}
+#formFileMultiple button {
+  background-color: #b987bc;
+  border: 1px solid #b987bc;
+  color: #ffffff;
 }

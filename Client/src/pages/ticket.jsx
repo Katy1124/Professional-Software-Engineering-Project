@@ -93,9 +93,11 @@ export default function TicketForm() {
             </div>
           </div>
 
-          <div className="mb-3 ticket-field">
-            <label for="formFileMultiple" className="form-label">Attachments</label>
-            <input className="form-control" type="file" id="formFileMultiple" multiple onChange={e => set('file', e.target.files[0])} />
+          <div className="ticket-row">
+            <div className="mb-3 ticket-field">
+              <label for="formFileMultiple" className="form-label">Attachments</label>
+              <input className="form-control" type="file" id="formFileMultiple" multiple onChange={e => set('file', e.target.files[0])} />
+            </div>
           </div>
 
           <div className="ticket-actions">
