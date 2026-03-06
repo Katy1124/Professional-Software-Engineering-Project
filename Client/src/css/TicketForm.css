@@ -124,6 +124,10 @@ html, body {
   flex: 1;
 }
 
+.ticket-row {
+  display: flex;
+}
+
 .ticket-field label {
   color: rgba(255, 255, 255, 0.75);
   font-size: 0.85rem;
@@ -294,4 +298,8 @@ justify-content: center;
   background-color: #b987bc;
   border: 1px solid #b987bc;
   color: #ffffff;
+}
+
+.ticket-main .ticket-card .ticket-row .col {
+  width: 100%;
 }

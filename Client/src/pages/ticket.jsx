@@ -83,13 +83,17 @@ export default function TicketForm() {
           </div>
 
           <div className="ticket-row">
-            <div className="ticket-field">
-              <label>Date of Issue</label>
-              <input type="date" value={form.date} onChange={e => set('date', e.target.value)} />
+            <div className='col'>
+              <div className="ticket-field">
+                <label>Date of Issue</label>
+                <input type="date" value={form.date} onChange={e => set('date', e.target.value)} />
+              </div>
             </div>
-            <div className="ticket-field">
-              <label>Users Affected</label>
-              <input type="number" min="0" placeholder="Enter number" value={form.users} onChange={e => set('users', e.target.value)} />
+            <div className='col'>
+              <div className="ticket-field">
+                <label>Users Affected</label>
+                <input type="number" min="0" placeholder="Enter number" value={form.users} onChange={e => set('users', e.target.value)} />
+              </div>
             </div>
           </div>
 
