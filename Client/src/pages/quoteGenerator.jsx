@@ -33,16 +33,6 @@ export default function QuoteEstimate() {
   return (
     <div className="quote-container">
       <header className="quote-header">
-        {/* <div className="quote-header-left">
-          <div className="quote-hamburger">
-            <span /><span /><span />
-          </div>
-          <img src="/giacom-master-white-logo-1.png" alt="GIACOM" className="header-logo" />
-        </div>
-        <div className="quote-header-right">
-          <span>Welcome [User]</span>
-          <div className="quote-avatar">U</div>
-        </div> */}
         <AdminNav />
       </header>
 

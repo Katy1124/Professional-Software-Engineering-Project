@@ -1,5 +1,12 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
 .tickets-page .custom-nav {
-    background-color: #3C173E;
+    background-color: var(--giacom-purple);
 }
 
 
@@ -24,7 +31,7 @@
 .tickets-page .view-button{
     font-size: 20px;
     padding: 5px;
-    background-color: #67236A;
+    background-color: var(--giacom-purple);
     color: white;
     transition: all 0.3s ease;
     border: none;
@@ -35,7 +42,7 @@
 }
 
 
-.tickets-page .tickets-page {
+.tickets-page .tickets-page{
   width: 100%;
   min-height: 100vh;
   margin: 0;
@@ -53,6 +60,6 @@ html, body, #root {
 
 .tickets-page .footer {
     margin-top: 10px;
-    background-color: #3C173E;
+    background-color: var(--giacom-purple);
     height: 50px;
 }

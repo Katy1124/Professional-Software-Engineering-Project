@@ -52,6 +52,7 @@ export default function CustomerDashboard() {
                 </div>
               </Link>
             </div>
+            
             <div className="col-6">
               <Link to="/customerQuote" style={{ textDecoration: 'none' }}>
                 <div className="card customer-quick-link-card">

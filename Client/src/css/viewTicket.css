@@ -1,5 +1,12 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
 .view-ticket .custom-nav {
-    background-color: #3C173E;
+    background-color: var(--giacom-purple);
 }
 
 
@@ -27,7 +34,7 @@
 }
 
 .view-ticket .view-button{
-    background-color: #67236A;
+    background-color: var(--giacom-purple);
     color: white;
     transition: all 0.3s ease;
     border: none;
@@ -54,7 +61,7 @@ html, body, #root {
 
 .view-ticket .footer {
     margin-top: 10px;
-    background-color: #3C173E;
+    background-color: var(--giacom-purple);
     height: 50px;
 }
 

@@ -1,3 +1,10 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
 .landing-page {
   width: 100%;
   position: relative;
@@ -40,7 +47,7 @@
     margin: 0 10px;
     padding: 10px 20px;
     font-size: 40px;
-    background-color: #3C173E;
+    background-color: var(--giacom-purple);
     color: white;
     transition: all 0.3s ease;
     border: none;
@@ -52,7 +59,7 @@
     margin: 0 10px;
     padding: 10px 20px;
     font-size: 40px;
-    background-color: #3C173E;
+    background-color: var(--giacom-purple);
     color: white;
     transition: all 0.3s ease;
     border: none;
