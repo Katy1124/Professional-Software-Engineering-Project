@@ -11,6 +11,7 @@ import ViewTicket from './pages/viewTicket';
 // Temporary pages
 import DashAdmin from './pages/AdminDash2';
 import DashCust from './pages/custDash2';
+import TestTicket from './pages/viewTicket2';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         {/* Temporary pages */}
         <Route path="/dashcust" element={<DashCust />}/>
         <Route path="/dashadmin" element={<DashAdmin />}/>
+        <Route path="/viewTestTicket/:id" element={<TestTicket />}/>
       </Routes>
     </BrowserRouter>
   );
