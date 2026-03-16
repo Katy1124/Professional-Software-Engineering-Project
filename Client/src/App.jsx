@@ -12,6 +12,8 @@ import ViewTicket from './pages/viewTicket';
 import DashAdmin from './pages/AdminDash2';
 import DashCust from './pages/custDash2';
 import TestTicket from './pages/viewTicket2';
+import TestQuoteCustomer from './pages/customerQuote2';
+import TestQuoteAdmin from './pages/quoteGenerator2';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
         <Route path="/dashcust" element={<DashCust />}/>
         <Route path="/dashadmin" element={<DashAdmin />}/>
         <Route path="/viewTestTicket/:id" element={<TestTicket />}/>
+        <Route path="/viewQuoteAdmin/:id" element={<TestQuoteAdmin/>}/>
+        <Route path="/viewQuoteCustomer/:id" element={<TestQuoteCustomer/>}/>
       </Routes>
     </BrowserRouter>
   );
