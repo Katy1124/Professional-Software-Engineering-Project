@@ -83,23 +83,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kians\\.nuget\\packages\\": {},
+    "C:\\Users\\ktsha\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kians\\OneDrive\\Desktop\\GIACOM\\Professional-Software-Engineering-Project\\Server\\Server.csproj",
+      "projectUniqueName": "C:\\Users\\ktsha\\Desktop\\University\\Year2\\semester 2\\Project\\Professional-Software-Engineering-Project\\Server\\Server.csproj",
       "projectName": "Server",
-      "projectPath": "C:\\Users\\kians\\OneDrive\\Desktop\\GIACOM\\Professional-Software-Engineering-Project\\Server\\Server.csproj",
-      "packagesPath": "C:\\Users\\kians\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kians\\OneDrive\\Desktop\\GIACOM\\Professional-Software-Engineering-Project\\Server\\obj\\",
+      "projectPath": "C:\\Users\\ktsha\\Desktop\\University\\Year2\\semester 2\\Project\\Professional-Software-Engineering-Project\\Server\\Server.csproj",
+      "packagesPath": "C:\\Users\\ktsha\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ktsha\\Desktop\\University\\Year2\\semester 2\\Project\\Professional-Software-Engineering-Project\\Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kians\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ktsha\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -108,6 +108,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

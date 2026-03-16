@@ -2,15 +2,13 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import LandingPage from './pages/landingPage';
 import CustomerDashboard from './pages/customerDashboard';
-import TicketCreateForm from './pages/ticket';
+import TicketForm from './pages/ticketForm';
 import AdminDashboard from './pages/adminDashboard';
 import TicketsPage from './pages/ticketsPage';
 import CustomerQuote from './pages/customerQuote';
 import QuoteGenerator from './pages/quoteGenerator';
 import ViewTicket from './pages/viewTicket';
 // Temporary pages
-import DashAdmin from './pages/AdminDash2';
-import DashCust from './pages/custDash2';
 import TestTicket from './pages/viewTicket2';
 import TestQuoteCustomer from './pages/customerQuote2';
 import TestQuoteAdmin from './pages/quoteGenerator2';
@@ -23,14 +21,12 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/customer" element={<CustomerDashboard />} />
-        <Route path="/ticketForm" element={<TicketCreateForm />} />
+        <Route path="/ticketForm" element={<TicketForm />} />
         <Route path="/ticketsPage" element={<TicketsPage />} />
         <Route path="/customerQuote" element={<CustomerQuote/>} />
         <Route path="/adminQuote" element={<QuoteGenerator />} />
         <Route path="/viewTicket" element={<ViewTicket />} />
         {/* Temporary pages */}
-        <Route path="/dashcust" element={<DashCust />}/>
-        <Route path="/dashadmin" element={<DashAdmin />}/>
         <Route path="/viewTestTicket/:id" element={<TestTicket />}/>
         <Route path="/viewQuoteAdmin/:id" element={<TestQuoteAdmin/>}/>
         <Route path="/viewQuoteCustomer/:id" element={<TestQuoteCustomer/>}/>
