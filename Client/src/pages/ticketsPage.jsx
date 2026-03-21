@@ -43,7 +43,7 @@ export default function TicketsPage() {
 
       <AdminNav />
 
-      <div className="container-fluid text-center">
+      <div className="container-fluid text-center" style={{ paddingTop: '25px' }}>
 
         {loading && <p style={{ color: 'white', marginTop: '2rem' }}>Loading...</p>}
 

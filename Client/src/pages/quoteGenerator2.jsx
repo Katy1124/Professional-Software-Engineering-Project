@@ -61,6 +61,18 @@ export default function QuoteEstimate() {
     }
   };
 
+  const updateQuoteStatus = async (status) => {
+    if (!quote?.id) return alert('No quote found to update.');
+    try {
+      await quotesApi.update(quote.id, { ...quote, status });
+      setQuote(q => ({ ...q, status }));
+      alert(`Quote ${status}.`);
+    } catch (error) {
+      console.error('Error updating quote status:', error);
+      alert('Failed to update quote status.');
+    }
+  };
+
   if (!ticket) return <p style={{ color: 'white', padding: '2rem' }}>Loading...</p>;
 
   return (
@@ -133,8 +145,8 @@ export default function QuoteEstimate() {
                 </div>
 
                 <button className="btn quote-btn-save w-100 mb-2" onClick={handleSave}>Save Quote Revision</button>
-                <button className="btn quote-btn-approve w-100 mb-2">Approve Quote</button>
-                <button className="btn quote-btn-reject w-100">Reject / Request Changes</button>
+                <button className="btn quote-btn-approve w-100 mb-2" onClick={() => updateQuoteStatus('Approved')}>Approve Quote</button>
+                <button className="btn quote-btn-reject w-100" onClick={() => updateQuoteStatus('Rejected')}>Reject / Request Changes</button>
               </div>
             </div>
           </div>

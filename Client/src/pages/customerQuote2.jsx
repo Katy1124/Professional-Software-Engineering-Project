@@ -27,6 +27,18 @@ export default function CustomerQuote() {
     fetchData();
   }, [id]);
 
+  const updateQuoteStatus = async (status) => {
+    if (!quote?.id) return alert('No quote found to update.');
+    try {
+      await quotesApi.update(quote.id, { ...quote, status });
+      setQuote(q => ({ ...q, status }));
+      alert(`Quote ${status}.`);
+    } catch (error) {
+      console.error('Error updating quote status:', error);
+      alert('Failed to update quote status.');
+    }
+  };
+
   if (!ticket) return <p style={{ color: 'white', padding: '2rem' }}>Loading...</p>;
 
   return (
@@ -86,8 +98,8 @@ export default function CustomerQuote() {
               </div>
 
               <div className="col-2 quote-actions p-3">
-                <button className="btn quote-btn-accept w-100 mb-2">Accept Quote</button>
-                <button className="btn quote-btn-decline w-100">Decline Quote</button>
+                <button className="btn quote-btn-accept w-100 mb-2" onClick={() => updateQuoteStatus('Accepted')}>Accept Quote</button>
+                <button className="btn quote-btn-decline w-100" onClick={() => updateQuoteStatus('Declined')}>Decline Quote</button>
               </div>
 
             </div>
