@@ -72,7 +72,7 @@ export default function DashCust() {
       </header>
 
       {/* Adding a Bootstrap container to center content and add padding */}
-      <main className="container py-5">
+              <main className="container" style={{ paddingTop: '100px' }}>
               <div className="container text-center">
   <div className="row justify-content-center">
     {[
@@ -104,13 +104,17 @@ export default function DashCust() {
         {/* Quick Links Section */}
         <div className="quick-links-section text-center">
           <h2 className="mb-4" style={{color: 'white', fontWeight: 'bold'}}>Quick Links</h2>
-          <div className="row justify-content-center gap-3">
-            <Link to="/ticketsPage" className="col-md-3 card quick-link-card p-4 text-decoration-none">
+          <div className="row justify-content-center">
+            <div className="col-6">
+              <Link to="/ticketsPage" className="card quick-link-card p-4 text-decoration-none d-block">
                 My Tickets
-            </Link>
-            <Link to="/customerQuote" className="col-md-3 card quick-link-card p-4 text-decoration-none">
+              </Link>
+            </div>
+            <div className="col-6">
+              <Link to="/customerQuote" className="card quick-link-card p-4 text-decoration-none d-block">
                 My Quotes
-            </Link>
+              </Link>
+            </div>
           </div>
         </div>
       </main>

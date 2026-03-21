@@ -87,7 +87,6 @@ export default function CustomerQuote() {
 
               <div className="col-2 quote-actions p-3">
                 <button className="btn quote-btn-accept w-100 mb-2">Accept Quote</button>
-                <button className="btn quote-btn-modify w-100 mb-2">Modify Quote</button>
                 <button className="btn quote-btn-decline w-100">Decline Quote</button>
               </div>
 
