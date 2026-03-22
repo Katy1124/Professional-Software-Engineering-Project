@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/customerQuote.css';
 import CustomerNav from '../components/customerNav';
@@ -10,16 +10,16 @@ export default function CustomerQuote() {
   const { id } = useParams();
   const [ticket, setTicket] = useState(null);
   const [quote, setQuote] = useState(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
+useEffect(() => {
     const fetchData = async () => {
       try {
-        const ticketData = await ticketsApi.getById(id);
-        setTicket(ticketData);
+        const quoteData = await quotesApi.getById(id);
+        setQuote(quoteData);
 
-        const quoteData = await quotesApi.getByTicketId(id);
-        const q = Array.isArray(quoteData) ? quoteData[0] : quoteData;
-        if (q) setQuote(q);
+        const ticketData = await ticketsApi.getById(quoteData.ticket_Id);
+        setTicket(ticketData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -59,7 +59,7 @@ export default function CustomerQuote() {
                 <p>Status: <span className="badge" style={{ backgroundColor: '#22c55e' }}>{ticket.status}</span></p>
               </div>
             </div>
-            <button className="btn quote-change-btn w-100 mt-2">Change Ticket</button>
+            <button className="btn quote-change-btn w-100 mt-2" onClick={() => navigate('/custquotepage/1')}>Change Ticket</button>
           </div>
 
           <div className="col quote-main-card p-3">
