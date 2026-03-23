@@ -4,20 +4,24 @@ import { ticketsApi } from '../api/tickets.api';
 import '../css/ticketsPage.css';
 import CustomerNav from '../components/customerNav';
 
-const ACCOUNT_ID = 1;
+
 
 export default function TicketsPage() {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   useEffect(() => {
    const fetchTickets = async () => {
       try {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+          if (!storedUser || !storedUser.id) {
+            console.error("No userID");
+            return;
+          }
         const data = await ticketsApi.list();
         const all = Array.isArray(data) ? data : [];
         // Filter client-side by account_Id
-        const filtered = all.filter(t => t.account_Id === ACCOUNT_ID);
+        const filtered = all.filter(t => t.account_Id === storedUser.id);
         setTickets(filtered);
       } catch (err) {
         setError(err.message || 'Failed to load tickets');
