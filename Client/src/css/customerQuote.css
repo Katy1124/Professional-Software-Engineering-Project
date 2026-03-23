@@ -88,11 +88,6 @@
   background-color: #16a34a;
 }
 
-.quote-btn-modify {
-  background-color: var(--giacom-gold);
-  color: #1a1a1a;
-}
-
 .quote-btn-decline {
   background-color: #ef4444;
   color: white;
