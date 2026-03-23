@@ -1,0 +1,96 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --light-purple: #78407b;
+  --giacom-pink: #ec008c;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.ticket-form {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--giacom-dark-blue);
+}
+
+.ticket-form-card {
+  background-color: var(--giacom-purple);
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.ticket-input {
+  background-color: var(--light-purple);
+  border: 1px solid #b987bc;
+  color: white;
+}
+
+.ticket-input:focus {
+  background-color: var(--light-purple);
+  border-color: #b987bc;
+  color: white;
+  box-shadow: none;
+}
+
+.ticket-dropdown {
+  background-color: var(--light-purple);
+  border: 1px solid #b987bc;
+  color: white;
+}
+
+.ticket-dropdown:hover {
+  background-color: #b987bc;
+  color: white;
+}
+
+.ticket-dropdown.show,
+.ticket-dropdown:active {
+  background-color: var(--light-purple) !important;
+  color: white !important;
+  box-shadow: none;
+}
+
+.ticket-dropdown-menu {
+  background-color: var(--light-purple);
+  border: 1px solid #b987bc;
+  padding: 0;
+}
+
+.ticket-dropdown-menu .dropdown-item {
+  color: white;
+  border-bottom: 1px solid #b987bc;
+}
+
+.ticket-dropdown-menu .dropdown-item:hover {
+  background-color: #b987bc;
+  color: white;
+}
+
+.ticket-btn-cancel {
+  background: transparent;
+  border: 1px solid #b987bc;
+  color: white;
+  padding: 8px 24px;
+}
+
+.ticket-btn-cancel:hover {
+  border-color: white;
+  color: white;
+}
+
+.ticket-btn-submit {
+  background-color: var(--giacom-pink);
+  border: none;
+  color: white;
+  padding: 8px 24px;
+}
+
+.ticket-btn-submit:hover {
+  opacity: 0.9;
+}

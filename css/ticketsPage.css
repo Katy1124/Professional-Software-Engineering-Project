@@ -1,0 +1,65 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
+.tickets-page .custom-nav {
+    background-color: var(--giacom-purple);
+}
+
+
+.tickets-page .custom-link {
+    color: white;
+    font-size: large;
+    transition: all 0.3s ease;
+}
+.tickets-page .custom-link:hover {
+    color: white;
+    text-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+
+.tickets-page  .tickets {
+    background-color: #D3B7DE;
+    margin-top: 10px;
+    color: black;
+    transition: all 0.3s ease;
+}
+
+
+.tickets-page .view-button{
+    font-size: 20px;
+    padding: 5px;
+    background-color: var(--giacom-purple);
+    color: white;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 5px;
+}
+.tickets-page .view-button:hover {
+    background-color: #bc52c2;
+}
+
+
+.tickets-page .tickets-page{
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.tickets-page .footer {
+    margin-top: 10px;
+    background-color: var(--giacom-purple);
+    height: 50px;
+}

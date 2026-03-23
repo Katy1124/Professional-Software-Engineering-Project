@@ -1,0 +1,53 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.customer-dashboard {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--giacom-dark-blue);
+}
+
+.customer-dashboard .card {
+    background-color: var(--giacom-purple);
+    margin-top: 10px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.customer-dashboard .stat-card:hover {
+  box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+
+.customer-dashboard .create-ticket-btn {
+  background-color: var(--giacom-pink);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  width: 100%;
+}
+
+.customer-dashboard .create-ticket-btn:hover {
+  opacity: 0.9;
+}
+
+.customer-dashboard .quick-link-card {
+  background-color: var(--giacom-purple);
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.customer-dashboard .quick-link-card:hover {
+  box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}

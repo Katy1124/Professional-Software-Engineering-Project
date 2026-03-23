@@ -1,0 +1,121 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.quote-generator {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--giacom-dark-blue);
+}
+
+.quote-ticket-card {
+  border: none;
+  border-radius: 10px;
+}
+
+.quote-change-btn {
+  background-color: var(--giacom-gold);
+  color: #1a1a1a;
+  font-weight: bold;
+  border: none;
+}
+
+.quote-change-btn:hover {
+  background-color: #e6a619;
+}
+
+.quote-main-card {
+  background-color: var(--giacom-purple);
+  border-radius: 10px;
+  color: white;
+}
+
+.quote-inner-card {
+  background-color: #7c2d80;
+  border-radius: 10px;
+}
+
+.quote-heading {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.quote-subheading {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.quote-input {
+  background-color: #7c2d80;
+  border: 1px solid #9b59a0;
+  color: white;
+}
+
+.quote-input:focus {
+  background-color: #7c2d80;
+  border-color: var(--giacom-pink);
+  color: white;
+  box-shadow: none;
+}
+
+.quote-input::placeholder {
+  color: #d4b8d6;
+}
+
+.quote-muted {
+  color: #d4b8d6;
+}
+
+.quote-value {
+  color: white;
+}
+
+.quote-highlight {
+  background-color: var(--giacom-gold);
+  color: #1a1a1a;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.quote-actions {
+  background-color: #7c2d80;
+  border-radius: 10px;
+}
+
+.quote-btn-save {
+  background-color: #64b5f6;
+  color: white;
+}
+
+.quote-btn-save:hover {
+  background-color: #42a5f5;
+}
+
+.quote-btn-approve {
+  background-color: var(--giacom-pink);
+  color: white;
+}
+
+.quote-btn-approve:hover {
+  opacity: 0.9;
+}
+
+.quote-btn-reject {
+  background-color: #9c27b0;
+  color: white;
+}
+
+.quote-btn-reject:hover {
+  background-color: #7b1fa2;
+}

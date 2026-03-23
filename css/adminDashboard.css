@@ -1,0 +1,71 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
+.admin-dashboard .custom-link {
+    color: white;
+    font-size: large;
+    transition: all 0.3s ease;
+}
+
+.admin-dashboard .custom-link:hover {
+    color: white;
+    text-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+
+.admin-dashboard .card {
+    background-color: var(--giacom-purple);
+    margin-top: 10px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.admin-dashboard .tickets:hover {
+    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+.admin-dashboard .quotes:hover {
+    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+.admin-dashboard .edits:hover {
+    box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
+}
+
+.admin-dashboard {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 90px; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+.admin-dashboard .quick-links {
+    color: white;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.admin-dashboard .links {
+    background-color: transparent;
+    color: white;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.admin-dashboard .footer {
+    background-color: var(--giacom-purple);
+    height: 50px;
+}
