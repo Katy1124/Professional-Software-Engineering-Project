@@ -14,15 +14,21 @@ export default function AdminDashboard() {
       });
 
       useEffect(() => {
-        //TEMPORARY LOGIC USING SEVERITY INSTEAD OF STATUS
-            const fetchStats = async () => {
+        // LOGIC FOR STATUSES
+        const fetchStats = async () => {
                 try {
+                  const storedUser = JSON.parse(localStorage.getItem('user'));
+                    if (!storedUser || !storedUser.id) {
+                      console.error("No userID");
+                      return;
+                    }
                     const tickets = await ticketsApi.list();
                     const allTickets = Array.isArray(tickets) ? tickets : [];
+                    const userTickets = allTickets.filter(t => t.account_Id === storedUser.id);
                     const counts = {
-                        pending: allTickets.filter(t => t.severity == 1).length,
-                        active: allTickets.filter(t => t.severity == 2).length,
-                        resolved: allTickets.filter(t => t.severity == 3 || t.severity == 4).length
+                        pending: userTickets.filter(t => t.status === 'P').length,
+                        active: userTickets.filter(t => t.status === 'A').length,
+                        resolved: userTickets.filter(t => t.status === 'C').length
                     };
         
                     setStats(counts);
@@ -30,6 +36,23 @@ export default function AdminDashboard() {
                     console.error('Error fetching ticket stats:', error);
                 }
             };
+
+        //TEMPORARY LOGIC USING SEVERITY INSTEAD OF STATUS
+          //   const fetchStats = async () => {
+          //       try {
+          //           const tickets = await ticketsApi.list();
+          //           const allTickets = Array.isArray(tickets) ? tickets : [];
+          //           const counts = {
+          //               pending: allTickets.filter(t => t.severity == 1).length,
+          //               active: allTickets.filter(t => t.severity == 2).length,
+          //               resolved: allTickets.filter(t => t.severity == 3 || t.severity == 4).length
+          //           };
+        
+          //           setStats(counts);
+          //       } catch (error) {
+          //           console.error('Error fetching ticket stats:', error);
+          //       }
+          //   };
         
             fetchStats();
           }, []);
