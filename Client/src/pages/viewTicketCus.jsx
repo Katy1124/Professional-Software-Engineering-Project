@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { ticketsApi } from '../api/tickets.api';
+import { ticketsApi } from '../../../api/tickets.api';
 import '../css/viewTicket.css';
 import CustomerNav from '../components/customerNav';
 

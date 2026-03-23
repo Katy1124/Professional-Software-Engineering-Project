@@ -17,44 +17,14 @@ export default function DashCust() {
 
   useEffect(() => {
     // LOGIC FOR STATUSES
-    const fetchStats = async () => {
-        try {
-          const storedUser = JSON.parse(localStorage.getItem('user'));
-            if (!storedUser || !storedUser.id) {
-              console.error("No userID");
-              return;
-            }
-            const tickets = await ticketsApi.list();
-            const allTickets = Array.isArray(tickets) ? tickets : [];
-            const userTickets = allTickets.filter(t => t.account_Id === storedUser.id);
-            const counts = {
-                pending: userTickets.filter(t => t.status === 'P').length,
-                active: userTickets.filter(t => t.status === 'A').length,
-                resolved: userTickets.filter(t => t.status === 'C').length
-            };
-
-            setStats(counts);
-        } catch (error) {
-            console.error('Error fetching ticket stats:', error);
-        }
-    };
-
-    //TEMPORARY LOGIC USING SEVERITY INSTEAD OF STATUS
     // const fetchStats = async () => {
     //     try {
-    //         const storedUser = JSON.parse(localStorage.getItem('user'));
-    //         if (!storedUser || !storedUser.id) {
-    //           console.error("No userID");
-    //           return;
-    //         }
-
     //         const tickets = await ticketsApi.list();
-    //         const allTickets = Array.isArray(tickets) ? tickets : [];
-    //         const userTickets = allTickets.filter(t => t.account_Id === storedUser.id);
+
     //         const counts = {
-    //             pending: userTickets.filter(t => t.severity == 1).length,
-    //             active: userTickets.filter(t => t.severity == 2).length,
-    //             resolved: userTickets.filter(t => t.severity == 3 || t.severity == 4).length
+    //             pending: tickets.filter(t => t.status === 'Pending').length,
+    //             active: tickets.filter(t => t.status === 'Active').length,
+    //             resolved: tickets.filter(t => t.status === 'Resolved').length
     //         };
 
     //         setStats(counts);
@@ -62,6 +32,23 @@ export default function DashCust() {
     //         console.error('Error fetching ticket stats:', error);
     //     }
     // };
+
+    //TEMPORARY LOGIC USING SEVERITY INSTEAD OF STATUS
+    const fetchStats = async () => {
+        try {
+            const tickets = await ticketsApi.list();
+            const allTickets = Array.isArray(tickets) ? tickets : [];
+            const counts = {
+                pending: allTickets.filter(t => t.severity == 1).length,
+                active: allTickets.filter(t => t.severity == 2).length,
+                resolved: allTickets.filter(t => t.severity == 3 || t.severity == 4).length
+            };
+
+            setStats(counts);
+        } catch (error) {
+            console.error('Error fetching ticket stats:', error);
+        }
+    };
 
     fetchStats();
   }, []);
@@ -118,7 +105,7 @@ export default function DashCust() {
         <div className="quick-links-section text-center">
           <h2 className="mb-4" style={{color: 'white', fontWeight: 'bold'}}>Quick Links</h2>
           <div className="row justify-content-center gap-3">
-            <Link to="/ticketsPage" className="col-md-3 card quick-link-card p-4 text-decoration-none">
+            <Link to="/ticketsPageCus" className="col-md-3 card quick-link-card p-4 text-decoration-none">
                 My Tickets
             </Link>
             <Link to="/customerQuote" className="col-md-3 card quick-link-card p-4 text-decoration-none">

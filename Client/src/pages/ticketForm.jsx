@@ -23,7 +23,6 @@ export default function TicketForm() {
   const handleFormSubmit = async () => {
     console.log("1. Submit button clicked");
 
-    const typeMap = { 'Support': 'S', 'Incident': 'I', 'Enhancement': 'E'};
     const severityMap = { 'Low': 1, 'Medium': 2, 'High': 3, 'Critical': 4 };
     const businessMap = { 'Low': 1, 'Medium': 2, 'High': 3, 'Critical': 4 };
     const selectedDate = new Date(form.date);
@@ -32,22 +31,15 @@ export default function TicketForm() {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 7;
     
     try {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-        if (!storedUser || !storedUser.id) {
-          alert("you must be logged it!");
-          return;
-        }
-
         const payload = {
             title: form.title,
-            description: form.description,
-            status: 'P',
-            type: typeMap[form.type],
+            description: `[TYPE: ${form.type}] ${form.description}`,
+            quote: 0,
             severity: severityMap[form.severity],
             technical_Diffculty: businessMap[form.impact],
             users_Affected: parseInt(form.users) || 0,
             deadline: diffDays,
-            account_Id: storedUser.id,
+            account_Id: 1,
         };
         console.log("Payload:", payload);
         const result = await ticketsApi.create(payload);
