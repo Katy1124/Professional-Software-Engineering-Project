@@ -45,6 +45,7 @@ export default function QuoteEstimate() {
       priority_Level: quote?.priority_Level ?? 0,
       effort_Level: quote?.effort_Level ?? 0,
       ticket_Id: quote?.ticket_Id,
+      status: 'Pending',
     };
     try {
       if (quote?.id) {
@@ -98,16 +99,10 @@ export default function QuoteEstimate() {
             <p className="quote-heading">Quote Estimate</p>
             <div className="row">
               <div className="col">
-                <div className="quote-inner-card p-3 mb-3">
-                  <label style={{ color: 'white' }}>Quote Breakdown</label>
-                  <textarea className="form-control quote-input mt-2" rows="4" placeholder="Enter quote breakdown details..." value={breakdown} onChange={e => setBreakdown(e.target.value)}></textarea>
+                  <div className="mb-3">
+                  <label style={{ color: 'white' }}>Internal Notes</label>
+                  <textarea className="form-control quote-input mt-1" rows="3" placeholder="Internal notes..." value={internalNotes} onChange={e => setInternalNotes(e.target.value)}></textarea>
                 </div>
-
-                <div className="quote-inner-card p-3 mb-3">
-                  <label style={{ color: 'white' }}>Attachments</label>
-                  <input type="file" className="form-control quote-input mt-2" multiple />
-                </div>
-
                 <div className="quote-inner-card p-3">
                   <p className="quote-subheading">Cost Summary</p>
                   <div className="row">
@@ -135,11 +130,6 @@ export default function QuoteEstimate() {
                 <div className="mb-3">
                   <label style={{ color: 'white' }}>Override Rate</label>
                   <input type="text" className="form-control quote-input mt-1" value={overrideRate} onChange={e => setOverrideRate(e.target.value)} />
-                </div>
-
-                <div className="mb-3">
-                  <label style={{ color: 'white' }}>Internal Notes</label>
-                  <textarea className="form-control quote-input mt-1" rows="3" placeholder="Internal notes..." value={internalNotes} onChange={e => setInternalNotes(e.target.value)}></textarea>
                 </div>
 
                 <button className="btn quote-btn-save w-100 mb-2" onClick={handleSave}>Save Quote Revision</button>

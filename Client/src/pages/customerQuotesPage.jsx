@@ -59,7 +59,7 @@ export default function QuotesPage() {
                   <p style={{ fontSize: '20px' }}><span>Total Cost: </span><span>£{quote.estimated_Cost?.toFixed(2)}</span></p>
                   <p style={{ fontSize: '20px' }}><span>Priority Level: </span><span>{quote.priority_Level}</span></p>
                   <p style={{ fontSize: '20px' }}><span>Status: </span>
-                    <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: '#B58229', color: 'white' }}>
+                    <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white' }}>
                       {quote.status}
                     </span>
                   </p>

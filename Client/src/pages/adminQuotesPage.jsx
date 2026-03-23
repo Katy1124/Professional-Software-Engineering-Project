@@ -26,6 +26,15 @@ export default function QuotesPage() {
     fetchQuotes();
   }, []);
 
+  const statusColor = (status) => {
+  if (!status) return '#6c757d';
+  const s = status.toLowerCase();
+  if (s === 'approved') return '#236A49';
+  if (s === 'pending') return '#B58229';
+  if (s === 'rejected') return '#dc3545';
+  return '#6c757d';
+  };
+
   return (
     <div className="tickets-page">
 
@@ -57,9 +66,9 @@ export default function QuotesPage() {
                   <p style={{ fontSize: '20px' }}><span>Total Cost: </span><span>£{quote.estimated_Cost?.toFixed(2)}</span></p>
                   <p style={{ fontSize: '20px' }}><span>Priority Level: </span><span>{quote.priority_Level}</span></p>
                   <p style={{ fontSize: '20px' }}><span>Status: </span>
-                    <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: '#B58229', color: 'white' }}>
-                      {quote.status}
-                    </span>
+                  <span style={{ padding: '5px 8px', borderRadius: '5px', backgroundColor: statusColor(quote.status), color: 'white' }}>
+                  {quote.status}
+                  </span>
                   </p>
                   <Link to={`/viewQuoteAdmin/${quote.id}`} style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
