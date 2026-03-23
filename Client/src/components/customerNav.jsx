@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
@@ -13,6 +13,12 @@ export default function CustomerNav() {
         setIsOn(!isOn)
     }
     const closeMenu = () => setIsOn(false);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        navigate('/'); 
+    }
 
     return (
         <div className='customerNavbar'>
@@ -32,6 +38,9 @@ export default function CustomerNav() {
                             <img src={giacomLogo} alt="Giacom Logo" style={{width: '200px'}}/>
                         </div>
                     </Link>
+                    <div className='logout-button'>
+                        <button onClick={handleLogout}>Logout</button>
+                    </div>
                 </div>
                 <ul>
                     <div className={`navbar-links ${isOn ? 'on' : ''}`}>
