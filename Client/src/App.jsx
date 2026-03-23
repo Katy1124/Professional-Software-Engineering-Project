@@ -12,6 +12,10 @@ import ViewTicket from './pages/viewTicket';
 import LoginPage from './pages/loginPage';
 // Temporary pages
 import TestTicket from './pages/viewTicket2';
+import TestQuoteCustomer from './pages/customerQuote2';
+import TestQuoteAdmin from './pages/quoteGenerator2';
+import CustQuotePage from './pages/customerQuotesPage';
+import AdminQuotePage from './pages/adminQuotesPage';
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         {/* Temporary pages */}
         <Route path="/viewTestTicket/:id" element={<TestTicket />}/>
+        <Route path="/viewQuoteAdmin/:id" element={<TestQuoteAdmin/>}/>
+        <Route path="/viewQuoteCustomer/:id" element={<TestQuoteCustomer/>}/>
+        <Route path="/custQuotepage/:id" element={<CustQuotePage/>}/>
+        <Route path="/adminQuotePage" element={<AdminQuotePage/>}/>
       </Routes>
     </BrowserRouter>
   );
