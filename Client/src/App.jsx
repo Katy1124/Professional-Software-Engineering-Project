@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import SecurePath from './components/securepath';
 import LandingPage from './pages/landingPage';
 import CustomerDashboard from './pages/customerDashboard';
 import TicketForm from './pages/ticketForm';
 import AdminDashboard from './pages/adminDashboard';
-import TicketsPage from './pages/ticketsPage';
+import TicketsPageAd from './pages/ticketsPageAd';
+import TicketsPageCus from './pages/ticketsPageCus';
 import CustomerQuote from './pages/customerQuote';
 import QuoteGenerator from './pages/quoteGenerator';
 import ViewTicket from './pages/viewTicket';
-import LoginPage from './pages/loginPage';
 // Temporary pages
-import TestTicket from './pages/viewTicket2';
+import TestTicket from './pages/viewTicketAd';
+import TestTicketcus from './pages/viewTicketCus';
 
 function App() {
   return (
@@ -19,16 +19,17 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/admin" element={<SecurePath allowedType={1}> <AdminDashboard /> </SecurePath>} />
-        <Route path="/customer" element={<SecurePath allowedType={0}> <CustomerDashboard /> </SecurePath>} />
-        <Route path="/ticketForm" element={<SecurePath allowedType={0}> <TicketForm /> </SecurePath>} />
-        <Route path="/ticketsPage" element={<TicketsPage />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/customer" element={<CustomerDashboard />} />
+        <Route path="/ticketForm" element={<TicketForm />} />
+        <Route path="/ticketsPageAd" element={<TicketsPageAd />} />
+        <Route path="/ticketsPageCus" element={<TicketsPageCus />} />
         <Route path="/customerQuote" element={<CustomerQuote/>} />
-        <Route path="/adminQuote" element={<SecurePath allowedType={1}> <QuoteGenerator /> </SecurePath>} />
+        <Route path="/adminQuote" element={<QuoteGenerator />} />
         <Route path="/viewTicket" element={<ViewTicket />} />
-        <Route path="/login" element={<LoginPage />} />
         {/* Temporary pages */}
         <Route path="/viewTestTicket/:id" element={<TestTicket />}/>
+        <Route path="/viewTestTicketcus/:id" element={<TestTicketcus />}/>
       </Routes>
     </BrowserRouter>
   );
