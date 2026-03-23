@@ -28,6 +28,21 @@ export default function QuotesPage() {
     fetchQuotes();
   }, []);
 
+    const priorityLevel = (plevel) => {
+    if (plevel === 1) return 'Low';
+    if (plevel === 2) return 'Medium';
+    if (plevel === 3) return 'High';
+    if (plevel === 4) return 'Critical';
+    return plevel;
+  };
+
+  const effortLevel = (level) => {
+    if (level === 1) return 'Low';
+    if (level === 2) return 'Medium';
+    if (level === 3) return 'High';
+    return level;
+  };
+
   return (
     <div className="tickets-page">
 
@@ -57,7 +72,8 @@ export default function QuotesPage() {
                   <p style={{ fontSize: '20px' }}><span>Hourly Rate: </span><span>£{quote.hourly_Rate}</span></p>
                   <p style={{ fontSize: '20px' }}><span>Estimated Time: </span><span>{quote.estimated_Resolution_Time} hrs</span></p>
                   <p style={{ fontSize: '20px' }}><span>Total Cost: </span><span>£{quote.estimated_Cost?.toFixed(2)}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Priority Level: </span><span>{quote.priority_Level}</span></p>
+                  <p style={{ fontSize: '20px' }}><span>Priority Level: </span><span>{priorityLevel(quote.priority_Level)}</span></p>
+                  <p style={{ fontSize: '20px' }}><span>Effort Level: </span><span>{effortLevel(quote.effort_Level)}</span></p>
                   <p style={{ fontSize: '20px' }}><span>Status: </span>
                     <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white' }}>
                       {quote.status}
