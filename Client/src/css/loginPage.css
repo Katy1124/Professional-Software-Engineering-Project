@@ -1,0 +1,80 @@
+.login-page {
+  width: 100%;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  text-align: center;
+}
+
+.login-page .image {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  
+}
+.login-page .image img {
+  width: 500px;
+  height: 100px;
+  
+}
+
+.login-page h1 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+
+.login-page .login-form {
+  margin-top: 100px;
+  background-color: var(--giacom-purple);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.login-page .login-form label {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.login-page .login-form input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 0.6rem 0.875rem;
+  color: white;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  color-scheme: dark;
+}
+
+.login-page .login-form input:focus {
+  border-color: var(--giacom-pink);
+}
+
+.login-btn-primary {
+  background-color: var(--giacom-pink);
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(236,0,140,0.3);
+}

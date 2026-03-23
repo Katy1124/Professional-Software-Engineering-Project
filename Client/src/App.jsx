@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+import SecurePath from './components/securepath';
 import LandingPage from './pages/landingPage';
 import CustomerDashboard from './pages/customerDashboard';
 import TicketForm from './pages/ticketForm';
@@ -8,6 +9,7 @@ import TicketsPage from './pages/ticketsPage';
 import CustomerQuote from './pages/customerQuote';
 import QuoteGenerator from './pages/quoteGenerator';
 import ViewTicket from './pages/viewTicket';
+import LoginPage from './pages/loginPage';
 // Temporary pages
 import TestTicket from './pages/viewTicket2';
 
@@ -17,13 +19,14 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/customer" element={<CustomerDashboard />} />
-        <Route path="/ticketForm" element={<TicketForm />} />
+        <Route path="/admin" element={<SecurePath allowedType={1}> <AdminDashboard /> </SecurePath>} />
+        <Route path="/customer" element={<SecurePath allowedType={0}> <CustomerDashboard /> </SecurePath>} />
+        <Route path="/ticketForm" element={<SecurePath allowedType={0}> <TicketForm /> </SecurePath>} />
         <Route path="/ticketsPage" element={<TicketsPage />} />
         <Route path="/customerQuote" element={<CustomerQuote/>} />
-        <Route path="/adminQuote" element={<QuoteGenerator />} />
+        <Route path="/adminQuote" element={<SecurePath allowedType={1}> <QuoteGenerator /> </SecurePath>} />
         <Route path="/viewTicket" element={<ViewTicket />} />
+        <Route path="/login" element={<LoginPage />} />
         {/* Temporary pages */}
         <Route path="/viewTestTicket/:id" element={<TestTicket />}/>
       </Routes>
