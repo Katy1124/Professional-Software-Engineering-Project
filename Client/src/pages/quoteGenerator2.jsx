@@ -5,6 +5,8 @@ import '../css/quoteGenerator.css';
 import AdminNav from '../components/adminNav';
 import { ticketsApi } from '../api/tickets.api';
 import { quotesApi } from '../api/quotes.api';
+import { logsApi } from '../api/logs.api';
+import CommentWin from '../components/commentWindow';
 
 export default function QuoteEstimate() {
   const { id } = useParams();
@@ -52,12 +54,42 @@ export default function QuoteEstimate() {
       } else {
         await quotesApi.create(payload);
       }
-      alert('Quote saved successfully.');
+
+      if (internalNotes.trim()) {
+      await handleComment();
+    }
+
+      alert('Quote and Comment saved successfully.');
     } catch (error) {
       console.error('Error saving quote:', error);
       alert('Failed to save quote.');
     }
   };
+
+  const handleComment = async () => {
+    const today = new Date();
+    const formattedDate = parseInt(
+      `${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`
+    );
+
+    const payload = {
+      ticket_Id: ticket.id,
+      description: `[COMMENT] ${internalNotes}`,
+      date: formattedDate
+    }
+
+    try {
+        await logsApi.create(payload); 
+        alert('Comment added successfully.');
+        setInternalNotes('');
+      } catch (error) {
+        console.error('Error adding comment:', error);
+        alert('Failed to add comment.');
+      }
+    };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   const updateQuoteStatus = async (status) => {
     if (!quote?.id) return alert('No quote found to update.');
@@ -163,7 +195,13 @@ export default function QuoteEstimate() {
                     </div>
                   </div>
                 </div>
-
+                <button className="openComment" onClick={() => setIsModalOpen(true)}>Open Comments</button>
+                {isModalOpen && ticket && (
+                    <CommentWin 
+                        ticketId={ticket.id} 
+                        onClose={() => setIsModalOpen(false)} 
+                    />
+                )}
               </div>
 
               <div className="col-3 quote-actions p-3">
@@ -208,4 +246,4 @@ export default function QuoteEstimate() {
       </div>
     </div>
   );
-}
+};
