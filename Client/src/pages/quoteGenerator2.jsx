@@ -12,7 +12,6 @@ export default function QuoteEstimate() {
   const { id } = useParams();
   const [ticket, setTicket] = useState(null);
   const [quote, setQuote] = useState(null);
-  const [breakdown, setBreakdown] = useState('');
   const [overrideHours, setOverrideHours] = useState('');
   const [overrideRate, setOverrideRate] = useState('');
   const [internalNotes, setInternalNotes] = useState('');
@@ -104,24 +103,69 @@ export default function QuoteEstimate() {
     }
   };
 
-  if (!ticket) return <p style={{ color: 'white', padding: '2rem' }}>Loading...</p>;
+    const ticketStatus = (status) => {
+    if (status === 'A') return 'Active';
+    if (status === 'P') return 'Pending';
+    if (status === 'C') return 'Complete';
+    return status;
+  };
+
+  const ticketType = (type) => {
+    if (type === 'S') return 'Support';
+    if (type === 'I') return 'Incident';
+    if (type === 'E') return 'Enhancement / Feature';
+    return type;
+  };
+
+  const ticketSeverity = (severity) => {
+    if (severity === 1) return 'Low';
+    if (severity === 2) return 'Medium';
+    if (severity === 3) return 'High';
+    if (severity === 4) return 'Critical';
+    return severity;
+  };
+  
+  const effortLevel = (level) => {
+    if (level === 1) return 'Low';
+    if (level === 2) return 'Medium';
+    if (level === 3) return 'High';
+    return level;
+  };
+
+  const priorityLevel = (plevel) => {
+    if (plevel === 1) return 'Low';
+    if (plevel === 2) return 'Medium';
+    if (plevel === 3) return 'High';
+    if (plevel === 4) return 'Critical';
+    return plevel;
+  };
+
+  const statusColor = (status) => {
+  if (!status) return '#6c757d';
+  const s = status.toLowerCase();
+  if (s === 'a') return '#236A49';
+  if (s === 'p') return '#B58229';
+  if (s === 'c') return '#dc3545';
+  return '#6c757d';
+  };
+
+  if (!ticket || !quote) return <p style={{ color: 'white', padding: '2rem' }}>Loading...</p>;
 
   return (
     <div className="quote-generator">
       <AdminNav />
-
-      <div className="container-fluid" style={{ paddingTop: '100px' }}>
+      <div className="container-fluid" style={{ paddingTop: '70px' }}>
         <div className="row">
           <div className="col-2">
             <div className="card quote-ticket-card">
               <div className="card-body">
                 <p style={{ fontWeight: 'bold' }}>Selected Ticket: {ticket.id}</p>
                 <p>{ticket.title}</p>
-                <p>Type: {ticket.type}</p>
-                <p>Severity: {ticket.severity}</p>
-                <p>Deadline: {ticket.deadline}</p>
+                <p>Type: {ticketType(ticket.type)}</p>
+                <p>Severity: {ticketSeverity(ticket.severity)}</p>
+                <p>Deadline: {ticket.deadline} days</p>
                 <p>Users Affected: {ticket.users_Affected}</p>
-                <p>Status: <span className="badge" style={{ backgroundColor: '#22c55e' }}>{ticket.status}</span></p>
+                <p>Status: <span className="badge" style={{ backgroundColor: statusColor(ticket.status), padding: '5px 8px' }}>{ticketStatus(ticket.status)}</span></p>
               </div>
             </div>
             <button className="btn quote-change-btn w-100 mt-2" onClick={() => navigate('/adminquotepage')}>Change Ticket</button>
@@ -136,15 +180,18 @@ export default function QuoteEstimate() {
                   <textarea className="form-control quote-input mt-1" rows="3" placeholder="Internal notes..." value={internalNotes} onChange={e => setInternalNotes(e.target.value)}></textarea>
                 </div>
                 <div className="quote-inner-card p-3">
-                  <p className="quote-subheading">Cost Summary</p>
+                  <p className="quote-subheading">Quote Breakdown</p>
                   <div className="row">
                     <div className="col-6">
-                      <p className="quote-muted">Hourly Rate: <span className="quote-value">£{quote?.hourly_Rate ?? '—'}</span></p>
-                      <p className="quote-muted">Priority Level: <span className="quote-value">{quote?.priority_Level ?? '—'}</span></p>
+                      <p className="quote-muted">Hourly Rate: <span className="quote-value">£{quote.hourly_Rate}</span></p>
+                      <p className="quote-muted">Priority Level: <span className="quote-value">{priorityLevel(quote.priority_Level)}</span></p>
                     </div>
                     <div className="col-6">
                       <p className="quote-muted">Total Cost: <span className="quote-highlight">£{estimatedCost}</span></p>
-                      <p className="quote-muted">Estimated Time: <span className="quote-value">{quote?.estimated_Resolution_Time ?? '—'} hrs</span></p>
+                      <p className="quote-muted">Estimated Time: <span className="quote-value">{quote.estimated_Resolution_Time} hrs</span></p>
+                    </div>
+                    <div className="col-12">
+                      <p className="quote-muted">Effort Level: <span className="quote-value">{effortLevel(quote.effort_Level)}</span></p>
                     </div>
                   </div>
                 </div>
@@ -169,6 +216,25 @@ export default function QuoteEstimate() {
                   <label style={{ color: 'white' }}>Override Rate</label>
                   <input type="text" className="form-control quote-input mt-1" value={overrideRate} onChange={e => setOverrideRate(e.target.value)} />
                 </div>
+
+                <div className="mb-3">
+                <label style={{ color: 'white' }}>Effort Level</label>
+                <select className="form-control quote-input mt-1" value={quote?.effort_Level ?? ''} onChange={e => setQuote(q => ({ ...q, effort_Level: parseInt(e.target.value) }))}>
+                  <option value={1}>Low</option>
+                  <option value={2}>Medium</option>
+                  <option value={3}>High</option>
+                </select>
+              </div>
+
+              <div className="mb-3">
+                <label style={{ color: 'white' }}>Priority Level</label>
+                <select className="form-control quote-input mt-1" value={quote?.priority_Level ?? ''} onChange={e => setQuote(q => ({ ...q, priority_Level: parseInt(e.target.value) }))}>
+                  <option value={1}>Low</option>
+                  <option value={2}>Medium</option>
+                  <option value={3}>High</option>
+                  <option value={4}>Critical</option>
+                </select>
+              </div>
 
                 <button className="btn quote-btn-save w-100 mb-2" onClick={handleSave}>Save Quote Revision</button>
                 <button className="btn quote-btn-approve w-100 mb-2" onClick={() => updateQuoteStatus('Approved')}>Approve Quote</button>
