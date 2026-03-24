@@ -5,20 +5,35 @@ import '../css/viewTicket.css';
 import AdminNav from '../components/adminNav';
 
 export default function ViewTicket() {
-  const { id } = useParams();
+  const { i: paramId } = useParams();
   const [ticket, setTicket] = useState(null);
 
   useEffect(() => {
     const fetchTicket = async () => {
       try {
-        const data = await ticketsApi.getById(id);
-        setTicket(data);
+        const storedTicket = localStorage.getItem('ticketId');
+        const currentTicket = storedTicket || paramId;
+
+        if (currentTicket) {
+          const data = await ticketsApi.getById(currentTicket);
+          setTicket(data);
+        }
       } catch (error) {
-        console.error('Error fetching ticket:', error);
+        console.error('Error fetching ticket: ', error);
       }
     };
     fetchTicket();
-  }, [id]);
+
+    // const fetchTicket = async () => {
+    //   try {
+    //     const data = await ticketsApi.getById(id);
+    //     setTicket(data);
+    //   } catch (error) {
+    //     console.error('Error fetching ticket:', error);
+    //   }
+    // };
+    // fetchTicket();
+  }, [paramId]);
 
   if (!ticket) return <p style={{ color: 'white', padding: '2rem' }}>Loading...</p>;
 
