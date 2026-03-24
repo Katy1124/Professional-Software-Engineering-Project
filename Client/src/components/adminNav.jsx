@@ -53,7 +53,7 @@ export default function AdminNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/ticketsPage" onClick={closeMenu}>
+                        <NavLink to="/tickets" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">
@@ -62,7 +62,7 @@ export default function AdminNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/adminQuote" onClick={closeMenu}>
+                        <NavLink to="/allquotes" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">
@@ -71,7 +71,7 @@ export default function AdminNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/adminQuote" onClick={closeMenu}>
+                        <NavLink to="/quotegen" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">
