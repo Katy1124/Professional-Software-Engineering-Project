@@ -79,7 +79,7 @@ export default function CustomerQuotesPage() {
                       {quote.status}
                     </span>
                   </p>
-                  <Link to={`/viewQuoteCustomer/${quote.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/viewquote/${quote.id}`} style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>

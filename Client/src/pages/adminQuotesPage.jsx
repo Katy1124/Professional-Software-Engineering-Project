@@ -86,7 +86,7 @@ const effortLevel = (level) => {
                   {quote.status}
                   </span>
                   </p>
-                  <Link to={`/viewQuoteAdmin/${quote.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/quotegen/${quote.id}`} style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>

@@ -23,12 +23,12 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/admin' element={<SecurePath allowedType={1}><AdminDashboard /> </SecurePath>} />
         <Route path='/allquotes' element={<SecurePath allowedType={1}><AdminQuotesPage /> </SecurePath>} />
-        <Route path='/quotegen' element={<SecurePath allowedType={1}><QuoteEstimate /> </SecurePath>} /> {/* NOT WORKING */}
+        <Route path='/quotegen/:id' element={<SecurePath allowedType={1}><QuoteEstimate /> </SecurePath>} /> {/* NOT WORKING */}
         <Route path='/tickets' element={<TicketsPage />} />
         <Route path='/customer' element={<SecurePath allowedType={0}><CustomerDashboard /> </SecurePath>} />
         <Route path='/create' element={<SecurePath allowedType={0}><TicketForm /> </SecurePath>} />
         <Route path='/quotes' element={<SecurePath allowedType={0}><CustomerQuotesPage /> </SecurePath>} />
-        <Route path='/viewquote' element={<SecurePath allowedType={0}><CustomerQuote /> </SecurePath>} />
+        <Route path='/viewquote/:id' element={<SecurePath allowedType={0}><CustomerQuote /> </SecurePath>} />
       </Routes>
     </BrowserRouter>
   );
