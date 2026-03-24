@@ -1,24 +1,36 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { quotesApi } from '../api/quotes.api';
 import '../css/ticketsPage.css';
 import CustomerNav from '../components/customerNav';
 
-const ACCOUNT_ID = 1;
+// const ACCOUNT_ID = 1;
 
 export default function CustomerQuotesPage() {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [currentTicket, setCurrentTicket] = useState(null);
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuotes = async () => {
       try {
+        const storedUser = localStorage.getItem('user');
+        const userObj = storedUser ? JSON.parse(storedUser) : null;
+        setCurrentUser(userObj);
+
         const data = await quotesApi.list();
         const all = Array.isArray(data) ? data : [];
-        const filtered = all.filter(q => q.status === 'Approved');
+        if (userObj && userObj.id) {
+          const filtered = all.filter(q => q.status === 'Approved');
         setQuotes(filtered);
-      } catch (err) {
+      } else {
+        setError("No user session found. Please log in again.");
+      } 
+    } catch (err) {
         setError(err.message || 'Failed to load quotes');
       } finally {
         setLoading(false);
@@ -27,6 +39,11 @@ export default function CustomerQuotesPage() {
 
     fetchQuotes();
   }, []);
+
+  const handleViewQuote = (quote) => {
+    localStorage.setItem('quoteId', quote.id);
+    navigate(`/viewquote/${quote.id}`);
+  }
 
     const priorityLevel = (plevel) => {
     if (plevel === 1) return 'Low';
@@ -79,9 +96,9 @@ export default function CustomerQuotesPage() {
                       {quote.status}
                     </span>
                   </p>
-                  <Link to={`/viewquote/${quote.id}`} style={{ textDecoration: 'none' }}>
-                    <button className="view-button">View</button>
-                  </Link>
+                  <button className="view-button" onClick={() => handleViewQuote(quote)}>
+                    View
+                  </button>
                 </div>
               </div>
             </div>

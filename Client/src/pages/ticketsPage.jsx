@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ticketsApi } from '../api/tickets.api';
+import { useNavigate } from 'react-router-dom';
 import '../css/ticketsPage.css';
 import AdminNav from '../components/adminNav';
 
@@ -8,9 +9,11 @@ import AdminNav from '../components/adminNav';
 
 export default function TicketsPage() {
   const [currentUser, setCurrentUser] = useState(null);
+  const [currentTicket, setCurrentTicket] = useState(null);
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -36,6 +39,12 @@ export default function TicketsPage() {
     };
     fetchTickets();
   }, [])
+
+  const handleViewTicket = (ticket) => {
+    localStorage.setItem('ticketId', ticket.id);
+    navigate(`/viewticket/${ticketId}`);
+  }
+
   //   const fetchTickets = async () => {
   //     try {
   //       const data = await ticketsApi.list();
@@ -99,7 +108,7 @@ export default function TicketsPage() {
                     </span>
                   </p>
                   <Link to={`/viewticket/${ticket.id}`} style={{ textDecoration: 'none' }}>
-                    <button className="view-button">View</button>
+                    <button className="view-button" onClick={() => handleViewTicket(ticket)}>View</button>
                   </Link>
                 </div>
               </div>
