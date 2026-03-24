@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { accountsApi } from '../api/accounts.api';
-import { Link } from 'react-router-dom';
-import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
+import { useNavigate, Link } from 'react-router-dom';
+import giacomLogo from '../assets/giacom-master-white-logo-1.png';
 import '../css/loginPage.css';
-export default function LoginPage() { 
+import { authApi } from '../api/auth.api';
+
+export default function LoginPage() {
     const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
@@ -15,79 +15,71 @@ export default function LoginPage() {
         e.preventDefault();
         setError('');
 
-        try {
-            const accounts = await accountsApi.list();
-            const selectedAcc = accounts.find(acc => acc.user_name === username);
-            
-            if (selectedAcc) {
-                const userSession = {
-                    id: selectedAcc.id,
-                    username: selectedAcc.user_name,
-                    type: selectedAcc.user_type
-                };
-                localStorage.setItem('user', JSON.stringify(userSession));
+    try {
+        const user = await authApi.login({
+            user_name: username,
+            password: password
+        });
 
-                if (selectedAcc.user_type === 1) {
-                    navigate('/admin');
-                } else if (selectedAcc.user_type === 0) {
-                    navigate('/customer');
-                }
-            } else {
-                setError('Username not found');
-            }
-        } catch (err) {
-            console.error("Database connection error:", err);
-            setError('Could not connect to the database')
+        const userSession = {
+            id: user.id,
+            username: user.user_name,
+            type: user.user_type
         };
 
-        // const storedUser = 0;
-        // if (username === 'admin' && password === '1234') {
-        //     const testLogin = { username: 'admin', type: 1 };
-        //     localStorage.setItem('user', JSON.stringify(testLogin));
+        localStorage.setItem('user', JSON.stringify(userSession));
 
-        //     if (testLogin.type === 1) {
-        //         navigate('/admin');
-        //     } else {
-        //     setError('Invalid account type');
-        // }
-        // } else if (username === 'customer' && password === '5678') {
-        //     const testLogin = { username: 'customer', type: 0 };
-        //     localStorage.setItem('user', JSON.stringify(testLogin));
-
-        //     if (testLogin.type === 0) {
-        //         navigate('/customer');
-        //     } else {
-        //     setError('Invalid account type');
-        // }
-        // } else {
-        //     setError('Invalid username or password');
-        // }
+        if (user.user_type === 1) {
+            navigate('/admin');
+        } else if (user.user_type === 0) {
+            navigate('/customer');
+        } else {
+            setError('Invalid account type');
+        }
+    } catch (err) {
+        console.error('Login error:', err);
+        setError('Invalid username or password');
+    }
     };
-
-
 
     return (
         <div className="login-page">
-
-            <div className='image'>
-                <img src={giacomLogo} alt="GIACOM" width="110" height="24"></img>
+            <div className="image">
+                <img src={giacomLogo} alt="GIACOM" width="110" height="24" />
             </div>
 
-            <div className='login-form'>
+            <div className="login-form">
                 <h1>Login</h1>
                 <form onSubmit={handleLogin}>
-                    <div class="mb-3">
-                        <label for="InputUsername" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="InputUsername" value={username} onChange={(e) => setUsername(e.target.value)} required/>
+                    <div className="mb-3">
+                        <label htmlFor="InputUsername" className="form-label">Username</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="InputUsername"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
                     </div>
-                    <div class="mb-3">
-                        <label for="InputPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="InputPassword" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+                    <div className="mb-3">
+                        <label htmlFor="InputPassword" className="form-label">Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="InputPassword"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
                     </div>
-                    <button type="submit" >Submit</button>
+
+                    {error && <p>{error}</p>}
+
+                    <button type="submit">Submit</button>
                 </form>
             </div>
-
         </div>
-     )
+    );
 }
