@@ -13,6 +13,7 @@ import TicketForm from './pages/ticketForm';
 import CustomerQuotesPage from './pages/customerQuotesPage';
 import CustomerQuote from './pages/customerQuote';
 import TicketsPage from './pages/ticketsPage';
+import ViewTicket from './pages/viewTicket';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/allquotes' element={<SecurePath allowedType={1}><AdminQuotesPage /> </SecurePath>} />
         <Route path='/quotegen/:id' element={<SecurePath allowedType={1}><QuoteEstimate /> </SecurePath>} /> {/* NOT WORKING */}
         <Route path='/tickets' element={<TicketsPage />} />
+        <Route path='/viewticket/:id' element={<ViewTicket />} />
         <Route path='/customer' element={<SecurePath allowedType={0}><CustomerDashboard /> </SecurePath>} />
         <Route path='/create' element={<SecurePath allowedType={0}><TicketForm /> </SecurePath>} />
         <Route path='/quotes' element={<SecurePath allowedType={0}><CustomerQuotesPage /> </SecurePath>} />

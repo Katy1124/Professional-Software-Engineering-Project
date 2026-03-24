@@ -103,7 +103,7 @@ useEffect(() => {
                 <p>Status: <span className="badge" style={{ backgroundColor: statusColor(ticket.status), padding: '5px 8px' }}>{ticketStatus(ticket.status)}</span></p>
               </div>
             </div>
-            <button className="btn quote-change-btn w-100 mt-2" onClick={() => navigate('/custquotepage/1')}>Change Ticket</button>
+            <button className="btn quote-change-btn w-100 mt-2" onClick={() => navigate('/quotes')}>Change Ticket</button>
           </div>
 
           <div className="col quote-main-card p-3">

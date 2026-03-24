@@ -74,7 +74,7 @@ export default function TicketsPage() {
                       {ticket.status || 'Active'}
                     </span>
                   </p>
-                  <Link to={`/viewTestTicket/${ticket.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/viewticket/${ticket.id}`} style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>
