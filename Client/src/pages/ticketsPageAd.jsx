@@ -74,7 +74,7 @@ export default function TicketsPage() {
             <div className="col-auto" key={ticket.id}>
               <div className="card tickets">
                 <div className="card-body">
-                  <p style={{ fontSize: '60px', fontWeight: 'bold' }}>Ticket {ticket.id}</p>
+                  <p style={{ fontSize: '50px', fontWeight: 'bold' }}>Ticket {ticket.id}</p>
                   <p style={{ fontSize: '40px' }}>Account: {ticket.account_Id}</p>
                   <p style={{ fontSize: '20px' }}>{ticket.title}</p>
                   <p style={{ fontSize: '20px' }}><span>Severity: </span><span>{tickectSeverity(ticket.severity)}</span></p>

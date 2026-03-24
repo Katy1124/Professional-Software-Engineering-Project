@@ -1,24 +1,32 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ticketsApi } from '../api/tickets.api';
+import { quotesApi } from '../api/quotes.api';
 import '../css/viewTicket.css';
 import AdminNav from '../components/adminNav';
 
 export default function ViewTicket() {
   const { id } = useParams();
   const [ticket, setTicket] = useState(null);
+  const [quote, setQuote] = useState(null);
 
   useEffect(() => {
     const fetchTicket = async () => {
       try {
         const data = await ticketsApi.getById(id);
         setTicket(data);
+
+        const quoteData = await quotesApi.list();
+        const all = Array.isArray(quoteData) ? quoteData : [];
+        const ticketQuote = all.find(q => q.ticket_Id === parseInt(id));
+        if (ticketQuote) setQuote(ticketQuote);
       } catch (error) {
         console.error('Error fetching ticket:', error);
       }
     };
     fetchTicket();
   }, [id]);
+
     const ticketStat = (Status) => {
   if (!Status) return 'N/A';
     const s = Status.toLowerCase();
@@ -29,17 +37,23 @@ export default function ViewTicket() {
   };
   const tickectSeverity = (severity) => {
   if (!severity) return 'N/A';
-    if(severity == 1) return 'low'; 
-    if(severity == 2) return 'medium'; 
-    if(severity == 3) return 'high'; 
-    if(severity == 4) return 'critical'; 
+    if(severity == 1) return 'Low'; 
+    if(severity == 2) return 'Medium'; 
+    if(severity == 3) return 'High'; 
+    if(severity == 4) return 'Critical'; 
   };
   const tickectimpact = (impact) => {
   if (!impact) return 'N/A';
-    if(impact == 1) return 'low'; 
-    if(impact == 2) return 'medium'; 
-    if(impact == 3) return 'high'; 
-    if(impact == 4) return 'critical'; 
+    if(impact == 1) return 'Low'; 
+    if(impact == 2) return 'Medium'; 
+    if(impact == 3) return 'High'; 
+    if(impact == 4) return 'Critical'; 
+  };
+    const ticketType = (type) => {
+    if (type === 'S') return 'Support';
+    if (type === 'I') return 'Incident';
+    if (type === 'E') return 'Enhancement / Feature';
+    return type;
   };
 
   if (!ticket) return <p style={{ color: 'white', padding: '2rem' }}>Loading...</p>;
@@ -76,11 +90,11 @@ export default function ViewTicket() {
                   </div>
 
                   <div className="row type">
-                    <div className="col-2" style={{ marginLeft: '90px', marginBottom: '10px' }}>
-                      <p>Type:{ticket.type}</p>
+                    <div className="col-2" style={{ marginBottom: '10px' }}>
+                      <p>Type: {ticketType(ticket.type)}</p>
                     </div>
-                    <div className="col-2" style={{ marginLeft: '115px', marginBottom: '10px' }}>
-                      <p>Status:{ticketStat(ticket.status)}</p>
+                    <div className="col-2" style={{ marginBottom: '10px' }}>
+                      <p>Status: {ticketStat(ticket.status)}</p>
                     </div>
                   </div>
 
@@ -98,7 +112,7 @@ export default function ViewTicket() {
                       <p>Users Affected: {ticket.users_Affected}</p>
                     </div>
                     <div className="col-4" style={{ marginLeft: '150px', marginBottom: '10px' }}>
-                      <p>Quote: £{ticket.quote}</p>
+                      <p>Quote: £{quote ? quote.estimated_Cost.toFixed(2) : 'No quote yet'}</p>
                     </div>
                   </div>
 
