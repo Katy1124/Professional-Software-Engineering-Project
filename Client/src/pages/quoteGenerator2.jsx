@@ -6,6 +6,7 @@ import AdminNav from '../components/adminNav';
 import { ticketsApi } from '../api/tickets.api';
 import { quotesApi } from '../api/quotes.api';
 import { logsApi } from '../api/logs.api';
+import CommentWin from '../components/commentWindow';
 
 export default function QuoteEstimate() {
   const { id } = useParams();
@@ -79,7 +80,6 @@ export default function QuoteEstimate() {
     }
 
     try {
-    // Replace with your actual comments API call
         await logsApi.create(payload); 
         alert('Comment added successfully.');
         setInternalNotes('');
@@ -88,6 +88,8 @@ export default function QuoteEstimate() {
         alert('Failed to add comment.');
       }
     };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
   
 
   const updateQuoteStatus = async (status) => {
@@ -146,7 +148,13 @@ export default function QuoteEstimate() {
                     </div>
                   </div>
                 </div>
-
+                <button className="openComment" onClick={() => setIsModalOpen(true)}>Open Comments</button>
+                {isModalOpen && ticket && (
+                    <CommentWin 
+                        ticketId={ticket.id} 
+                        onClose={() => setIsModalOpen(false)} 
+                    />
+                )}
               </div>
 
               <div className="col-3 quote-actions p-3">
