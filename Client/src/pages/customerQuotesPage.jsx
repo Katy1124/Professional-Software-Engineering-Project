@@ -6,7 +6,7 @@ import CustomerNav from '../components/customerNav';
 
 const ACCOUNT_ID = 1;
 
-export default function QuotesPage() {
+export default function CustomerQuotesPage() {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

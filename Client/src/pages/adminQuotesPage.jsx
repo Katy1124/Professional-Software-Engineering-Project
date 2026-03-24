@@ -4,7 +4,7 @@ import { quotesApi } from '../api/quotes.api';
 import '../css/ticketsPage.css';
 import CustomerNav from '../components/adminNav';
 
-export default function QuotesPage() {
+export default function AdminQuotesPage() {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
