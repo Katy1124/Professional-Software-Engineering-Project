@@ -25,6 +25,8 @@
     margin-top: 10px;
     color: black;
     transition: all 0.3s ease;
+    width: 350px;
+    min-height: 500px;
 }
 
 

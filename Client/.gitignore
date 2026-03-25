@@ -1,3 +1,5 @@
+/Server/obj/Debug
+/Server/obj
 # Logs
 logs
 *.log
@@ -25,8 +27,5 @@ dist-ssr
 # .NET build output
 **/bin/
 **/obj/
-**/Debug/
-**/Release/
+**/node_modules/
 .env
-**/.env
-.env.*

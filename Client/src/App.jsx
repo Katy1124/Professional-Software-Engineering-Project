@@ -10,10 +10,17 @@ import QuoteEstimate from './pages/quoteGenerator';
 // Customer Pages
 import CustomerDashboard from './pages/customerDashboard';
 import TicketForm from './pages/ticketForm';
+import AdminDashboard from './pages/adminDashboard';
+import TicketsPageAd from './pages/ticketsPageAd';
+import TicketsPageCus from './pages/ticketsPageCus';
 import CustomerQuotesPage from './pages/customerQuotesPage';
 import CustomerQuote from './pages/customerQuote';
 import TicketsPage from './pages/ticketsPage';
 import ViewTicket from './pages/viewTicket';
+import LoginPage from './pages/loginPage';
+// Temporary pages
+import TestTicket from './pages/viewTicketAd';
+import TestTicketcus from './pages/viewTicketCus';
 
 function App() {
   return (
@@ -21,6 +28,12 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/ticketsPageAd" element={<TicketsPageAd />} />
+        <Route path="/ticketsPageCus" element={<TicketsPageCus />} />
+        
+        {/* Temporary pages */}
+        <Route path="/viewTestTicket/:id" element={<TestTicket />}/>
+        <Route path="/viewTestTicketcus/:id" element={<TestTicketcus />}/>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/admin' element={<SecurePath allowedType={1}><AdminDashboard /> </SecurePath>} />
         <Route path='/allquotes' element={<SecurePath allowedType={1}><AdminQuotesPage /> </SecurePath>} />

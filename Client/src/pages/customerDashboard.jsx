@@ -117,9 +117,10 @@ export default function CustomerDashboard() {
         {/* Quick Links Section */}
         <div className="quick-links-section text-center">
           <h2 className="mb-4" style={{color: 'white', fontWeight: 'bold'}}>Quick Links</h2>
+          <div className="row justify-content-center gap-3">
           <div className="row justify-content-center">
             <div className="col-6">
-              <Link to="/tickets" className="card quick-link-card p-4 text-decoration-none d-block">
+              <Link to="/ticketsPageCus" className="col-md-3 card quick-link-card p-4 text-decoration-none">
                 My Tickets
               </Link>
             </div>
@@ -129,6 +130,7 @@ export default function CustomerDashboard() {
               </Link>
             </div>
           </div>
+        </div>
         </div>
       </main>
     </div>
