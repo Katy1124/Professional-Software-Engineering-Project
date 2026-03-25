@@ -19,10 +19,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: ./Client/package-lock.json
 
-      - name: Install frontend dependencies
+      - name: Clean install frontend dependencies
         working-directory: ./Client
-        run: npm ci
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: Rebuild rollup native package
+        working-directory: ./Client
+        run: npm rebuild rollup
 
       - name: Build app
         working-directory: ./Client
