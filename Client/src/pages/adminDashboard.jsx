@@ -102,7 +102,7 @@ export default function AdminDashboard() {
             </Link>
           </div>
           <div className="col-4 links">
-            <Link to="/customerQuote" style={{ textDecoration: 'none' }}>
+            <Link to="/allquotes" style={{ textDecoration: 'none' }}>
               <div className="card quotes">
                 <div className="card-body">
                   <p style={{fontSize: '20px'}}>Quotes</p>
@@ -114,7 +114,7 @@ export default function AdminDashboard() {
 
         <div class="row justify-content-center">
           <div class="col-4 links" style={{marginTop: '10px', marginBottom: '10px'}}>
-            <Link to="/adminQuote" style={{ textDecoration: 'none' }}>
+            <Link to="/quotegen" style={{ textDecoration: 'none' }}>
               <div className="card edits">
                 <div class="card-body">
                   <p style={{fontSize: '20px'}}>Edits</p>

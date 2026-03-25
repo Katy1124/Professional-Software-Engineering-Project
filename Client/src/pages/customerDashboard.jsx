@@ -6,7 +6,7 @@ import '../css/CustomerDashboard.css';
 import { useNavigate } from 'react-router-dom';
 import CustomerNav from '../components/customerNav';
 
-export default function DashCust() {
+export default function CustomerDashboard() {
   const navigate = useNavigate();
 
   const [stats, setStats] = useState({
@@ -85,7 +85,7 @@ export default function DashCust() {
       </header>
 
       {/* Adding a Bootstrap container to center content and add padding */}
-      <main className="container py-5">
+              <main className="container" style={{ paddingTop: '100px' }}>
               <div className="container text-center">
   <div className="row justify-content-center">
     {[
@@ -107,7 +107,7 @@ export default function DashCust() {
 
         {/* Create Ticket Button Area */}
         <div className="text-center mb-5">
-          <Link to="/ticketForm" style={{ textDecoration: 'none' }}>
+          <Link to="/create" style={{ textDecoration: 'none' }}>
             <div className="create-ticket-btn d-inline-block">
                Create a New Ticket
             </div>
@@ -118,13 +118,19 @@ export default function DashCust() {
         <div className="quick-links-section text-center">
           <h2 className="mb-4" style={{color: 'white', fontWeight: 'bold'}}>Quick Links</h2>
           <div className="row justify-content-center gap-3">
-            <Link to="/ticketsPageCus" className="col-md-3 card quick-link-card p-4 text-decoration-none">
+          <div className="row justify-content-center">
+            <div className="col-6">
+              <Link to="/ticketsPageCus" className="col-md-3 card quick-link-card p-4 text-decoration-none">
                 My Tickets
-            </Link>
-            <Link to="/customerQuote" className="col-md-3 card quick-link-card p-4 text-decoration-none">
+              </Link>
+            </div>
+            <div className="col-6">
+              <Link to="/quotes" className="card quick-link-card p-4 text-decoration-none d-block">
                 My Quotes
-            </Link>
+              </Link>
+            </div>
           </div>
+        </div>
         </div>
       </main>
     </div>

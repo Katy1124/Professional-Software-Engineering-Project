@@ -119,3 +119,18 @@ html, body, #root {
 .quote-btn-reject:hover {
   background-color: #7b1fa2;
 }
+.openComment {
+    font-size: large;
+    background-color: var(--giacom-pink);
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 10px;
+    margin-top: 40px;
+    padding: 10px;
+}
+.openComment:hover {
+    background-color: #f47fc5;
+}
+.openComment:active {
+    background-color: #f47fc5;
+}
