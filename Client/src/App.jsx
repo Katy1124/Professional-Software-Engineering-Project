@@ -5,6 +5,7 @@ import LandingPage from './pages/landingPage';
 import LoginPage from './pages/loginPage';
 // Admin Pages
 import AdminDashboard from './pages/adminDashboard';
+import CustomerDashboard from './pages/customerDashboard';
 import AdminQuotesPage from './pages/adminQuotesPage';
 import QuoteEstimate from './pages/quoteGenerator';
 // Customer Pages
