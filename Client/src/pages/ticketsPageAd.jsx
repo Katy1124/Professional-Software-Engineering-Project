@@ -74,13 +74,13 @@ export default function TicketsPage() {
             <div className="col-auto" key={ticket.id}>
               <div className="card tickets">
                 <div className="card-body">
-                  <p style={{ fontSize: '50px', fontWeight: 'bold' }}>Ticket {ticket.id}</p>
-                  <p style={{ fontSize: '40px' }}>Account: {ticket.account_Id}</p>
-                  <p style={{ fontSize: '20px' }}>{ticket.title}</p>
-                  <p style={{ fontSize: '20px' }}><span>Severity: </span><span>{tickectSeverity(ticket.severity)}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Users Affected: </span><span>{ticket.users_Affected}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Deadline: </span><span>{ticket.deadline} days</span></p>
-                  <p style={{ fontSize: '20px' }}>
+                  <p className='number'>Ticket {ticket.id}</p>
+                  <p className='account'>Account: {ticket.account_Id}</p>
+                  <p className='title'>{ticket.title}</p>
+                  <p className='severity'><span>Severity: </span><span>{tickectSeverity(ticket.severity)}</span></p>
+                  <p className='users'><span>Users Affected: </span><span>{ticket.users_Affected}</span></p>
+                  <p className='date'><span>Deadline: </span><span>{ticket.deadline} days</span></p>
+                  <p className='status'>
                     <span>Status: </span>
                     <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: statusColor(ticket.status), color: 'white' }}>
                       {ticketStat(ticket.status)}
