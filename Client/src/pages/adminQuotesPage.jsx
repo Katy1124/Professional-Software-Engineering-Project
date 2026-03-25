@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { quotesApi } from '../api/quotes.api';
-import '../css/ticketsPage.css';
+import '../css/quotesPage.css';
 import CustomerNav from '../components/adminNav';
 
 export default function AdminQuotesPage() {
@@ -51,7 +51,7 @@ const effortLevel = (level) => {
 };
 
   return (
-    <div className="tickets-page">
+    <div className="quotes-page">
 
       <CustomerNav />
 
@@ -74,14 +74,14 @@ const effortLevel = (level) => {
             <div className="col-auto" key={quote.id}>
               <div className="card tickets">
                 <div className="card-body">
-                  <p style={{ fontSize: '60px', fontWeight: 'bold' }}>Quote {quote.id}</p>
-                  <p style={{ fontSize: '40px' }}>Ticket: {quote.ticket_Id}</p>
-                  <p style={{ fontSize: '20px' }}><span>Hourly Rate: </span><span>£{quote.hourly_Rate}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Estimated Time: </span><span>{quote.estimated_Resolution_Time} hrs</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Total Cost: </span><span>£{quote.estimated_Cost?.toFixed(2)}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Priority Level: </span><span>{priorityLevel(quote.priority_Level)}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Effort Level: </span><span>{effortLevel(quote.effort_Level)}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Status: </span>
+                  <p className='title'>Quote {quote.id}</p>
+                  <p className='number'>Ticket: {quote.ticket_Id}</p>
+                  <p className='rate'><span>Hourly Rate: </span><span>£{quote.hourly_Rate}</span></p>
+                  <p className='time'><span>Estimated Time: </span><span>{quote.estimated_Resolution_Time} hrs</span></p>
+                  <p className='cost'><span>Total Cost: </span><span>£{quote.estimated_Cost?.toFixed(2)}</span></p>
+                  <p className='priority'><span>Priority Level: </span><span>{priorityLevel(quote.priority_Level)}</span></p>
+                  <p className='effort'><span>Effort Level: </span><span>{effortLevel(quote.effort_Level)}</span></p>
+                  <p className='status'><span>Status: </span>
                   <span style={{ padding: '5px 8px', borderRadius: '5px', backgroundColor: statusColor(quote.status), color: 'white' }}>
                   {quote.status}
                   </span>
