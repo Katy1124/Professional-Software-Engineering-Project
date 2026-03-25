@@ -24,7 +24,7 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/admin' element={<SecurePath allowedType={1}><AdminDashboard /> </SecurePath>} />
         <Route path='/allquotes' element={<SecurePath allowedType={1}><AdminQuotesPage /> </SecurePath>} />
-        <Route path='/quotegen/:id' element={<SecurePath allowedType={1}><QuoteEstimate /> </SecurePath>} /> {/* NOT WORKING */}
+        <Route path='/quotegen/:id?' element={<SecurePath allowedType={1}><QuoteEstimate /> </SecurePath>} /> {/* NOT WORKING */}
         <Route path='/tickets' element={<TicketsPage />} />
         <Route path='/viewticket/:id' element={<ViewTicket />} />
         <Route path='/customer' element={<SecurePath allowedType={0}><CustomerDashboard /> </SecurePath>} />

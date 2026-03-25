@@ -19,14 +19,30 @@ export default function QuoteEstimate() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!id) {
+        setQuote({
+          hourly_Rate: 0,
+          estimated_Resolution_Time: 0,
+          priority_Level: 0,
+          effort_Level: 0,
+          estimated_Cost: 0
+        });
+        return;
+      }
       try {
         const quoteData = await quotesApi.getById(id);
         setQuote(quoteData);
         setOverrideHours(String(quoteData.estimated_Resolution_Time ?? ''));
         setOverrideRate(String(quoteData.hourly_Rate ?? ''));
 
-        const ticketData = await ticketsApi.getById(quoteData.ticket_Id);
-        setTicket(ticketData);
+        if (quoteData.ticket_Id) {
+          try {
+            const ticketData = await ticketsApi.getById(quoteData.ticket_Id);
+            setTicket(ticketData);
+          } catch (ticketError) {
+            console.error('failed to fetch ticket:', ticketError)
+          }
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -149,7 +165,7 @@ export default function QuoteEstimate() {
   return '#6c757d';
   };
 
-  if (!ticket || !quote) return <p style={{ color: 'white', padding: '2rem' }}>Loading...</p>;
+  if (!quote) return <p style={{ color: 'white', padding: '2rem' }}>Loading Quote Data...</p>;
 
   return (
     <div className="quote-generator">
@@ -159,16 +175,25 @@ export default function QuoteEstimate() {
           <div className="col-2">
             <div className="card quote-ticket-card">
               <div className="card-body">
-                <p style={{ fontWeight: 'bold' }}>Selected Ticket: {ticket.id}</p>
-                <p>{ticket.title}</p>
-                <p>Type: {ticketType(ticket.type)}</p>
-                <p>Severity: {ticketSeverity(ticket.severity)}</p>
-                <p>Deadline: {ticket.deadline} days</p>
-                <p>Users Affected: {ticket.users_Affected}</p>
-                <p>Status: <span className="badge" style={{ backgroundColor: statusColor(ticket.status), padding: '5px 8px' }}>{ticketStatus(ticket.status)}</span></p>
+                <p style={{ fontWeight: 'bold' }}>Selected Ticket: {ticket?.id || 'None selected'}</p>
+                <p>{ticket?.title}</p>
+                <p>Type: {ticketType(ticket?.type)}</p>
+                <p>Severity: {ticketSeverity(ticket?.severity)}</p>
+                <p>Deadline: {ticket?.deadline} days</p>
+                <p>Users Affected: {ticket?.users_Affected}</p>
+                {ticket && (
+                  <p>Status: 
+                    <span 
+                      className="badge" 
+                      style={{ backgroundColor: statusColor(ticket.status), padding: '5px 8px' }}
+                    >
+                      {ticketStatus(ticket.status)}
+                    </span>
+                  </p>
+                )}
               </div>
             </div>
-            <button className="btn quote-change-btn w-100 mt-2" onClick={() => navigate('/adminquotepage')}>Change Ticket</button>
+            <button className="btn quote-change-btn w-100 mt-2" onClick={() => navigate('/allquotes')}>Change Ticket</button>
           </div>
 
           <div className="col quote-main-card p-3">
