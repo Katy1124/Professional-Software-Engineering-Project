@@ -77,7 +77,7 @@ export default function LoginPage() {
 
                     {error && <p>{error}</p>}
 
-                    <button type="submit">Submit</button>
+                    <button type="submit" className='login-btn-primary'>Submit</button>
                 </form>
             </div>
         </div>
