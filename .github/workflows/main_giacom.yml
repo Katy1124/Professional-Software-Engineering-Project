@@ -22,7 +22,7 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: ./Client
-        run: npm install
+        run: npm ci
 
       - name: Build app
         working-directory: ./Client
