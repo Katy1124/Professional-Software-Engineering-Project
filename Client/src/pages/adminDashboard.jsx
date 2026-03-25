@@ -91,7 +91,7 @@ export default function AdminDashboard() {
 
       <div className="container text-center">
         <p className='quick-links'>Quick Links</p>
-        <div className="row justify-content-center" style={{paddingTop: '5px'}}>
+        <div className="row justify-content-center links" style={{paddingTop: '5px'}}>
           <div className="col-4 links">
             <Link to="/ticketsPageAd" style={{ textDecoration: 'none' }}>
               <div className="card tickets">
