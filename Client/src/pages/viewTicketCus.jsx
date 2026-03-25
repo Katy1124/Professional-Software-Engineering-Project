@@ -62,7 +62,7 @@ export default function ViewTicket() {
     <div className="view-ticket">
       <CustomerNav />
 
-      <div className="container-fluid text-center">
+      <div className="container-fluid text-center" style={{ paddingTop: '50px' }}>
         <div className="row align-items-center justify-content-center">
 
           <div className="col d-flex justify-content-center">
@@ -74,54 +74,50 @@ export default function ViewTicket() {
                   <span style={{ paddingLeft: '100px' }}>Account: {ticket.account_Id}</span>
                 </p>
 
-                <p style={{ fontSize: '25px', textAlign: 'left', paddingLeft: '100px', fontWeight: 'bold' }}>
+                <p style={{ fontSize: '25px', textAlign: 'left', fontWeight: 'bold' }}>
                   Deadline: {ticket.deadline} days
                 </p>
 
-                <div className="container information">
-
-                  <div className="row title" style={{ fontSize: '25px', fontWeight: 'bold' }}>
-                    <div className="col-2" style={{ marginLeft: '90px', marginBottom: '10px' }}>
-                      Title:
-                    </div>
-                    <div className="col-5" style={{ marginLeft: '170px', marginBottom: '10px' }}>
-                      {ticket.title}
+                  <div className="container information">
+                  <div className="row title mb-2" style={{ fontSize: '25px', fontWeight: 'bold' }}>
+                    <div className="col-12">
+                      Title: {ticket.title}
                     </div>
                   </div>
 
-                  <div className="row type">
-                    <div className="col-2" style={{ marginLeft: '90px', marginBottom: '10px' }}>
-                      <p>Type:{ticketType(ticket.type)}</p>
+                  <div className="row type mb-2">
+                    <div className="col-6">
+                      <p>Type: {ticketType(ticket.type)}</p>
                     </div>
-                    <div className="col-2" style={{ marginLeft: '115px', marginBottom: '10px' }}>
-                      <p>Status:{ticketStat(ticket.status)}</p>
+                    <div className="col-6">
+                      <p>Status: {ticketStat(ticket.status)}</p>
                     </div>
                   </div>
 
-                  <div className="row severity">
-                    <div className="col-3" style={{ marginLeft: '90px', marginBottom: '10px' }}>
+                  <div className="row severity mb-2">
+                    <div className="col-6">
                       <p>Severity: {tickectSeverity(ticket.severity)}</p>
                     </div>
-                    <div className="col-4" style={{ marginLeft: '150px', marginBottom: '10px' }}>
+                    <div className="col-6">
                       <p>Buisness impact: {tickectimpact(ticket.technical_Diffculty)}</p>
                     </div>
                   </div>
 
-                  <div className="row estimate">
-                    <div className="col-3" style={{ marginLeft: '90px', marginBottom: '10px' }}>
+                  <div className="row estimate mb-2">
+                    <div className="col-6">
                       <p>Users Affected: {ticket.users_Affected}</p>
                     </div>
-                    <div className="col-4" style={{ marginLeft: '150px', marginBottom: '10px' }}>
+                    <div className="col-6">
                       <p>Quote: £{quote ? quote.estimated_Cost.toFixed(2) : 'No quote yet'}</p>
                     </div>
                   </div>
 
-                  <div className='row desc' style={{minHeight: '150px'}}> 
-                    <div className='col-5' style={{marginLeft: '90px'}}>
+                  <div className='row desc mb-2' style={{minHeight: '150px'}}> 
+                    <div className='col-6'>
                       <p>Description:</p>
                       <p>{ticket.description}</p>
                     </div>
-                    <div className='col-5' style={{marginLeft: '30px'}}>
+                    <div className='col-6'>
                       <p>Attachments:</p>
                     </div>
                   </div>
