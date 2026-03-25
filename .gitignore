@@ -1,6 +1,0 @@
-/Server/obj/Debug
-/Server/obj
-**/bin/
-**/obj/
-**/node_modules/
-.env

@@ -1,33 +1,66 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ticketsApi } from '../api/tickets.api';
+import { useNavigate } from 'react-router-dom';
 import '../css/ticketsPage.css';
 import AdminNav from '../components/adminNav';
 
-const ACCOUNT_ID = 1;
+// const ACCOUNT_ID = 1;
 
 export default function TicketsPage() {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [currentTicket, setCurrentTicket] = useState(null);
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTickets = async () => {
       try {
+        const storedUser = localStorage.getItem('user');
+        const userObj = storedUser ? JSON.parse(storedUser) : null;
+        setCurrentUser(userObj);
+
         const data = await ticketsApi.list();
         const all = Array.isArray(data) ? data : [];
-        // Filter client-side by account_Id
-        const filtered = all.filter(t => t.account_Id === ACCOUNT_ID);
+        if (userObj && userObj.id) {
+        const filtered = all.filter(t => t.account_Id === userObj.id);
         setTickets(filtered);
+      } else {
+        setError("No user session found. Please log in again.");
+      }
+        
       } catch (err) {
-        setError(err.message || 'Failed to load tickets');
+        setError(err.message || 'failed to load tickets');
       } finally {
         setLoading(false);
       }
     };
-
     fetchTickets();
-  }, []);
+  }, [])
+
+  const handleViewTicket = (ticket) => {
+    localStorage.setItem('ticketId', ticket.id);
+    navigate(`/viewticket/${ticketId}`);
+  }
+
+  //   const fetchTickets = async () => {
+  //     try {
+  //       const data = await ticketsApi.list();
+  //       const all = Array.isArray(data) ? data : [];
+  //       // Filter client-side by account_Id
+  //       const filtered = all.filter(t => t.account_Id === ACCOUNT_ID);
+  //       setTickets(filtered);
+  //     } catch (err) {
+  //       setError(err.message || 'Failed to load tickets');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchTickets();
+  // }, []);
 
   const statusColor = (status) => {
     if (!status) return '#6c757d';
@@ -74,8 +107,8 @@ export default function TicketsPage() {
                       {ticket.status || 'Active'}
                     </span>
                   </p>
-                  <Link to={`/viewTestTicket/${ticket.id}`} style={{ textDecoration: 'none' }}>
-                    <button className="view-button">View</button>
+                  <Link to={`/viewticket/${ticket.id}`} style={{ textDecoration: 'none' }}>
+                    <button className="view-button" onClick={() => handleViewTicket(ticket)}>View</button>
                   </Link>
                 </div>
               </div>

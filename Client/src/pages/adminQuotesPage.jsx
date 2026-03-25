@@ -4,7 +4,7 @@ import { quotesApi } from '../api/quotes.api';
 import '../css/ticketsPage.css';
 import CustomerNav from '../components/adminNav';
 
-export default function QuotesPage() {
+export default function AdminQuotesPage() {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -86,7 +86,7 @@ const effortLevel = (level) => {
                   {quote.status}
                   </span>
                   </p>
-                  <Link to={`/viewQuoteAdmin/${quote.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/quotegen/${quote.id}`} style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>
