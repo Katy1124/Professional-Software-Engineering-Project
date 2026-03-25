@@ -8,7 +8,6 @@ import AdminDashboard from './pages/adminDashboard';
 import AdminQuotesPage from './pages/adminQuotesPage';
 import QuoteEstimate from './pages/quoteGenerator';
 // Customer Pages
-import CustomerDashboard from './pages/customerDashboard';
 import TicketForm from './pages/ticketForm';
 import AdminDashboard from './pages/adminDashboard';
 import TicketsPageAd from './pages/ticketsPageAd';
@@ -17,7 +16,6 @@ import CustomerQuotesPage from './pages/customerQuotesPage';
 import CustomerQuote from './pages/customerQuote';
 import TicketsPage from './pages/ticketsPage';
 import ViewTicket from './pages/viewTicket';
-import LoginPage from './pages/loginPage';
 // Temporary pages
 import TestTicket from './pages/viewTicketAd';
 import TestTicketcus from './pages/viewTicketCus';
