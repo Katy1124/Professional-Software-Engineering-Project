@@ -51,3 +51,27 @@ html, body, #root {
 .customer-dashboard .quick-link-card:hover {
   box-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
+
+@media (max-width: 767px) {
+  .customer-dashboard main {
+    padding-top: 60px !important;
+  }
+
+  .customer-dashboard .card {
+    min-height: 100px !important;
+    margin-top: 5px; 
+  }
+
+    .customer-dashboard h3 {
+    font-size: 20px !important;
+    margin-bottom: 5px !important;
+  }
+
+  .customer-dashboard p {
+    font-size: 28px !important;
+  }
+
+  .customer-dashboard .quick-link-card {
+    padding: 15px !important; 
+  }
+}

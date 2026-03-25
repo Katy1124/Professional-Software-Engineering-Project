@@ -16,7 +16,6 @@ export default function CustomerDashboard() {
   });
 
   useEffect(() => {
-    // LOGIC FOR STATUSES
     const fetchStats = async () => {
         try {
           const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -84,7 +83,6 @@ export default function CustomerDashboard() {
         <CustomerNav />
       </header>
 
-      {/* Adding a Bootstrap container to center content and add padding */}
               <main className="container" style={{ paddingTop: '100px' }}>
               <div className="container text-center">
   <div className="row justify-content-center">
@@ -105,7 +103,6 @@ export default function CustomerDashboard() {
   </div>
 </div>
 
-        {/* Create Ticket Button Area */}
         <div className="text-center mb-5">
           <Link to="/create" style={{ textDecoration: 'none' }}>
             <div className="create-ticket-btn d-inline-block">
@@ -114,13 +111,12 @@ export default function CustomerDashboard() {
           </Link>
         </div>
 
-        {/* Quick Links Section */}
         <div className="quick-links-section text-center">
           <h2 className="mb-4" style={{color: 'white', fontWeight: 'bold'}}>Quick Links</h2>
           <div className="row justify-content-center gap-3">
           <div className="row justify-content-center">
             <div className="col-6">
-              <Link to="/ticketsPageCus" className="col-md-3 card quick-link-card p-4 text-decoration-none">
+              <Link to="/ticketsPageCus" className="card quick-link-card p-4 text-decoration-none d-block">
                 My Tickets
               </Link>
             </div>

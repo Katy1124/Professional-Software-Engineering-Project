@@ -69,10 +69,10 @@ export default function ViewTicket() {
             <div className="card singleTicket">
               <div className="card-body">
 
-                <p style={{ fontSize: '40px', fontWeight: 'bold' }}>
-                  <span style={{ paddingRight: '100px' }}>Ticket {ticket.id}</span>
-                  <span style={{ paddingLeft: '100px' }}>Account: {ticket.account_Id}</span>
-                </p>
+                <div className="ticket-header-container">
+                  <p className="title">Ticket {ticket.id}</p>
+                  <p className="title">Account: {ticket.account_Id}</p>
+                </div>
 
                 <p style={{ fontSize: '25px', textAlign: 'left', fontWeight: 'bold' }}>
                   Deadline: {ticket.deadline} days

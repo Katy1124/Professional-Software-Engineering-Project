@@ -92,3 +92,49 @@ html, body, #root {
 .view-ticket .information .col-6:first-child {
     border-right: 3px solid #9b8fa0;
 }
+
+.ticket-header-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.ticket-header-container .title {
+    font-weight: bold;
+    font-size: 30px;
+    color: black;
+    margin: 0;
+}
+
+@media (max-width: 767px) {
+.view-ticket .information .col-6 {
+padding: 8px; 
+font-size: 14px;
+}
+
+.view-ticket .information .title .col-12 {
+padding: 10px;
+font-size: 16px;
+font-weight: bold;
+}
+
+.view-ticket .container-fluid {
+padding-top: 20px;
+}
+
+.view-ticket .card.singleTicket {
+width: 95%;
+margin: 18px auto;
+}
+
+.ticket-header-container {
+flex-direction: column;
+gap: 10px;
+}
+
+.ticket-header-container .title {
+font-size: 32px;
+}
+}
