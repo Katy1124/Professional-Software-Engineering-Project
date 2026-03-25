@@ -254,33 +254,7 @@ export default function QuoteEstimate() {
       setSaving(false);
     }
   };
-  const handleApprove = async () => {
-    if (!ticket) return;
-    setSaving(true);
-    try {
-      await ticketsApi.update(ticket.id, { ...ticket, status: 'a', quote: totalCost });
-      setTicket((prev) => ({ ...prev, status: 'a', quote: totalCost }));
-      showToast('Quote approved');
-    } catch (err) {
-      showToast(err.message || 'Approve failed', false);
-    } finally {
-      setSaving(false);
-    }
-  };
- 
-  const handleReject = async () => {
-    if (!ticket) return;
-    setSaving(true);
-    try {
-      await ticketsApi.update(ticket.id, { ...ticket, status: 'p' });
-      setTicket((prev) => ({ ...prev, status: 'p' }));
-      showToast('Returned for changes');
-    } catch (err) {
-      showToast(err.message || 'Reject failed', false);
-    } finally {
-      setSaving(false);
-    }
-  };
+  
   return (
     <div className="quote-generator">
       <AdminNav />
@@ -488,12 +462,6 @@ export default function QuoteEstimate() {
  
                 <button className="btn quote-btn-save w-100 mb-2" onClick={handleSaveQuote} disabled={!ticket || saving}>
                   {saving ? 'Saving…' : 'Save Quote Revision'}
-                </button>
-                <button className="btn quote-btn-approve w-100 mb-2" onClick={handleApprove} disabled={!ticket || saving}>
-                  Approve Quote
-                </button>
-                <button className="btn quote-btn-reject w-100" onClick={handleReject} disabled={!ticket || saving}>
-                  Reject / Request Changes
                 </button>
               </div>
  
