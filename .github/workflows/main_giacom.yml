@@ -3,7 +3,7 @@ name: Build and deploy Node.js app to Azure Web App - Giacom
 on:
   push:
     branches:
-      - Web-Development-2
+      - Web-Deployment-2
   workflow_dispatch:
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: ./Client
-        run: npm install
+        run: npm ci
 
       - name: Build app
         working-directory: ./Client
