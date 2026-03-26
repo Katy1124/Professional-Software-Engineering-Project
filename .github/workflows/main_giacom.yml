@@ -1,4 +1,3 @@
-
 name: Build and deploy Node.js app to Azure Web App - Giacom
 
 on:
@@ -23,11 +22,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: ./Client/package-lock.json
 
-      - name: Clean install frontend dependencies
+      - name: Install frontend dependencies
         working-directory: ./Client
-        run: |
-          rm -rf node_modules package-lock.json
-          npm install
+        run: npm install
 
       - name: Rebuild rollup native package
         working-directory: ./Client
@@ -49,6 +46,15 @@ jobs:
       - name: Install production dependencies for runtime
         working-directory: ./deploy
         run: npm install --omit=dev
+
+      - name: Show deployment package contents
+        run: |
+          echo "DEPLOY ROOT:"
+          ls -la ./deploy
+          echo "NODE MODULES:"
+          ls -la ./deploy/node_modules | head -50
+          echo "EXPRESS:"
+          ls -la ./deploy/node_modules/express
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
