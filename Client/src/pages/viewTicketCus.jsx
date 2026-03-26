@@ -32,7 +32,8 @@ export default function ViewTicket() {
     const s = Status.toLowerCase();
     if (s === 'a') return 'Active';
     if (s === 'p') return 'Pending';
-    if (s === 'c') return 'Closed';
+    if (s === 'r') return 'Resolved';
+    if (s === 'e') return 'Escalated';
     return 'N/A';
   };
   const tickectSeverity = (severity) => {

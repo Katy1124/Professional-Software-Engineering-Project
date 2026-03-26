@@ -120,7 +120,7 @@ export default function CustomerDashboard() {
           <div className="row justify-content-center gap-3">
           <div className="row justify-content-center">
             <div className="col-6">
-              <Link to="/ticketsPageCus" className="col-md-3 card quick-link-card p-4 text-decoration-none">
+              <Link to="/ticketsPageCus" className="card quick-link-card p-4 text-decoration-none d-block">
                 My Tickets
               </Link>
             </div>

@@ -66,7 +66,8 @@ const statusColor = (status) => {
   const s = status.toLowerCase();
   if (s === 'a') return '#22c55e';
   if (s === 'p') return '#f59e0b';
-  if (s === 'c') return '#dc3545';
+  if (s === 'r') return '#75aef4';
+  if (s === 'e') return '#dc3545';
   return '#6c757d';
 };
 

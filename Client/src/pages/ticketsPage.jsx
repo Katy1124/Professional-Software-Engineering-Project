@@ -65,10 +65,20 @@ export default function TicketsPage() {
   const statusColor = (status) => {
     if (!status) return '#6c757d';
     const s = status.toLowerCase();
-    if (s === 'active') return '#236A49';
-    if (s === 'pending') return '#B58229';
-    if (s === 'closed') return '#dc3545';
+    if (s === 'a') return '#236A49';
+    if (s === 'p') return '#B58229';
+    if (s === 'r') return '#75aef4';
+    if (s === 'e') return '#dc3545';
     return '#6c757d';
+  };
+  const ticketStat = (Status) => {
+  if (!Status) return 'N/A';
+    const s = Status.toLowerCase();
+    if (s === 'a') return 'Active';
+    if (s === 'p') return 'Pending';
+    if (s === 'r') return 'Resolved';
+    if (s === 'e') return 'Escalated';
+    return 'N/A';
   };
 
   return (
@@ -103,7 +113,7 @@ export default function TicketsPage() {
                   <p style={{ fontSize: '20px' }}><span>Deadline: </span><span>{ticket.deadline} days</span></p>
                   <p style={{ fontSize: '20px' }}>
                     <span>Status: </span>
-                    <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: statusColor(ticket.status), color: 'white' }}>
+                    <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: ticketStat(ticket.status), color: 'white' }}>
                       {ticket.status || 'Active'}
                     </span>
                   </p>

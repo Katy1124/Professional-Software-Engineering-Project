@@ -92,3 +92,17 @@ html, body, #root {
 .view-ticket .information .col-6:first-child {
     border-right: 3px solid #9b8fa0;
 }
+
+.view-ticket .action-btn .resolved, .escalated {
+    background-color: var(--giacom-pink);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: large;
+    transition: all 0.3s ease;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.view-ticket .action-btn .resolved:hover, .escalated:hover {
+   background-color: #f47fc5;
+}

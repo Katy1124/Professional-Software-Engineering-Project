@@ -243,10 +243,10 @@ export default function QuoteEstimate() {
         });
         if (!res.ok) throw new Error();
       } catch {
-        await ticketsApi.update(ticket.id, { ...ticket, quote: totalCost });
+        await ticketsApi.update(ticket.id, { ...ticket, quote: totalCost, status: 'p' });
       }
-      setTickets((prev) => prev.map((t) => t.id === ticket.id ? { ...t, quote: totalCost } : t));
-      setTicket((prev) => ({ ...prev, quote: totalCost }));
+      setTickets((prev) => prev.map((t) => t.id === ticket.id ? { ...t, quote: totalCost, status: 'p' } : t));
+      setTicket((prev) => ({ ...prev, quote: totalCost, status: 'p' }));
       showToast('Quote saved successfully');
     } catch (err) {
       showToast(err.message || 'Save failed', false);

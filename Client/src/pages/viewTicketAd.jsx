@@ -27,12 +27,34 @@ export default function ViewTicket() {
     fetchTicket();
   }, [id]);
 
+  const handleResolved = async () => {
+      try {
+        await ticketsApi.update(id, {...ticket, status: 'r'});
+        setTicket(prev => ({...prev, status: 'r'}));
+        alert('This ticket is now Resolved');
+      } catch (error) {
+        console.error('Error resolving the ticket:', error);
+        alert('Failed to resolve ticket');
+      }
+    }
+    const handleEscalated = async () => {
+      try {
+        await ticketsApi.update(id, {...ticket, status: 'e'});
+        setTicket(prev => ({...prev, status: 'e'}));
+        alert('This ticket has been Escalated');
+      } catch (error) {
+        console.error('Error escalating the ticket:', error);
+        alert('Failed to escalate ticket');
+      }
+    }
+
     const ticketStat = (Status) => {
   if (!Status) return 'N/A';
     const s = Status.toLowerCase();
     if (s === 'a') return 'Active';
     if (s === 'p') return 'Pending';
-    if (s === 'c') return 'Closed';
+    if (s === 'r') return 'Resolved';
+    if (s === 'e') return 'Escalated';
     return 'N/A';
   };
   const tickectSeverity = (severity) => {
@@ -122,9 +144,14 @@ export default function ViewTicket() {
                       <p>Attachments:</p>
                     </div>
                   </div>
-
                 </div>
               </div>
+                  <div className='action-btn'>
+                    <button className='resolved' onClick={handleResolved} disabled={ticket.status?.toLowerCase() === 'r'}
+                    style={{backgroundColor: ticket.status?.toLowerCase() === 'r' ? '#6c757d' : '#ff007f', color: 'white'}}>Resolve</button>
+                    <button className='escalated' onClick={handleEscalated} disabled={ticket.status?.toLowerCase() === 'e'}
+                    style={{backgroundColor: ticket.status?.toLowerCase() === 'e' ? '#6c757d' : '#ff007f', color: 'white'}}>Escalate</button>
+                  </div>
             </div>
           </div>
         </div>
