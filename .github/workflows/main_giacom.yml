@@ -3,7 +3,7 @@ name: Build and deploy Node.js app to Azure Web App - Giacom
 on:
   push:
     branches:
-      - Web-Deployment-2
+      - development
   workflow_dispatch:
 
 jobs:
