@@ -65,3 +65,26 @@ html, body, #root {
     background-color: var(--giacom-purple);
     height: 50px;
 }
+
+/* Style the labels (e.g., "Filter Severity") */
+.tickets-page .filter-label {
+    color: white;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* Customizing the Bootstrap select boxes */
+.tickets-page .custom-select {
+    border: 2px solid var(--giacom-purple);
+    border-radius: 5px;
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.tickets-page .custom-select:focus {
+    border-color: var(--giacom-pink);
+    box-shadow: 0 0 10px var(--giacom-pink);
+    outline: none;
+}
