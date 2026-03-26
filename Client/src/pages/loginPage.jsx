@@ -15,31 +15,32 @@ export default function LoginPage() {
         e.preventDefault();
         setError('');
 
-    try {
-        const user = await authApi.login({
-            user_name: username,
-            password: password
-        });
+        try {
+            const user = await authApi.login({
+                user_name: username,
+                password: password
+            });
 
-        const userSession = {
-            id: user.id,
-            username: user.user_name,
-            type: user.user_type
-        };
+            const userSession = {
+                id: user.id,
+                username: user.user_name,
+                type: user.user_type
+            };
 
-        localStorage.setItem('user', JSON.stringify(userSession));
+            localStorage.setItem('user', JSON.stringify(userSession));
+            localStorage.setItem('token', user.token); //TOKEN HANDLING
 
-        if (user.user_type === 1) {
-            navigate('/admin');
-        } else if (user.user_type === 0) {
-            navigate('/customer');
-        } else {
-            setError('Invalid account type');
+            if (user.user_type === 1) {
+                navigate('/admin');
+            } else if (user.user_type === 0) {
+                navigate('/customer');
+            } else {
+                setError('Invalid account type');
+            }
+        } catch (err) {
+            console.error('Login error:', err);
+            setError('Invalid username or password');
         }
-    } catch (err) {
-        console.error('Login error:', err);
-        setError('Invalid username or password');
-    }
     };
 
     return (
