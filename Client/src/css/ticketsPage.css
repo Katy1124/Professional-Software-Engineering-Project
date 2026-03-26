@@ -66,16 +66,14 @@ html, body, #root {
     height: 50px;
 }
 
-/* Style the labels (e.g., "Filter Severity") */
 .tickets-page .filter-label {
     color: white;
     font-weight: bold;
     display: block;
-    margin-bottom: 8px;
+    padding-top: 22px;
     text-align: left;
 }
 
-/* Customizing the Bootstrap select boxes */
 .tickets-page .custom-select {
     border: 2px solid var(--giacom-purple);
     border-radius: 5px;
