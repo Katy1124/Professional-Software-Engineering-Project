@@ -91,8 +91,8 @@ export default function AdminDashboard() {
 
       <div className="container text-center">
         <p className='quick-links'>Quick Links</p>
-        <div className="row justify-content-center links" style={{paddingTop: '5px'}}>
-          <div className="col-4 links">
+        <div className="row justify-content-center links">
+          <div className="col-6 col-md-4">
             <Link to="/ticketsPageAd" style={{ textDecoration: 'none' }}>
               <div className="card tickets">
                 <div className="card-body">
@@ -101,7 +101,7 @@ export default function AdminDashboard() {
               </div>
             </Link>
           </div>
-          <div className="col-4 links">
+          <div className="col-6 col-md-4">
             <Link to="/allquotes" style={{ textDecoration: 'none' }}>
               <div className="card quotes">
                 <div className="card-body">
@@ -112,8 +112,8 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div class="row justify-content-center">
-          <div class="col-4 links" style={{marginTop: '10px', marginBottom: '10px'}}>
+        <div className="row justify-content-center mb-2">
+          <div class="col-12 col-md-4">
             <Link to="/quotegen" style={{ textDecoration: 'none' }}>
               <div className="card edits">
                 <div class="card-body">
