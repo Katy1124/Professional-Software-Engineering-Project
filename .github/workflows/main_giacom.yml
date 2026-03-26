@@ -45,7 +45,9 @@ jobs:
 
       - name: Install production dependencies for runtime
         working-directory: ./deploy
-        run: npm install --omit=dev
+        run: |
+          npm install --omit=dev
+          npm install express
 
       - name: Show deployment package contents
         run: |
