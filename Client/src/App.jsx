@@ -18,7 +18,8 @@ import CustomerQuote from './pages/customerQuote';
 import TicketsPage from './pages/ticketsPage';
 import ViewTicket from './pages/viewTicket';
 // Temporary pages
-import TestTicket from './pages/viewTicketAd';
+// import TestTicket from './pages/viewTicketAd';
+import TestTicket from './pages/viewTicketAdNEW';
 import TestTicketcus from './pages/viewTicketCus';
 
 function App() {

@@ -36,6 +36,7 @@ export default function TicketsPage() {
     if (s === 'e') return '#dc3545';
     return '#6c757d';
   };
+
   const ticketStat = (Status) => {
   if (!Status) return 'N/A';
     const s = Status.toLowerCase();
@@ -71,32 +72,6 @@ export default function TicketsPage() {
           <p style={{ color: 'white', marginTop: '2rem' }}>No tickets found for account {ACCOUNT_ID}.</p>
         )}
 
-        {/* <div className="row align-items-start justify-content-center mt-4">
-          {tickets.map((ticket) => (
-            <div className="col-auto" key={ticket.id}>
-              <div className="card tickets">
-                <div className="card-body">
-                  <p style={{ fontSize: '50px', fontWeight: 'bold' }}>Ticket {ticket.id}</p>
-                  <p style={{ fontSize: '40px' }}>Account: {ticket.account_Id}</p>
-                  <p style={{ fontSize: '20px' }}>{ticket.title}</p>
-                  <p style={{ fontSize: '20px' }}><span>Severity: </span><span>{tickectSeverity(ticket.severity)}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Users Affected: </span><span>{ticket.users_Affected}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Deadline: </span><span>{ticket.deadline} days</span></p>
-                  <p style={{ fontSize: '20px' }}>
-                    <span>Status: </span>
-                    <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: statusColor(ticket.status), color: 'white' }}>
-                      {ticketStat(ticket.status)}
-                    </span>
-                  </p>
-                  <Link to={`/viewTestTicket/${ticket.id}`} style={{ textDecoration: 'none' }}>
-                    <button className="view-button">View</button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div> */}
-
       <div className="row align-items-start justify-content-center mt-4">
         {tickets.map((ticket) => (
             <div className="col-auto" key={ticket.id}>
@@ -121,7 +96,7 @@ export default function TicketsPage() {
                       </tr>
                       <tr className='status'>
                         <td>Status: </td>
-                        <td style={{ backgroundColor: statusColor(ticket.status), color: 'white', borderRadius: '20px' }}>{ticketStat(ticket.status)}</td>
+                        <td style={{ backgroundColor: statusColor(ticket.status), color: 'white', borderRadius: '20px', textAlign: 'center' }}>{ticketStat(ticket.status)}</td>
                       </tr>
                     </tbody>
                   </table>

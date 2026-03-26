@@ -77,7 +77,6 @@ html, body, #root {
     max-height: 350px;
 }
 .tickets-page  .tickets .card-body {
-    /* background-color: yellow; */
     margin-top: -32px;
     padding-top: 0px;
     padding-left: 0px;
