@@ -142,10 +142,42 @@ export default function TicketForm() {
               </div>
             </div>
 
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label style={{ color: 'white' }}>Attachments</label>
               <input className="form-control ticket-input" type="file" multiple hidden onChange={e => set('file', e.target.files[0])} />
               <span>{form.file ? form.file.name : 'Choose a file'}</span>
+            </div> */}
+            <div className="mb-3">
+              <label style={{ color: 'white', display: 'block', marginBottom: '8px' }}>
+                Attachments
+              </label>
+
+              <div className="input-group">
+                <label 
+                  htmlFor="file-upload" 
+                  className="btn btn-light" 
+                  style={{ margin: 0, display: 'flex', alignItems: 'center' }}
+                >
+                  Browse...
+                </label>
+
+                <div className="form-control ticket-input bg-dark text-white border-secondary">
+                  {form.attachments?.length > 0 
+                    ? `${form.attachments.length} files selected` 
+                    : 'No file selected.'}
+                </div>
+
+                <input
+                  id="file-upload"
+                  type="file"
+                  multiple
+                  style={{ display: 'none' }}
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files);
+                    set('attachments', files);
+                  }}
+                />
+              </div>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
