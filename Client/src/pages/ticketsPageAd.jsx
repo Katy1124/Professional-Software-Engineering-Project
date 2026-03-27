@@ -36,6 +36,7 @@ export default function TicketsPage() {
     if (s === 'e') return '#dc3545';
     return '#6c757d';
   };
+
   const ticketStat = (Status) => {
   if (!Status) return 'N/A';
     const s = Status.toLowerCase();
@@ -45,7 +46,7 @@ export default function TicketsPage() {
     if (s === 'e') return 'Escalated';
     return 'N/A';
   };
-  const tickectSeverity = (severity) => {
+  const ticketSeverity = (severity) => {
   if (!severity) return 'N/A';
     if(severity == 1) return 'low'; 
     if(severity == 2) return 'medium'; 
@@ -71,30 +72,50 @@ export default function TicketsPage() {
           <p style={{ color: 'white', marginTop: '2rem' }}>No tickets found for account {ACCOUNT_ID}.</p>
         )}
 
-        <div className="row align-items-start justify-content-center mt-4">
-          {tickets.map((ticket) => (
+      <div className="row align-items-start justify-content-center mt-4">
+        {tickets.map((ticket) => (
             <div className="col-auto" key={ticket.id}>
               <div className="card tickets">
                 <div className="card-body">
-                  <p style={{ fontSize: '50px', fontWeight: 'bold' }}>Ticket {ticket.id}</p>
-                  <p style={{ fontSize: '40px' }}>Account: {ticket.account_Id}</p>
-                  <p style={{ fontSize: '20px' }}>{ticket.title}</p>
-                  <p style={{ fontSize: '20px' }}><span>Severity: </span><span>{tickectSeverity(ticket.severity)}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Users Affected: </span><span>{ticket.users_Affected}</span></p>
-                  <p style={{ fontSize: '20px' }}><span>Deadline: </span><span>{ticket.deadline} days</span></p>
-                  <p style={{ fontSize: '20px' }}>
-                    <span>Status: </span>
-                    <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: statusColor(ticket.status), color: 'white' }}>
+                  <p className='number'>Ticket {ticket.id}</p>
+                  <p className='account'>Account: {ticket.account_Id}</p>
+                  <p className='title'>{ticket.title}</p>
+                  <table className="table table-borderless ticket-table">
+                    <tbody>
+                      <tr className='severity'>
+                        <td>Severity: </td>
+                        <td>{ticketSeverity(ticket.severity)}</td>
+                      </tr>
+                      <tr className='users'>
+                        <td>Users Affected: </td>
+                        <td>{ticket.users_Affected}</td>
+                      </tr>
+                      <tr className='date'>
+                        <td>Deadline: </td>
+                        <td>{ticket.deadline} Days</td>
+                      </tr>
+                      <tr className='status'>
+                        <td>Status: </td>
+                        <td style={{ backgroundColor: statusColor(ticket.status), color: 'white', borderRadius: '20px', textAlign: 'center' }}>{ticketStat(ticket.status)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  {/* <p className='severity'><span>Severity: </span><span></span></p>
+                  <p className='users'><span>Users Affected: </span><span></span></p>
+                  <p className='date'><span>Deadline: </span><span>days</span></p>
+                  <p className='status'>
+                    <span>Status: </span> */}
+                    {/* <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: statusColor(ticket.status), color: 'white' }}>
                       {ticketStat(ticket.status)}
-                    </span>
-                  </p>
+                    </span> */}
+                  {/* </p> */}
                   <Link to={`/viewTestTicket/${ticket.id}`} style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>
               </div>
             </div>
-          ))}
+        ))}
         </div>
 
       </div>

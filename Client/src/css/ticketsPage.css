@@ -20,14 +20,14 @@
     text-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
 
-.tickets-page  .tickets {
+/* .tickets-page  .tickets {
     background-color: #D3B7DE;
     margin-top: 10px;
     color: black;
     transition: all 0.3s ease;
     width: 350px;
     min-height: 500px;
-}
+} */
 
 
 .tickets-page .view-button{
@@ -64,4 +64,52 @@ html, body, #root {
     margin-top: 10px;
     background-color: var(--giacom-purple);
     height: 50px;
+}
+
+/* NEW STYLING */
+.tickets-page  .tickets {
+    background-color: #D3B7DE;
+    margin-top: 10px;
+    color: black;
+    transition: all 0.3s ease;
+    width: 350px;
+    min-height: 320px;
+    max-height: 350px;
+}
+.tickets-page  .tickets .card-body {
+    margin-top: -32px;
+    padding-top: 0px;
+    padding-left: 0px;
+}
+.tickets-page  .tickets .card-body .number {
+    color: black;
+    text-align: left;
+    font-size: 40px;
+    font-weight: bold;
+}
+.tickets-page  .tickets .card-body .account {
+    color: black;
+    text-align: left;
+    font-size: 20px;
+    margin-top: -25px;
+}
+.tickets-page  .tickets .card-body .title {
+    color: black;
+    text-align: center;
+    font-size: 20px;
+}
+
+.tickets-page .tickets .card-body table td {
+    background-color: transparent;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    line-height: 1.0;
+    font-size: 20px;
+    text-align: left;
+}
+.tickets-page .tickets .card-body table tr {
+    height: auto;
+}
+.tickets-page .tickets .card-body table .severity, .users, .date {
+    border-bottom: 1px solid #8e7897;
 }
