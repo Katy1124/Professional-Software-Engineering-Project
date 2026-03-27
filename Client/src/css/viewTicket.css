@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --giacom-dark-blue: #100235;
   --giacom-purple: #67236a;
   --giacom-pink: #ec008c;
@@ -105,14 +105,4 @@ html, body, #root {
 }
 .view-ticket .action-btn .resolved:hover, .escalated:hover {
    background-color: #f47fc5;
-}
-/* const data = await ticketsApi.getById(id);
-    const ticketsArray = Array.isArray(data) ? data : [];
-
-    const sorted = ticketsArray.sort((a, b) => {
-        const statusA = a.status?.toLowerCase();
-        const statusB = b.status?.toLowerCase();
-        if (statusA === 'e' && statusB !== 'e') return -1;
-        if (statusA !== 'e' && statusB === 'e') return 1;
-        return 0;
-    }) */
+} */

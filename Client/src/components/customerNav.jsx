@@ -33,7 +33,7 @@ export default function CustomerNav() {
                             ><img src={burger} alt="Menu Icon" style={{width: '20px'}}/>
                         </button>
                     </div>
-                    <Link to="/" style={{ textDecoration: 'none' }}>
+                    <Link to="/customer" style={{ textDecoration: 'none' }}>
                         <div className='navbar-brand'>
                             <img src={giacomLogo} alt="Giacom Logo" style={{width: '200px'}}/>
                         </div>
@@ -53,7 +53,7 @@ export default function CustomerNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/tickets" onClick={closeMenu}>
+                        <NavLink to="/ticketsPageCus" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">
