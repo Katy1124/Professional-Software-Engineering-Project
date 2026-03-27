@@ -33,7 +33,7 @@ export default function AdminNav() {
                             ><img src={burger} alt="Menu Icon" style={{width: '20px'}}/>
                         </button>
                     </div>
-                    <Link to="/" style={{ textDecoration: 'none' }}>
+                    <Link to="/admin" style={{ textDecoration: 'none' }}>
                         <div className='navbar-brand'>
                             <img src={giacomLogo} alt="Giacom Logo" style={{width: '200px'}}/>
                         </div>
