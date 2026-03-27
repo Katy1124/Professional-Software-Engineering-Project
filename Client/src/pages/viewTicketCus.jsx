@@ -5,7 +5,7 @@ import { quotesApi } from '../api/quotes.api';
 import '../css/viewTicket.css';
 import CustomerNav from '../components/customerNav';
 
-export default function ViewTicket() {
+export default function ViewTicketCus() {
   const { id } = useParams();
   const [ticket, setTicket] = useState(null);
   const [quote, setQuote] = useState(null);

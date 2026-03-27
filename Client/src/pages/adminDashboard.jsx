@@ -26,7 +26,7 @@ export default function AdminDashboard() {
                     const allTickets = Array.isArray(tickets) ? tickets : [];
                     const userTickets = allTickets.filter(t => t.account_Id === storedUser.id);
                     const counts = {
-                        pending: userTickets.filter(t => t.status === 'p').length,
+                        pending: userTickets.filter(t => t.status === 'p' || t.status === 'qp').length,
                         active: userTickets.filter(t => t.status === 'a' || t.status === 'A').length,
                         resolved: userTickets.filter(t => t.status === 'r').length
                     };
@@ -36,23 +36,6 @@ export default function AdminDashboard() {
                     console.error('Error fetching ticket stats:', error);
                 }
             };
-
-        //TEMPORARY LOGIC USING SEVERITY INSTEAD OF STATUS
-          //   const fetchStats = async () => {
-          //       try {
-          //           const tickets = await ticketsApi.list();
-          //           const allTickets = Array.isArray(tickets) ? tickets : [];
-          //           const counts = {
-          //               pending: allTickets.filter(t => t.severity == 1).length,
-          //               active: allTickets.filter(t => t.severity == 2).length,
-          //               resolved: allTickets.filter(t => t.severity == 3 || t.severity == 4).length
-          //           };
-        
-          //           setStats(counts);
-          //       } catch (error) {
-          //           console.error('Error fetching ticket stats:', error);
-          //       }
-          //   };
         
             fetchStats();
           }, []);
@@ -117,7 +100,7 @@ export default function AdminDashboard() {
             <Link to="/quotegen" style={{ textDecoration: 'none' }}>
               <div className="card edits">
                 <div class="card-body">
-                  <p style={{fontSize: '20px'}}>Edits</p>
+                  <p style={{fontSize: '20px'}}>Quote Editor</p>
                 </div>
               </div>
             </Link>
