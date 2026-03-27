@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ticketsApi } from '../api/tickets.api';
 import { quotesApi } from '../api/quotes.api';
 import { attachmentsApi } from '../api/attachments.api';
-import '../css/viewTicketNEW.css';
+import '../css/viewTicket.css';
 import AdminNav from '../components/adminNav';
 
 export default function ViewTicketAd() {
