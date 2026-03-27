@@ -1,10 +1,10 @@
-/* :root {
+:root {
   --giacom-dark-blue: #100235;
   --giacom-purple: #67236a;
   --giacom-pink: #ec008c;
   --giacom-gold: #ffb91d;
 }
-
+/* Nav */
 .view-ticket .custom-nav {
     background-color: var(--giacom-purple);
 }
@@ -24,7 +24,7 @@
     color: white;
     text-shadow: 0 0 10px #bc52c2, 0 0 20px #bc52c2;
 }
-
+/* Ticket header */
 .view-ticket .card.singleTicket {
     background-color: #D3B7DE;
     margin-top: 10px;
@@ -33,67 +33,84 @@
     max-width: 1000px;
 }
 
-.view-ticket .view-button{
-    background-color: var(--giacom-purple);
-    color: white;
-    transition: all 0.3s ease;
-    border: none;
-}
-.view-ticket .view-button:hover {
-    background-color: #bc52c2;
-}
-
-.view-ticket {
-  width: 100%;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-html, body, #root {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-.view-ticket .footer {
-    margin-top: 10px;
-    background-color: var(--giacom-purple);
-    height: 50px;
-}
-
-.view-ticket .ticket {
+.view-ticket .card.singleTicket .card-body .heading {
     display: flex;
-    flex-direction: col;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
 }
-
-.view-ticket .information {
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid #9b8fa0;
+.view-ticket .card.singleTicket .card-body .heading .ticketno {
+    color: #796482;
 }
-
-.view-ticket .information .col-6 {
-    background-color: #AF98B8;
-    font-size: 20px;
-    padding: 15px;
-}
-
-.view-ticket .information .title .col-12 {
+.view-ticket .card.singleTicket .card-body .heading .account {
     background-color: var(--giacom-purple);
     color: white;
+    font-size: 15px;
+    border-radius: 20px;
+    padding: 3px;
 }
 
-.view-ticket .information .col-6:first-child {
-    border-right: 3px solid #9b8fa0;
+.view-ticket .card.singleTicket .card-body .title {
+    font-weight: bold;
+    font-size: 30px;
+    text-align: left;
 }
 
-.view-ticket .action-btn .resolved, .escalated {
+.view-ticket .card.singleTicket .card-body .date {
+    color: #a268a5;
+    text-align: left;
+    background-color: #d8acdb;
+    border: 1px solid #b97ebc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Ticket info */
+.view-ticket .container.information .row .type,
+.view-ticket .container.information .row .status,
+.view-ticket .container.information .row .severity,
+.view-ticket .container.information .row .impact {
+    color: #a268a5;
+    background-color: #d8acdb;
+    border: 1px solid #b97ebc;
+    border-radius: 10px;
+    margin: 5px;
+    width: auto;
+
+}
+.view-ticket .container.information .row .type,
+.view-ticket .container.information .row .status,
+.view-ticket .container.information .row .severity,
+.view-ticket .container.information .row .impact,
+.view-ticket .container.information .row .users,
+.view-ticket .container.information .row .quote{
+    font-size: 15px;
+    font-weight: normal;
+}
+.view-ticket .container.information .row .users,
+.view-ticket .container.information .row .quote {
+    color: #a268a5;
+    background-color: #d8acdb;
+    border: 1px solid #b97ebc;
+    border-radius: 10px;
+    margin: 5px;
+    width: 48%;
+    text-align: left;
+
+}
+.view-ticket .container.information .row .desc,
+.view-ticket .container.information .row .att {
+    color: #a268a5;
+    background-color: #d8acdb;
+    border: 1px solid #b97ebc;
+    border-radius: 10px;
+    margin: 5px;
+    width: 100%;
+    text-align: left;
+
+}
+/* Buttons */
+.view-ticket .action-btn .resolved,
+.view-ticket .action-btn .escalated {
     background-color: var(--giacom-pink);
     border: none;
     border-radius: 10px;
@@ -103,7 +120,7 @@ html, body, #root {
     margin-left: 30px;
     margin-right: 30px;
 }
-.view-ticket .action-btn .resolved:hover, .escalated:hover {
+.view-ticket .action-btn .resolved:hover,
+.view-ticket .action-btn .escalated:hover {
    background-color: #f47fc5;
 }
-} */

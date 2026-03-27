@@ -14,19 +14,20 @@ export default function TicketsPage() {
   const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
-  const fetchTickets = async () => {
-  try {
+   const fetchTickets = async () => {
+      try {
         const data = await ticketsApi.list();
         const all = Array.isArray(data) ? data : [];
         setTickets(all);
-        } catch (err) {
-          setError(err.message || 'Failed to load tickets');
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchTickets();
-    }, []);
+      } catch (err) {
+        setError(err.message || 'Failed to load tickets');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTickets();
+  }, []);
 
   const statusColor = (Status) => {
     if (!Status) return '#6c757d';
@@ -49,10 +50,10 @@ export default function TicketsPage() {
   };
   const ticketSeverity = (severity) => {
   if (!severity) return 'N/A';
-    if(severity == 1) return 'low'; 
-    if(severity == 2) return 'medium'; 
-    if(severity == 3) return 'high'; 
-    if(severity == 4) return 'critical'; 
+    if(severity == 1) return 'Low'; 
+    if(severity == 2) return 'Medium'; 
+    if(severity == 3) return 'High'; 
+    if(severity == 4) return 'Critical'; 
   };
   const filteredTickets = tickets
     .filter(t => filterSeverity ? t.severity == filterSeverity : true)
@@ -106,11 +107,9 @@ export default function TicketsPage() {
           </select>
         </div>
       </div>
-        
-        <div className="row align-items-start justify-content-center mt-4">
-          {filteredTickets.map((ticket) => (
+
       <div className="row align-items-start justify-content-center mt-4">
-        {tickets.map((ticket) => (
+        {filteredTickets.map((ticket) => (
             <div className="col-auto" key={ticket.id}>
               <div className="card tickets">
                 <div className="card-body">
@@ -146,7 +145,7 @@ export default function TicketsPage() {
                       {ticketStat(ticket.status)}
                     </span> */}
                   {/* </p> */}
-                  <Link to={`/viewTestTicket/${ticket.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/viewTicketAdmin/${ticket.id}`} style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>

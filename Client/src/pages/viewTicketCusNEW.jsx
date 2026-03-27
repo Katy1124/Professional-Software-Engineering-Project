@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { ticketsApi } from '../api/tickets.api';
 import { quotesApi } from '../api/quotes.api';
 import '../css/viewTicket.css';
-import AdminNav from '../components/adminNav';
+import CustomerNav from '../components/customerNav';
 
-export default function ViewTicket() {
+export default function CustViewTicket() {
   const { id } = useParams();
   const [ticket, setTicket] = useState(null);
   const [quote, setQuote] = useState(null);
@@ -13,40 +13,19 @@ export default function ViewTicket() {
   useEffect(() => {
     const fetchTicket = async () => {
       try {
-        const data = await ticketsApi.getById(id);
-        setTicket(data);
+      const data = await ticketsApi.getById(id);
+      setTicket(data);
 
-        const quoteData = await quotesApi.list();
-        const all = Array.isArray(quoteData) ? quoteData : [];
-        const ticketQuote = all.find(q => q.ticket_Id === parseInt(id));
-        if (ticketQuote) setQuote(ticketQuote);
+      const quoteData = await quotesApi.list();
+      const all = Array.isArray(quoteData) ? quoteData : [];
+      const ticketQuote = all.find(q => q.ticket_Id === parseInt(id));
+      if (ticketQuote) setQuote(ticketQuote);
       } catch (error) {
         console.error('Error fetching ticket:', error);
       }
     };
     fetchTicket();
   }, [id]);
-
-  const handleResolved = async () => {
-      try {
-        await ticketsApi.update(id, {...ticket, status: 'r'});
-        setTicket(prev => ({...prev, status: 'r'}));
-        alert('This ticket is now Resolved');
-      } catch (error) {
-        console.error('Error resolving the ticket:', error);
-        alert('Failed to resolve ticket');
-      }
-    }
-    const handleEscalated = async () => {
-      try {
-        await ticketsApi.update(id, {...ticket, status: 'e'});
-        setTicket(prev => ({...prev, status: 'e'}));
-        alert('This ticket has been Escalated');
-      } catch (error) {
-        console.error('Error escalating the ticket:', error);
-        alert('Failed to escalate ticket');
-      }
-    }
 
     const ticketStat = (Status) => {
   if (!Status) return 'N/A';
@@ -108,9 +87,9 @@ const statusColour = (status) => {
 
   if (!ticket) return <p style={{ color: 'white', padding: '2rem' }}>Loading...</p>;
 
-  return (
+ return (
     <div className="view-ticket">
-      <AdminNav />
+      <CustomerNav/>
 
       <div className="container-fluid text-center" style={{ paddingTop: '50px' }}>
         <div className="row align-items-center justify-content-center">
@@ -187,12 +166,6 @@ const statusColour = (status) => {
                   </div>
                 </div>
               </div>
-                  <div className='action-btn'>
-                    <button className='resolved' onClick={handleResolved} disabled={ticket.status?.toLowerCase() === 'r'}
-                    style={{backgroundColor: ticket.status?.toLowerCase() === 'r' ? '#6c757d' : '#ff007f', color: 'white'}}>Resolve</button>
-                    <button className='escalated' onClick={handleEscalated} disabled={ticket.status?.toLowerCase() === 'e'}
-                    style={{backgroundColor: ticket.status?.toLowerCase() === 'e' ? '#6c757d' : '#ff007f', color: 'white'}}>Escalate</button>
-                  </div>
             </div>
           </div>
         </div>
