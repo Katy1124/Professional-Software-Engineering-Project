@@ -387,8 +387,8 @@ export default function QuoteEstimate() {
                     </p>
                   </div>
                 )}
-                <button className="btn quote-btn-approve w-100 mb-2" onClick={handleApprove} disabled={!ticket || saving}>
-                  Approve Quote
+                <button className="btn quote-btn-accept w-100 mb-2" onClick={handleApprove} disabled={!ticket || saving}>
+                  Accept Quote
                 </button>
                 <button className="btn quote-btn-reject w-100" onClick={handleReject} disabled={!ticket || saving}>
                   Reject / Request Changes

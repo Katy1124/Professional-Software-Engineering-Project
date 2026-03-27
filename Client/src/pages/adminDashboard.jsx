@@ -24,9 +24,9 @@ export default function AdminDashboard() {
                     }
                     const tickets = await ticketsApi.list();
                     const allTickets = Array.isArray(tickets) ? tickets : [];
-                    const userTickets = allTickets.filter(t => t.account_Id === storedUser.id);
+                    const userTickets = allTickets;
                     const counts = {
-                        pending: userTickets.filter(t => t.status === 'p' || t.status === 'qp').length,
+                        pending: userTickets.filter(t => t.status === 'p' || t.status === 'P').length,
                         active: userTickets.filter(t => t.status === 'a' || t.status === 'A').length,
                         resolved: userTickets.filter(t => t.status === 'r').length
                     };
