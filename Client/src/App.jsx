@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import SecurePath from './components/securepath';
 import LoginPage from './pages/loginPage';
-
+// new commit
 // Admin Pages
 import AdminDashboard from './pages/adminDashboard'; //Admin Dashboard
 import AdminQuotesPage from './pages/adminQuotesPage'; //All Quotes
