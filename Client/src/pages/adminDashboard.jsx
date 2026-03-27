@@ -117,7 +117,7 @@ export default function AdminDashboard() {
             <Link to="/quotegen" style={{ textDecoration: 'none' }}>
               <div className="card edits">
                 <div class="card-body">
-                  <p style={{fontSize: '20px'}}>Edits</p>
+                  <p style={{fontSize: '20px'}}>Quote Editor</p>
                 </div>
               </div>
             </Link>
