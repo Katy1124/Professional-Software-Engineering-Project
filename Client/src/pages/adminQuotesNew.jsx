@@ -1,29 +1,37 @@
-import CustomerNav from '../components/customerNav';
 import { useState, useEffect } from 'react';
 import { ticketsApi } from '../api/tickets.api';
+import { quotesApi } from '../api/quotes.api';
+import { logsApi } from '../api/logs.api';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/customerQuote.css';
-
-const BASE_RATE   = { E: 65, I: 85, S: 55 };
-const SEV_MULT    = { 1: 1.0, 2: 1.25, 3: 1.6, 4: 2.0 };
+import '../css/quoteGenerator.css';
+import AdminNav from '../components/adminNav';
+import CommentWin from '../components/commentWindow';
+ 
+const SEV_MULT = { 1: 1.0, 2: 1.25, 3: 1.6, 4: 2.0 };
 const IMPACT_MULT = { 1: 1.0, 2: 1.15, 3: 1.35, 4: 1.6 };
-const RES_HOURS   = {
-    E: { 1: 8,  2: 12, 3: 20, 4: 32 },
-    I: { 1: 2,  2: 4,  3: 8,  4: 16 },
-    S: { 1: 4,  2: 6,  3: 10, 4: 18 },
-  };
+const BASE_RATE = { E: 65, I: 85, S: 55 };
+ 
+const RES_HOURS = {
+  E: { 1: 8,  2: 12, 3: 20, 4: 32 },
+  I: { 1: 2,  2: 4,  3: 8,  4: 16 },
+  S: { 1: 4,  2: 6,  3: 10, 4: 18 },
+};
+ 
 const ROLE_SPLIT = {
   E: { BA: 0.05, QA: 0.50, Architect: 0.00, Developer: 0.45 },
   I: { BA: 0.02, QA: 0.20, Architect: 0.00, Developer: 0.78 },
   S: { BA: 0.10, QA: 0.10, Architect: 0.00, Developer: 0.80 },
 };
-
+ 
 const normType = (t = '') => {
   const u = String(t).trim().toUpperCase();
   if (u === 'E' || u === 'ENHANCEMENT') return 'E';
   if (u === 'I' || u === 'INCIDENT') return 'I';
   return 'S';
 };
+ 
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, Number(v) || lo));
+ 
 const fmt = (n) => `£${Number(n).toFixed(2)}`;
 const fmtH = (n) => `${Number(n).toFixed(1)}h`;
  
@@ -55,22 +63,25 @@ const ticketImpact = (impact) => {
 const ticketStat = (status) => {
   if (!status) return 'N/A';
   const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return 'Quote Pending';
+  if (s === 'qr') return 'Quote Ready';
   if (s === 'a') return 'Active';
-  if (s === 'p') return 'Pending';
-  if (s === 'c') return 'Closed';
+  if (s === 'e') return 'Escalated';
+  if (s === 'r') return 'Resolved';
   return 'N/A';
 };
  
 const statusColor = (status) => {
   if (!status) return '#6c757d';
   const s = status.toLowerCase();
-  if (s === 'a') return '#22c55e';
-  if (s === 'p') return '#f59e0b';
-  if (s === 'r') return '#75aef4';
+  if (s === 'qp' || s === 'p') return '#B58229';
+  if (s === 'qr') return '#236A49';
+  if (s === 'a') return '#236A49';
   if (s === 'e') return '#dc3545';
+  if (s === 'r') return '#75aef4';
   return '#6c757d';
 };
-
+ 
 function TicketModal({ tickets, loading, error, onSelect, onClose }) {
   const [search, setSearch] = useState('');
  
@@ -158,98 +169,209 @@ function TicketModal({ tickets, loading, error, onSelect, onClose }) {
     </div>
   );
 }
+// Page Function
 export default function QuoteEstimate() {
   const [tickets, setTickets] = useState([]);
   const [ticketsLoading, setTicketsLoading] = useState(true);
   const [ticketsError, setTicketsError] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [resHours, setResHours] = useState('');
-  const [devHours, setDevHours] = useState('');
-  const [hourlyRate, setHourlyRate] = useState('');
   const [ticket, setTicket] = useState(null);
-  const [saving, setSaving] = useState(false);
-  const [toast, setToast] = useState(null);
-  const [internalNotes, setInternalNotes] = useState('');
  
-  useEffect(() => {
-  const fetchTickets = async () => {
-    try {
-      const storedUser = JSON.parse(localStorage.getItem('user'));
-      if (!storedUser || !storedUser.id) {
-        console.error("No userID");
-        setTicketsError('You must be logged in to view tickets.');
-        return;
-      }
+  const [existingQuote, setExistingQuote] = useState(null);
+ 
+const [autoResHrs, setAutoResHrs] = useState('');
+const [autoRate,   setAutoRate]   = useState('');
 
-      const data = await ticketsApi.list();
-      const all = Array.isArray(data) ? data : [];
-      const userTickets = all.filter((t) => t.account_Id === storedUser.id);
-      setTickets(userTickets);
+const [resHours,    setResHours]    = useState('');
+const [devHours,    setDevHours]    = useState('');
+const [hourlyRate,  setHourlyRate]  = useState('');
+const [internalNotes, setInternalNotes] = useState('');
+const [saving,  setSaving]  = useState(false);
+const [toast,   setToast]   = useState(null);
+
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const data = await ticketsApi.list();
+        setTickets(Array.isArray(data) ? data : []);
+      } catch (err) {
+        setTicketsError(err.message || 'Failed to load tickets');
+      } finally {
+        setTicketsLoading(false);
+      }
+    };
+    fetchTickets();
+  }, []);
+ 
+useEffect(() => {
+  // If no ticket is selected, reset everything and stop
+  if (!ticket?.id) {
+    setExistingQuote(null);
+    setResHours('');
+    setHourlyRate('');
+    return;
+  }
+
+  console.log(`--- Switching to Ticket #${ticket.id} ---`);
+
+  const fetchExistingQuote = async () => {
+    try {
+      // 1. Clear the old state so we don't show Quote 33 while loading
+      setExistingQuote(null);
+      
+      
+      
+      // Handle both Array and Object responses
+      const data = await quotesApi.getByTicketId(ticket.id);
+
+// Filter the array to find the quote that ACTUALLY matches this ticket ID
+const found = Array.isArray(data) 
+  ? data.find(q => q.ticket_Id === ticket.id) 
+  : (data?.ticket_Id === ticket.id ? data : null);
+
+      if (found && found.id) {
+        console.log(`✅ Found Quote #${found.id} for Ticket #${ticket.id}`);
+        setExistingQuote(found);
+        setResHours(String(found.estimated_Resolution_Time || ''));
+        setHourlyRate(String(found.hourly_Rate || ''));
+      } else {
+        console.log(`ℹ️ No existing quote found for Ticket #${ticket.id}`);
+        // Reset inputs to blank so auto-calculation takes over
+        setExistingQuote(null);
+        setResHours('');
+        setHourlyRate('');
+      }
     } catch (err) {
-      setTicketsError(err.message || 'Failed to load tickets');
-    } finally {
-      setTicketsLoading(false);
+      console.error("❌ Failed to fetch quote for ticket:", ticket.id, err);
+      setExistingQuote(null);
     }
   };
-  fetchTickets();
-}, []);
- useEffect(() => {
-  if (!ticket) return;
-  const type   = normType(ticket.type);
-  const sev    = Math.max(1, Math.min(4, Number(ticket.severity) || 1));
-  const impact = Math.max(1, Math.min(4, Number(ticket.technical_Diffculty) || 1));
-  const autoResHrs = (RES_HOURS[type] ?? RES_HOURS.S)[sev];
-  const autoDevHrs = +(autoResHrs * 0.6).toFixed(1);
-  const autoRate   = +(BASE_RATE[type] * SEV_MULT[sev] * IMPACT_MULT[impact]).toFixed(2);
-  setResHours(String(autoResHrs));
-  setDevHours(String(autoDevHrs));
-  setHourlyRate(String(autoRate));
-}, [ticket?.id]);
-  useEffect(() => {
-    if (!ticket) return;
-    const type = normType(ticket.type);
-  }, [ticket?.id]);
- 
-  const type = ticket ? normType(ticket.type) : 'S';
-  const effectiveResHrs = Math.max(0, parseFloat(resHours) || 0);
-  const effectiveDevHrs = Math.max(0, parseFloat(devHours) || 0);
-  const effectiveRate = Math.max(0, parseFloat(hourlyRate) || 0);
-  const totalCost = +(effectiveRate * effectiveResHrs).toFixed(2);
+
+  fetchExistingQuote();
+  setInternalNotes('');
+}, [ticket?.id]); // Only re-run when the ID actually changes
+
+  const type    = ticket ? normType(ticket.type) : 'S';
+  const sev     = ticket ? clamp(ticket.severity || 1, 1, 4) : 1;
+  const impact  = ticket ? clamp(ticket.technical_Diffculty || 1, 1, 4) : 1;
+  const baseRate = BASE_RATE[type] ?? 65;
+
+  const effectiveResHrs = Math.max(0, parseFloat(resHours  || autoResHrs)  || 0);
+  const effectiveDevHrs = Math.max(0, parseFloat(devHours  || autoResHrs)  || 0);
+  const effectiveRate   = Math.max(0, parseFloat(hourlyRate || autoRate)    || 0);
+  const totalCost       = +(effectiveRate * effectiveResHrs).toFixed(2);
+
  
   const showToast = (msg, ok = true) => {
     setToast({ msg, ok });
     setTimeout(() => setToast(null), 3000);
   };
+  const resHourschange = (Hours) => {
+    setResHours(Hours);
+    setDevHours(String(+(parseFloat(Hours || autoResHrs) * 0.6).toFixed(1)));
+  };
+
+  const handleComment = async () => {
+    if (!internalNotes.trim()) return;
+
+    const today = new Date();
+    const formattedDate = parseInt(
+      `${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`
+    );
+
+    const payload = {
+      ticket_Id: ticket.id,
+      description: `[COMMENT] ${internalNotes}`,
+      date: formattedDate
+    };
+
+    try {
+      await logsApi.create(payload);
+      setInternalNotes('');
+    } catch (error) {
+      console.error('Error adding comment:', error);
+      throw error; // Pass up to handleSaveQuote
+    }
+  };
+
   const handleApprove = async () => {
-    if (!ticket) return;
+    if (!ticket) return ;
+
     setSaving(true);
     try {
-      await ticketsApi.update(ticket.id, { ...ticket, status: 'a', quote: totalCost });
-      setTicket((prev) => ({ ...prev, status: 'a', quote: totalCost }));
-      showToast('Quote approved');
+      const updatedStatus = {
+        ...ticket,
+        status: 'qr'
+      };
+      await ticketsApi.update(ticket.id, updatedStatus);
+      setTicket(updatedStatus);
+      showToast('Ticket marked as Quote Ready');
     } catch (err) {
-      showToast(err.message || 'Approve failed', false);
-    } finally {
-      setSaving(false);
+    console.error("Failed to approve ticket:", err);
+    showToast(err.message || "Approval failed", false);
+  } finally {
+    setSaving(false);
+  }
+};
+
+const handleSaveQuote = async () => {
+  if (!ticket) {
+    console.log("No ticket selected, stopping.");
+    return;
+  }
+  
+  setSaving(true);
+  console.log("Save Button Clicked for Ticket:", ticket.id);
+
+  try {
+    // 1. Build the payload with the necessary IDs
+    const payload = {
+      // Include the quote's primary key ID
+      id: existingQuote?.id, 
+      hourly_Rate: effectiveRate,
+      estimated_Resolution_Time: effectiveResHrs,
+      estimated_Cost: totalCost,
+      priority_Level: sev,
+      effort_Level: impact,
+      status: 'p', // 'p' for Pending
+      ticket_Id: ticket.id,
+    };
+
+    let result;
+
+    if (existingQuote?.id) {
+      console.log("✅ Attempting PUT (Update) for Quote ID:", existingQuote.id);
+      // Ensure your quotesApi.update is (id, payload) => http.put(`/api/Quotes/${id}`, payload)
+      result = await quotesApi.update(existingQuote.id, payload);
+      showToast('Quote updated successfully');
+    } else {
+      console.log("🆕 Attempting POST (Create) for Ticket:", ticket.id);
+      // If you need to create a new one, uncomment the create call:
+      result = await quotesApi.create(payload);
+      showToast('Quote created successfully');
     }
-  };
- 
-  const handleReject = async () => {
-    if (!ticket) return;
-    setSaving(true);
-    try {
-      await ticketsApi.update(ticket.id, { ...ticket, status: 'p' });
-      setTicket((prev) => ({ ...prev, status: 'p' }));
-      showToast('Returned for changes');
-    } catch (err) {
-      showToast(err.message || 'Reject failed', false);
-    } finally {
-      setSaving(false);
-    }
-  };
+
+    if (internalNotes.trim()) {
+        await handleComment();
+      }
+
+    // Update the state with the response from the server
+    setExistingQuote(result); 
+
+  } catch (err) {
+    console.error("API Error Detail:", err);
+    // This will now show the actual server message if it fails again
+    showToast(err.message || "Save failed", false);
+  } finally {
+    setSaving(false);
+  }
+};
+  // Page
   return (
     <div className="quote-generator">
-      <CustomerNav />
+      <AdminNav />
  
       {toast && (
         <div style={{ position: 'fixed', top: 76, right: 20, zIndex: 2000, background: toast.ok ? '#065f46' : '#7f1d1d', border: `1px solid ${toast.ok ? '#059669' : '#991b1b'}`, borderRadius: 8, padding: '10px 18px', color: 'white', fontSize: 14, fontWeight: 500 }}>
@@ -318,6 +440,68 @@ export default function QuoteEstimate() {
  
                 {ticket && (
                   <>
+                    <div className="quote-inner-card p-3 mb-3">
+                      <p className="quote-subheading">Auto-calculated from ticket</p>
+                      <div className="row g-2">
+                        <div className="col-6">
+                          <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
+                            Ticket Type: <span className="quote-value" style={{ fontSize: 13 }}>{ticketType(ticket.type)}</span>
+                          </p>
+                        </div>
+                        <div className="col-6">
+                          <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
+                            Base Rate: <span className="quote-value" style={{ fontSize: 13 }}>{fmt(baseRate)}/hr</span>
+                          </p>
+                        </div>
+                        <div className="col-6">
+                          <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
+                            Severity: <span className="quote-value" style={{ fontSize: 13 }}>{ticketSeverity(ticket.severity)} (×{SEV_MULT[sev]})</span>
+                          </p>
+                        </div>
+                        <div className="col-6">
+                          <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
+                            Business Impact: <span className="quote-value" style={{ fontSize: 13 }}>{ticketImpact(ticket.technical_Diffculty)} (×{IMPACT_MULT[impact]})</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="quote-inner-card p-3 mb-3">
+                      <p className="quote-subheading">Quote Inputs</p>
+                      <div className="row g-3">
+                        <div className="col-4">
+                          <label style={{ color: 'white', fontSize: 13, marginBottom: 4, display: 'block' }}>Resolution Time (hrs)</label>
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.5"
+                            className="form-control quote-input"
+                            value={resHours}
+                            placeholder={autoResHrs}
+                            onChange={(e) => resHourschange(e.target.value)}
+                          />
+                          <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmtH((RES_HOURS[type] ?? RES_HOURS.S)[sev])}</small>
+                        </div>
+                        <div className="col-4">
+                          <label style={{ color: 'white', fontSize: 13, marginBottom:4, display: 'block' }}>Hourly Rate (£)</label>
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.5"
+                            className="form-control quote-input"
+                            value={hourlyRate}
+                            placeholder={autoRate}
+                            onChange={(e) => setHourlyRate(e.target.value)}
+                          />
+                          <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmt(+(baseRate * SEV_MULT[sev] * IMPACT_MULT[impact]).toFixed(2))}/hr</small>
+                        </div>
+                        <div className='col-4'>
+                          <button className='btn quote-btn-app w-100 mb-2' onClick={handleApprove} disabled={!ticket || saving || ticketStat == 'qr'}> 
+                            Approve 
+                          </button>
+                          {/* <button className='btn quote-btn-save w-100 mb-2'> Reject </button> */}
+                        </div>
+                      </div>
+                    </div>
                     <div className="quote-inner-card p-3">
                       <p className="quote-subheading">Price Breakdown</p>
                       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
@@ -358,9 +542,7 @@ export default function QuoteEstimate() {
                               </tr>
                             );
                           })}
-                          <tr>
-
-                          </tr>
+ 
                           <tr style={{ borderTop: '2px solid #9b59a0' }}>
                             <td style={{ color: '#d4b8d6', padding: '10px 0 4px', fontWeight: 'bold', fontSize: 15 }}>Total Quote</td>
                             <td style={{ color: 'white', textAlign: 'right', padding: '10px 0 4px', fontWeight: 'bold' }}>{fmtH(effectiveResHrs)}</td>
@@ -377,7 +559,7 @@ export default function QuoteEstimate() {
               </div>
  
               <div className="col-3 quote-actions p-3">
-                <p className="quote-subheading">Customer Controls</p>
+                <p className="quote-subheading">Admin Controls</p>
  
                 {ticket && (
                   <div className="mb-3 p-2" style={{ background: '#2d0a3e', borderRadius: 8 }}>
@@ -387,11 +569,29 @@ export default function QuoteEstimate() {
                     </p>
                   </div>
                 )}
-                <button className="btn quote-btn-approve w-100 mb-2" onClick={handleApprove} disabled={!ticket || saving}>
-                  Approve Quote
-                </button>
-                <button className="btn quote-btn-reject w-100" onClick={handleReject} disabled={!ticket || saving}>
-                  Reject / Request Changes
+ 
+                <div className="mb-3">
+                  <label style={{ color: 'white' }}>Internal Notes</label>
+                  <textarea
+                    className="form-control quote-input mt-1"
+                    rows="3"
+                    placeholder="Internal notes..."
+                    value={internalNotes} 
+                    onChange={e => setInternalNotes(e.target.value)}
+                  />
+                </div>
+ 
+                <button className="btn openComment w-100 mb-2" onClick={() => setIsModalOpen(true)}>
+                      Open Comments
+                    </button>
+                    {isModalOpen && ticket && (
+                    <CommentWin 
+                        ticketId={ticket.id} 
+                        onClose={() => setIsModalOpen(false)} 
+                    />
+                )}
+                <button className="btn quote-btn-save w-100 mb-2" onClick={handleSaveQuote} disabled={!ticket || saving}>
+                  {saving ? 'Saving…' : existingQuote ? 'Update Quote' : 'Create Quote'}
                 </button>
               </div>
  
