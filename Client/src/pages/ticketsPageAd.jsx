@@ -145,7 +145,7 @@ export default function TicketsPage() {
                       {ticketStat(ticket.status)}
                     </span> */}
                   {/* </p> */}
-                  <Link to={`/viewTicketAdmin/${ticket.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/viewticketad/${ticket.id}`} style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>

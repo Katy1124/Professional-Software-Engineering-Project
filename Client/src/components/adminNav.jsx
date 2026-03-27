@@ -53,7 +53,7 @@ export default function AdminNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/ticketsPageAd" onClick={closeMenu}>
+                        <NavLink to="/alltickets" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">

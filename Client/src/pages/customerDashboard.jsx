@@ -73,9 +73,9 @@ export default function CustomerDashboard() {
   ];
 
   const routes = {
-    createTicket: '/tickets/create',
-    myTickets: '/tickets',
-    myQuotes: '/viewquote'
+    createTicket: 'create/',
+    myTickets: 'tickets/',
+    myQuotes: 'viewquote/'
   };
 
   return (
@@ -120,12 +120,12 @@ export default function CustomerDashboard() {
           <div className="row justify-content-center gap-3">
           <div className="row justify-content-center">
             <div className="col-6">
-              <Link to="/ticketsPageCus" className="card quick-link-card p-4 text-decoration-none d-block">
+              <Link to="/mytickets" className="card quick-link-card p-4 text-decoration-none d-block">
                 My Tickets
               </Link>
             </div>
             <div className="col-6">
-              <Link to="/viewquote" className="card quick-link-card p-4 text-decoration-none d-block">
+              <Link to="/myquotes" className="card quick-link-card p-4 text-decoration-none d-block">
                 My Quotes
               </Link>
             </div>
