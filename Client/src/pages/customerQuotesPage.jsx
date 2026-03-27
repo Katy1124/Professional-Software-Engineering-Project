@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { quotesApi } from '../api/quotes.api';
-import '../css/ticketsPage.css';
+import '../css/quotesPage.css';
 import CustomerNav from '../components/customerNav';
 
 // const ACCOUNT_ID = 1;
@@ -25,7 +25,7 @@ export default function CustomerQuotesPage() {
         const data = await quotesApi.list();
         const all = Array.isArray(data) ? data : [];
         if (userObj && userObj.id) {
-          const filtered = all.filter(q => q.status === 'Approved');
+          const filtered = all.filter(q => q.status === 'p');
         setQuotes(filtered);
       } else {
         setError("No user session found. Please log in again.");
@@ -45,6 +45,25 @@ export default function CustomerQuotesPage() {
     navigate(`/viewquote/${quote.id}`);
   }
 
+  const statusColor = (Status) => {
+    if (!Status) return '#6c757d';
+    const s = Status.toLowerCase();
+    if (s === 'a') return '#236A49';
+    if (s === 'p') return '#B58229';
+    if (s === 'r') return '#75aef4';
+    if (s === 'e') return '#dc3545';
+    return '#6c757d';
+  };
+  const ticketStat = (Status) => {
+  if (!Status) return 'N/A';
+    const s = Status.toLowerCase();
+    if (s === 'a') return 'Active';
+    if (s === 'p') return 'Pending';
+    if (s === 'r') return 'Resolved';
+    if (s === 'e') return 'Escalated';
+    return 'N/A';
+  };
+
     const priorityLevel = (plevel) => {
     if (plevel === 1) return 'Low';
     if (plevel === 2) return 'Medium';
@@ -61,7 +80,7 @@ export default function CustomerQuotesPage() {
   };
 
   return (
-    <div className="tickets-page">
+    <div className="quotes-page">
 
       <CustomerNav />
 
@@ -82,9 +101,9 @@ export default function CustomerQuotesPage() {
         <div className="row align-items-start justify-content-center mt-4">
           {quotes.map((quote) => (
             <div className="col-auto" key={quote.id}>
-              <div className="card tickets">
+              <div className="card quotes">
                 <div className="card-body">
-                  <p style={{ fontSize: '60px', fontWeight: 'bold' }}>Quote {quote.id}</p>
+                  {/* <p style={{ fontSize: '60px', fontWeight: 'bold' }}>Quote {quote.id}</p>
                   <p style={{ fontSize: '40px' }}>Ticket: {quote.ticket_Id}</p>
                   <p style={{ fontSize: '20px' }}><span>Hourly Rate: </span><span>£{quote.hourly_Rate}</span></p>
                   <p style={{ fontSize: '20px' }}><span>Estimated Time: </span><span>{quote.estimated_Resolution_Time} hrs</span></p>
@@ -98,7 +117,50 @@ export default function CustomerQuotesPage() {
                   </p>
                   <button className="view-button" onClick={() => handleViewQuote(quote)}>
                     View
-                  </button>
+                  </button> */}
+                  <p className='number'>Quote {quote.id}</p>
+                  <p className='ticket'>Ticket: {quote.ticket_Id}</p>
+                  {/* <p className='title'>{ticket.title}</p> */}
+                  <table className="table table-borderless ticket-table">
+                    <tbody>
+                      <tr className='hour'>
+                        <td>Hourly Rate: </td>
+                        <td>£{quote.hourly_Rate}</td>
+                      </tr>
+                      <tr className='time'>
+                        <td>Estimated Time: </td>
+                        <td>{quote.estimated_Resolution_Time} hrs</td>
+                      </tr>
+                      <tr className='cost'>
+                        <td>Total Cost: </td>
+                        <td>£{quote.estimated_Cost?.toFixed(2)}</td>
+                      </tr>
+                      <tr className='priority'>
+                        <td>Priority Level: </td>
+                        <td>{priorityLevel(quote.priority_Level)}</td>
+                      </tr>
+                      <tr className='effort'>
+                        <td>Effort Level: </td>
+                        <td>{effortLevel(quote.effort_Level)}</td>
+                      </tr>
+                      <tr className='status'>
+                        <td>Status: </td>
+                        <td style={{ backgroundColor: statusColor(quote.status), color: 'white', borderRadius: '20px', textAlign: 'center' }}>{ticketStat(quote.status)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  {/* <p className='severity'><span>Severity: </span><span></span></p>
+                  <p className='users'><span>Users Affected: </span><span></span></p>
+                  <p className='date'><span>Deadline: </span><span>days</span></p>
+                  <p className='status'>
+                    <span>Status: </span> */}
+                    {/* <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: statusColor(ticket.status), color: 'white' }}>
+                      {ticketStat(ticket.status)}
+                    </span> */}
+                  {/* </p> */}
+                  <button className="view-button" onClick={() => handleViewQuote(quote)}>
+                    View
+                  </button> 
                 </div>
               </div>
             </div>

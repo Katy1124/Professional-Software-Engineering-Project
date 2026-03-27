@@ -17,7 +17,7 @@ import TicketForm from './pages/ticketForm'; //Ticket Form
 import TicketsPageCus from './pages/ticketsPageCus'; //Customer Tickets
 import CustomerQuotesPage from './pages/customerQuotesPage'; //Customer Quotes
 import CustomerQuote from './pages/customerQuote'; //Customer View Quote
-import ViewTicketCus from './pages/viewTicketCus'; //Customer View Ticket
+import ViewTicketCus from './pages/viewTicketCusNEW'; //Customer View Ticket
 
 function App() {
   return (
