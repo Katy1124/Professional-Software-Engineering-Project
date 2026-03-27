@@ -3,6 +3,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 async function request(path, options = {}) {
   const url = `${BASE_URL}${path}`;
   const token = localStorage.getItem("token");
+  console.log("Requesting:", url, "Token exists:", !!token);
 
   const isFormData = options.body instanceof FormData;
 
@@ -31,6 +32,8 @@ async function request(path, options = {}) {
   if (res.status === 401) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    console.log("SESSION EXPIRED!")
+    throw new Error("Your session has expired. Please log in again.")
   }
 
   if (!res.ok) {

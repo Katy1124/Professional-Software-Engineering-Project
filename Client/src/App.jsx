@@ -6,7 +6,8 @@ import LoginPage from './pages/loginPage';
 // Admin Pages
 import AdminDashboard from './pages/adminDashboard';
 import AdminQuotesPage from './pages/adminQuotesPage';
-import QuoteEstimate from './pages/quoteGenerator';
+// import QuoteEstimate from './pages/quoteGenerator';
+import QuoteEstimate from './pages/adminQuotesNew';
 // Customer Pages
 import CustomerDashboard from './pages/customerDashboard';
 import TicketForm from './pages/ticketForm';
