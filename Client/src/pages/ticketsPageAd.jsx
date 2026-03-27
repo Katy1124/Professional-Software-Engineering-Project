@@ -10,6 +10,8 @@ export default function TicketsPage() {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterSeverity, setFilterSeverity] = useState('');
+  const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
    const fetchTickets = async () => {
@@ -48,11 +50,18 @@ export default function TicketsPage() {
   };
   const ticketSeverity = (severity) => {
   if (!severity) return 'N/A';
-    if(severity == 1) return 'low'; 
-    if(severity == 2) return 'medium'; 
-    if(severity == 3) return 'high'; 
-    if(severity == 4) return 'critical'; 
+    if(severity == 1) return 'Low'; 
+    if(severity == 2) return 'Medium'; 
+    if(severity == 3) return 'High'; 
+    if(severity == 4) return 'Critical'; 
   };
+  const filteredTickets = tickets
+    .filter(t => filterSeverity ? t.severity == filterSeverity : true)
+    .sort((a, b) => {
+      if (sortBy === 'deadline') return a.deadline - b.deadline;
+      if (sortBy === 'severity') return b.severity - a.severity;
+      return 0;
+    });
   return (
     <div className="tickets-page">
 
@@ -72,8 +81,35 @@ export default function TicketsPage() {
           <p style={{ color: 'white', marginTop: '2rem' }}>No tickets found for account {ACCOUNT_ID}.</p>
         )}
 
+        <div className="row justify-content-center mb-4 filter-container">
+        <div className="col-md-3">
+          <label className="filter-label">Filter Severity</label>
+          <select 
+            className="form-select custom-select" 
+            onChange={(e) => setFilterSeverity(e.target.value)}
+          >
+            <option value="">All Severities</option>
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+            <option value="4">Critical</option>
+          </select>
+        </div>
+        <div className="col-md-3">
+          <label className="filter-label">Sort By</label>
+          <select 
+            className="form-select custom-select" 
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="">Default</option>
+            <option value="deadline">Shortest Deadline</option>
+            <option value="severity">Highest Severity</option>
+          </select>
+        </div>
+      </div>
+
       <div className="row align-items-start justify-content-center mt-4">
-        {tickets.map((ticket) => (
+        {filteredTickets.map((ticket) => (
             <div className="col-auto" key={ticket.id}>
               <div className="card tickets">
                 <div className="card-body">
@@ -109,7 +145,7 @@ export default function TicketsPage() {
                       {ticketStat(ticket.status)}
                     </span> */}
                   {/* </p> */}
-                  <Link to={`/viewTestTicket/${ticket.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/viewTicketAdmin/${ticket.id}`} style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>

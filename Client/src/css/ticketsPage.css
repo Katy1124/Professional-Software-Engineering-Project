@@ -61,6 +61,8 @@ html, body, #root {
 }
 
 .tickets-page .footer {
+    flex-shrink: 0;
+    width: 100%;
     margin-top: 10px;
     background-color: var(--giacom-purple);
     height: 50px;
@@ -97,6 +99,12 @@ html, body, #root {
     color: black;
     text-align: center;
     font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 100%;
+    padding:10px;
 }
 
 .tickets-page .tickets .card-body table td {
@@ -112,4 +120,60 @@ html, body, #root {
 }
 .tickets-page .tickets .card-body table .severity, .users, .date {
     border-bottom: 1px solid #8e7897;
+}
+
+/* 1. Fix the Clipping: Add a container with top margin */
+.tickets-page .filter-container {
+    margin-top: 30px; /* Pushes the filters away from the AdminNav */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05); /* Subtle glass effect */
+    border-radius: 10px;
+    border: 1px solid var(--giacom-purple);
+}
+
+/* 2. Style the labels with Giacom Gold to make them less dull */
+.tickets-page .filter-label {
+    color: var(--giacom-gold); 
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* 3. Elevate the Select Boxes */
+.tickets-page .custom-select {
+    background-color: var(--giacom-dark-blue); /* Matches the site theme */
+    color: white;
+    border: 2px solid var(--giacom-purple);
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none; /* Removes default browser arrow if you want to custom style it later */
+}
+
+/* 4. Interaction States */
+.tickets-page .custom-select:hover {
+    border-color: var(--giacom-pink);
+    background-color: #1a0a4a; /* Slightly lighter blue on hover */
+}
+
+.tickets-page .custom-select:focus {
+    border-color: var(--giacom-pink);
+    box-shadow: 0 0 15px var(--giacom-pink); /* Stronger glow for visual feedback */
+    outline: none;
+}
+
+/* Ensure the options inside the dropdown aren't white/unreadable */
+.tickets-page .custom-select option {
+    background-color: var(--giacom-dark-blue);
+    color: white;
+}
+
+/* This pushes the footer down by telling the middle content to grow */
+.tickets-page .container.mt-4 {
+    flex: 1 0 auto;
 }
