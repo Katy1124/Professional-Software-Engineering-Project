@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { ticketsApi } from '../api/tickets.api';
 import { quotesApi } from '../api/quotes.api';
+import { logsApi } from '../api/logs.api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/quoteGenerator.css';
 import AdminNav from '../components/adminNav';
+import CommentWin from '../components/commentWindow';
  
 const SEV_MULT = { 1: 1.0, 2: 1.25, 3: 1.6, 4: 2.0 };
 const IMPACT_MULT = { 1: 1.0, 2: 1.15, 3: 1.35, 4: 1.6 };
@@ -61,18 +63,22 @@ const ticketImpact = (impact) => {
 const ticketStat = (status) => {
   if (!status) return 'N/A';
   const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return 'Quote Pending';
+  if (s === 'qr') return 'Quote Ready';
   if (s === 'a') return 'Active';
-  if (s === 'p') return 'Pending';
-  if (s === 'c') return 'Closed';
+  if (s === 'e') return 'Escalated';
+  if (s === 'r') return 'Resolved';
   return 'N/A';
 };
  
 const statusColor = (status) => {
   if (!status) return '#6c757d';
   const s = status.toLowerCase();
-  if (s === 'a') return '#22c55e';
-  if (s === 'p') return '#f59e0b';
-  if (s === 'c') return '#dc3545';
+  if (s === 'qp' || s === 'p') return '#B58229';
+  if (s === 'qr') return '#236A49';
+  if (s === 'a') return '#236A49';
+  if (s === 'e') return '#dc3545';
+  if (s === 'r') return '#75aef4';
   return '#6c757d';
 };
  
@@ -183,6 +189,8 @@ const [internalNotes, setInternalNotes] = useState('');
 const [saving,  setSaving]  = useState(false);
 const [toast,   setToast]   = useState(null);
 
+const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     const fetchTickets = async () => {
       try {
@@ -264,6 +272,50 @@ const found = Array.isArray(data)
     setResHours(Hours);
     setDevHours(String(+(parseFloat(Hours || autoResHrs) * 0.6).toFixed(1)));
   };
+
+  const handleComment = async () => {
+    if (!internalNotes.trim()) return;
+
+    const today = new Date();
+    const formattedDate = parseInt(
+      `${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`
+    );
+
+    const payload = {
+      ticket_Id: ticket.id,
+      description: `[COMMENT] ${internalNotes}`,
+      date: formattedDate
+    };
+
+    try {
+      await logsApi.create(payload);
+      setInternalNotes('');
+    } catch (error) {
+      console.error('Error adding comment:', error);
+      throw error; // Pass up to handleSaveQuote
+    }
+  };
+
+  const handleApprove = async () => {
+    if (!ticket) return ;
+
+    setSaving(true);
+    try {
+      const updatedStatus = {
+        ...ticket,
+        status: 'qr'
+      };
+      await ticketsApi.update(ticket.id, updatedStatus);
+      setTicket(updatedStatus);
+      showToast('Ticket marked as Quote Ready');
+    } catch (err) {
+    console.error("Failed to approve ticket:", err);
+    showToast(err.message || "Approval failed", false);
+  } finally {
+    setSaving(false);
+  }
+};
+
 const handleSaveQuote = async () => {
   if (!ticket) {
     console.log("No ticket selected, stopping.");
@@ -300,6 +352,10 @@ const handleSaveQuote = async () => {
       result = await quotesApi.create(payload);
       showToast('Quote created successfully');
     }
+
+    if (internalNotes.trim()) {
+        await handleComment();
+      }
 
     // Update the state with the response from the server
     setExistingQuote(result); 
@@ -354,15 +410,6 @@ const handleSaveQuote = async () => {
                     {ticket.quote != null && (
                       <p className="quote-muted" style={{ marginTop: 8, marginBottom: 0 }}>
                         Current Quote: <span className="quote-highlight">{fmt(ticket.quote)}</span>
-                      </p>
-                    )}
-                    {existingQuote ? (
-                      <p style={{ marginTop: 6, marginBottom: 0, fontSize: 11, color: '#22c55e' }}>
-                        ✓ Existing quote loaded (ID {existingQuote.id})
-                      </p>
-                    ) : ticket && (
-                      <p style={{ marginTop: 6, marginBottom: 0, fontSize: 11, color: '#f59e0b' }}>
-                        No quote yet — will create new
                       </p>
                     )}
                   </>
@@ -447,6 +494,12 @@ const handleSaveQuote = async () => {
                           />
                           <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmt(+(baseRate * SEV_MULT[sev] * IMPACT_MULT[impact]).toFixed(2))}/hr</small>
                         </div>
+                        <div className='col-4'>
+                          <button className='btn quote-btn-app w-100 mb-2' onClick={handleApprove} disabled={!ticket || saving || ticketStat == 'qr'}> 
+                            Approve 
+                          </button>
+                          {/* <button className='btn quote-btn-save w-100 mb-2'> Reject </button> */}
+                        </div>
                       </div>
                     </div>
                     <div className="quote-inner-card p-3">
@@ -523,11 +576,20 @@ const handleSaveQuote = async () => {
                     className="form-control quote-input mt-1"
                     rows="3"
                     placeholder="Internal notes..."
-                    value={internalNotes}
-                    onChange={(e) => setInternalNotes(e.target.value)}
+                    value={internalNotes} 
+                    onChange={e => setInternalNotes(e.target.value)}
                   />
                 </div>
  
+                <button className="btn openComment w-100 mb-2" onClick={() => setIsModalOpen(true)}>
+                      Open Comments
+                    </button>
+                    {isModalOpen && ticket && (
+                    <CommentWin 
+                        ticketId={ticket.id} 
+                        onClose={() => setIsModalOpen(false)} 
+                    />
+                )}
                 <button className="btn quote-btn-save w-100 mb-2" onClick={handleSaveQuote} disabled={!ticket || saving}>
                   {saving ? 'Saving…' : existingQuote ? 'Update Quote' : 'Create Quote'}
                 </button>

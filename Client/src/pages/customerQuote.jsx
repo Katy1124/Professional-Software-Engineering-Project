@@ -169,6 +169,7 @@ export default function QuoteEstimate() {
   const [ticket, setTicket] = useState(null);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState(null);
+  const [internalNotes, setInternalNotes] = useState('');
  
   useEffect(() => {
   const fetchTickets = async () => {

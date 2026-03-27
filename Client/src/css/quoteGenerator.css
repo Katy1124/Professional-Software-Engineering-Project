@@ -102,8 +102,8 @@ html, body, #root {
   background-color: #42a5f5;
 }
 
-.quote-btn-approve {
-  background-color: var(--giacom-pink);
+.quote-btn-app {
+  background-color: #6caa40;
   color: white;
 }
 
@@ -120,13 +120,14 @@ html, body, #root {
   background-color: #7b1fa2;
 }
 .openComment {
-    font-size: large;
+    /* font-size: large; */
     background-color: var(--giacom-pink);
     transition: all 0.3s ease;
-    border: none;
+    color: white;
+    /* border: none;
     border-radius: 10px;
     margin-top: 40px;
-    padding: 10px;
+    padding: 10px; */
 }
 .openComment:hover {
     background-color: #f47fc5;
