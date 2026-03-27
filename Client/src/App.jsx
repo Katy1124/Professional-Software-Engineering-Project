@@ -4,25 +4,20 @@ import SecurePath from './components/securepath';
 import LoginPage from './pages/loginPage';
 
 // Admin Pages
-import AdminDashboard from './pages/adminDashboard';
-import AdminQuotesPage from './pages/adminQuotesPage';
-// import QuoteEstimate from './pages/quoteGenerator';
-import QuoteEstimate from './pages/adminQuotesNew';
+import AdminDashboard from './pages/adminDashboard'; //Admin Dashboard
+import AdminQuotesPage from './pages/adminQuotesPage'; //All Quotes
+import QuoteEstimate from './pages/quoteGenerator'; //Admin Quote Generator
+import ViewTicketAd from './pages/viewTicketAdNEW'; //Admin View Ticket
 
 // Customer Pages
-import CustomerDashboard from './pages/customerDashboard';
-import TicketForm from './pages/ticketForm';
+import CustomerDashboard from './pages/customerDashboard'; //Customer Dashboard
+import TicketForm from './pages/ticketForm'; //Ticket Form
 
-import TicketsPageAd from './pages/ticketsPageAd';
-import TicketsPageCus from './pages/ticketsPageCus';
-import CustomerQuotesPage from './pages/customerQuotesPage';
-import CustomerQuote from './pages/customerQuote';
-import TicketsPage from './pages/ticketsPage';
-import ViewTicket from './pages/viewTicket';
-
-// Temporary pages
-import TestTicket from './pages/viewTicketAdNEW';
-import TestTicketcus from './pages/viewTicketCus';
+import TicketsPageAd from './pages/ticketsPageAd'; //All Tickets
+import TicketsPageCus from './pages/ticketsPageCus'; //Customer Tickets
+import CustomerQuotesPage from './pages/customerQuotesPage'; //Customer Quotes
+import CustomerQuote from './pages/customerQuote'; //Customer View Quote
+import ViewTicketCus from './pages/viewTicketCus'; //Customer View Ticket
 
 function App() {
   return (

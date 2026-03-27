@@ -6,7 +6,7 @@ import { attachmentsApi } from '../api/attachments.api';
 import '../css/viewTicketNEW.css';
 import AdminNav from '../components/adminNav';
 
-export default function ViewTicket() {
+export default function ViewTicketAd() {
   const { id } = useParams();
   const [ticket, setTicket] = useState(null);
   const [quote, setQuote] = useState(null);
