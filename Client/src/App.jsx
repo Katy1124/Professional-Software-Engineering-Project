@@ -43,7 +43,7 @@ function App() {
         <Route path='/customer' element={<SecurePath allowedType={0}><CustomerDashboard /> </SecurePath>} />
         <Route path='/create' element={<SecurePath allowedType={0}><TicketForm /> </SecurePath>} />
         <Route path='/quotes' element={<SecurePath allowedType={0}><CustomerQuotesPage /> </SecurePath>} />
-        <Route path='/viewquote/:id' element={<SecurePath allowedType={0}><CustomerQuote /> </SecurePath>} />
+        <Route path='/viewquote' element={<SecurePath allowedType={0}><CustomerQuote /> </SecurePath>} />
       </Routes>
     </BrowserRouter>
   );
