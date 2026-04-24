@@ -76,7 +76,7 @@ html, body, #root {
     transition: all 0.3s ease;
     width: 350px;
     min-height: 320px;
-    max-height: 350px;
+    max-height: 370px;
 }
 .quotes-page  .quotes .card-body {
     margin-top: -32px;
@@ -114,6 +114,7 @@ html, body, #root {
     line-height: 1.0;
     font-size: 20px;
     text-align: left;
+    
 }
 .quotes-page .quotes .card-body table tr {
     height: auto;

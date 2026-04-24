@@ -38,6 +38,7 @@ export default function TicketsPage() {
   const statusColor = (Status) => {
     if (!Status) return '#6c757d';
     const s = Status.toLowerCase();
+    if (s === 'qr') return '#236A49';
     if (s === 'a') return '#236A49';
     if (s === 'p') return '#B58229';
     if (s === 'r') return '#75aef4';
@@ -48,6 +49,7 @@ export default function TicketsPage() {
   const ticketStat = (Status) => {
   if (!Status) return 'N/A';
     const s = Status.toLowerCase();
+    if (s === 'qr') return 'Quote Ready';
     if (s === 'a') return 'Active';
     if (s === 'p') return 'Pending';
     if (s === 'r') return 'Resolved';

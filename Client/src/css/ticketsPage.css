@@ -76,7 +76,7 @@ html, body, #root {
     transition: all 0.3s ease;
     width: 350px;
     min-height: 320px;
-    max-height: 350px;
+    max-height: 380px;
 }
 .tickets-page  .tickets .card-body {
     margin-top: -32px;

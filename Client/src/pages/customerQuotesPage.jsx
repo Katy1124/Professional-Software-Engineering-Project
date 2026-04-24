@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { quotesApi } from '../api/quotes.api';
+import { ticketsApi } from '../api/tickets.api';
 import '../css/quotesPage.css';
 import CustomerNav from '../components/customerNav';
 
@@ -16,29 +17,48 @@ export default function CustomerQuotesPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchQuotes = async () => {
-      try {
-        const storedUser = localStorage.getItem('user');
-        const userObj = storedUser ? JSON.parse(storedUser) : null;
-        setCurrentUser(userObj);
+const fetchQuotes = async () => {
+    try {
+      const storedUser = localStorage.getItem('user');
+      const userObj = storedUser ? JSON.parse(storedUser) : null;
+      setCurrentUser(userObj);
 
-        const data = await quotesApi.list();
-        const all = Array.isArray(data) ? data : [];
-        if (userObj && userObj.id) {
-          const filtered = all.filter(q => q.status === 'p');
+      if (userObj && userObj.id) {
+        // 1. Fetch both Quotes and Tickets at the same time
+        const [quotesData, ticketsData] = await Promise.all([
+          quotesApi.list(),
+          ticketsApi.list()
+        ]);
+
+        const allQuotes = Array.isArray(quotesData) ? quotesData : [];
+        const allTickets = Array.isArray(ticketsData) ? ticketsData : [];
+
+        // 2. Get a list of IDs for tickets that belong to the logged-in user
+        const userTicketIds = allTickets
+          .filter(t => String(t.account_Id) === String(userObj.id))
+          .map(t => t.id);
+
+        // 3. Filter quotes: 
+        // Must be status 'p' AND the quote's ticket_Id must be in our userTicketIds list
+        const filtered = allQuotes.filter(q => 
+          (q.status?.toLowerCase() === 'p' || q.status?.toLowerCase() === 'qr') && 
+  userTicketIds.includes(q.ticket_Id)
+        );
+
         setQuotes(filtered);
       } else {
         setError("No user session found. Please log in again.");
-      } 
-    } catch (err) {
-        setError(err.message || 'Failed to load quotes');
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (err) {
+      console.error('Error fetching data:', err);
+      setError(err.message || 'Failed to load quotes');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchQuotes();
-  }, []);
+  fetchQuotes();
+}, []);
 
   const handleViewQuote = (quote) => {
     localStorage.setItem('quoteId', quote.id);
@@ -48,6 +68,7 @@ export default function CustomerQuotesPage() {
   const statusColor = (Status) => {
     if (!Status) return '#6c757d';
     const s = Status.toLowerCase();
+    if (s === 'qr') return '#236A49';
     if (s === 'a') return '#236A49';
     if (s === 'p') return '#B58229';
     if (s === 'r') return '#75aef4';
@@ -57,6 +78,7 @@ export default function CustomerQuotesPage() {
   const ticketStat = (Status) => {
   if (!Status) return 'N/A';
     const s = Status.toLowerCase();
+    if (s === 'qr') return 'Quote Ready';
     if (s === 'a') return 'Active';
     if (s === 'p') return 'Pending';
     if (s === 'r') return 'Resolved';
