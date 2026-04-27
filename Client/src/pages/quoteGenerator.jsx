@@ -2,38 +2,23 @@ import { useState, useEffect } from 'react';
 import { ticketsApi } from '../api/tickets.api';
 import { quotesApi } from '../api/quotes.api';
 import { logsApi } from '../api/logs.api';
+import { 
+  calculateAutoValues, 
+  normType, 
+  clamp, 
+  fmt, 
+  fmtH, 
+  SEV_MULT, 
+  IMPACT_MULT, 
+  RES_HOURS, 
+  ROLE_SPLIT 
+} from '../components/quoteLogic';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/quoteGenerator.css';
 import AdminNav from '../components/adminNav';
 import CommentWin from '../components/commentWindow';
  
-const SEV_MULT = { 1: 1.0, 2: 1.25, 3: 1.6, 4: 2.0 };
-const IMPACT_MULT = { 1: 1.0, 2: 1.15, 3: 1.35, 4: 1.6 };
-const BASE_RATE = { E: 65, I: 85, S: 55 };
- 
-const RES_HOURS = {
-  E: { 1: 8,  2: 12, 3: 20, 4: 32 },
-  I: { 1: 2,  2: 4,  3: 8,  4: 16 },
-  S: { 1: 4,  2: 6,  3: 10, 4: 18 },
-};
- 
-const ROLE_SPLIT = {
-  E: { BA: 0.05, QA: 0.50, Architect: 0.00, Developer: 0.45 },
-  I: { BA: 0.02, QA: 0.20, Architect: 0.00, Developer: 0.78 },
-  S: { BA: 0.10, QA: 0.10, Architect: 0.00, Developer: 0.80 },
-};
- 
-const normType = (t = '') => {
-  const u = String(t).trim().toUpperCase();
-  if (u === 'E' || u === 'ENHANCEMENT') return 'E';
-  if (u === 'I' || u === 'INCIDENT') return 'I';
-  return 'S';
-};
- 
-const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, Number(v) || lo));
- 
-const fmt = (n) => `£${Number(n).toFixed(2)}`;
-const fmtH = (n) => `${Number(n).toFixed(1)}h`;
+
  
 const ticketType = (type) => {
   const t = normType(type);
@@ -176,20 +161,24 @@ export default function QuoteEstimate() {
   const [ticketsError, setTicketsError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [ticket, setTicket] = useState(null);
- 
-  const [existingQuote, setExistingQuote] = useState(null);
- 
+ const [existingQuote, setExistingQuote] = useState(null);
 const [autoResHrs, setAutoResHrs] = useState('');
 const [autoRate,   setAutoRate]   = useState('');
-
 const [resHours,    setResHours]    = useState('');
 const [devHours,    setDevHours]    = useState('');
 const [hourlyRate,  setHourlyRate]  = useState('');
 const [internalNotes, setInternalNotes] = useState('');
 const [saving,  setSaving]  = useState(false);
 const [toast,   setToast]   = useState(null);
-
 const [isModalOpen, setIsModalOpen] = useState(false);
+
+const auto = calculateAutoValues(ticket);
+
+  const effectiveResHrs = Math.max(0, parseFloat(resHours || auto.resHrs) || 0);
+  const effectiveRate   = Math.max(0, parseFloat(hourlyRate || auto.rate) || 0);
+  const totalCost       = +(effectiveRate * effectiveResHrs).toFixed(2);
+  
+  const effectiveDevHrs = +(effectiveResHrs * 0.6).toFixed(1);
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -253,15 +242,15 @@ const found = Array.isArray(data)
   setInternalNotes('');
 }, [ticket?.id]); // Only re-run when the ID actually changes
 
-  const type    = ticket ? normType(ticket.type) : 'S';
-  const sev     = ticket ? clamp(ticket.severity || 1, 1, 4) : 1;
-  const impact  = ticket ? clamp(ticket.technical_Diffculty || 1, 1, 4) : 1;
-  const baseRate = BASE_RATE[type] ?? 65;
+  // const type    = ticket ? normType(ticket.type) : 'S';
+  // const sev     = ticket ? clamp(ticket.severity || 1, 1, 4) : 1;
+  // const impact  = ticket ? clamp(ticket.technical_Diffculty || 1, 1, 4) : 1;
+  // const baseRate = BASE_RATE[type] ?? 65;
 
-  const effectiveResHrs = Math.max(0, parseFloat(resHours  || autoResHrs)  || 0);
-  const effectiveDevHrs = Math.max(0, parseFloat(devHours  || autoResHrs)  || 0);
-  const effectiveRate   = Math.max(0, parseFloat(hourlyRate || autoRate)    || 0);
-  const totalCost       = +(effectiveRate * effectiveResHrs).toFixed(2);
+  // const effectiveResHrs = Math.max(0, parseFloat(resHours  || autoResHrs)  || 0);
+  // const effectiveDevHrs = Math.max(0, parseFloat(devHours  || autoResHrs)  || 0);
+  // const effectiveRate   = Math.max(0, parseFloat(hourlyRate || autoRate)    || 0);
+  // const totalCost       = +(effectiveRate * effectiveResHrs).toFixed(2);
 
  
   const showToast = (msg, ok = true) => {
@@ -450,17 +439,17 @@ const handleSaveQuote = async () => {
                         </div>
                         <div className="col-6">
                           <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
-                            Base Rate: <span className="quote-value" style={{ fontSize: 13 }}>{fmt(baseRate)}/hr</span>
+                            Base Rate: <span className="quote-value" style={{ fontSize: 13 }}>{fmt(auto.baseRate)}/hr</span>
                           </p>
                         </div>
                         <div className="col-6">
                           <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
-                            Severity: <span className="quote-value" style={{ fontSize: 13 }}>{ticketSeverity(ticket.severity)} (×{SEV_MULT[sev]})</span>
+                            Severity: <span className="quote-value" style={{ fontSize: 13 }}>{ticketSeverity(ticket.severity)} (×{SEV_MULT[auto.sev]})</span>
                           </p>
                         </div>
                         <div className="col-6">
                           <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
-                            Business Impact: <span className="quote-value" style={{ fontSize: 13 }}>{ticketImpact(ticket.technical_Diffculty)} (×{IMPACT_MULT[impact]})</span>
+                            Business Impact: <span className="quote-value" style={{ fontSize: 13 }}>{ticketImpact(ticket.technical_Diffculty)} (×{IMPACT_MULT[auto.impact]})</span>
                           </p>
                         </div>
                       </div>
@@ -479,7 +468,7 @@ const handleSaveQuote = async () => {
                             placeholder={autoResHrs}
                             onChange={(e) => resHourschange(e.target.value)}
                           />
-                          <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmtH((RES_HOURS[type] ?? RES_HOURS.S)[sev])}</small>
+                          <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmtH((RES_HOURS[auto.type] ?? RES_HOURS.S)[auto.sev])}</small>
                         </div>
                         <div className="col-4">
                           <label style={{ color: 'white', fontSize: 13, marginBottom:4, display: 'block' }}>Hourly Rate (£)</label>
@@ -492,7 +481,7 @@ const handleSaveQuote = async () => {
                             placeholder={autoRate}
                             onChange={(e) => setHourlyRate(e.target.value)}
                           />
-                          <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmt(+(baseRate * SEV_MULT[sev] * IMPACT_MULT[impact]).toFixed(2))}/hr</small>
+                          <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmt(+(auto.baseRate * SEV_MULT[auto.sev] * IMPACT_MULT[auto.impact]).toFixed(2))}/hr</small>
                         </div>
                         <div className='col-4'>
                           <button className='btn quote-btn-app w-100 mb-2' onClick={handleApprove} disabled={!ticket || saving || ticketStat == 'qr'}> 
@@ -528,7 +517,7 @@ const handleSaveQuote = async () => {
                             <td style={{ padding: '5px 0' }} />
                           </tr>
  
-                          {Object.entries(ROLE_SPLIT[type]).map(([role, pct]) => {
+                          {Object.entries(ROLE_SPLIT[normType(ticket.type)]).map(([role, pct]) => {
                             const roleHrs = +(effectiveDevHrs * pct).toFixed(2);
                             const roleCost = +(roleHrs * effectiveRate).toFixed(2);
                             return (
