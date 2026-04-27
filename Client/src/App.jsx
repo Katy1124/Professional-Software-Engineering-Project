@@ -5,7 +5,6 @@ import LoginPage from './pages/loginPage';
 // new commit
 // Admin Pages
 import AdminDashboard from './pages/adminDashboard'; //Admin Dashboard
-import AdminQuotesPage from './pages/adminQuotesPage'; //All Quotes
 import QuoteEstimate from './pages/quoteGenerator'; //Admin Quote Generator
 import ViewTicketAd from './pages/viewTicketAdNEW'; //Admin View Ticket
 import TicketsPageAd from './pages/ticketsPageAd'; //All Tickets
@@ -31,14 +30,6 @@ function App() {
             element={
                 <SecurePath allowedType={1}>
                 <AdminDashboard />
-                </SecurePath>
-            }
-            />
-            <Route
-            path="/allquotes"
-            element={
-                <SecurePath allowedType={1}>
-                <AdminQuotesPage />
                 </SecurePath>
             }
             />
