@@ -65,9 +65,24 @@ const ticketStat = (status) => {
     if (severity == 3) return 'High';
     if (severity == 4) return 'Critical';
   };
+  
+  const isTicketVisible = (status) => {
+  if (!status) return false;
+  const s = status.toLowerCase();
 
+  if (s === 'p' || s === 'qp' || s === 'e') {
+    return false;
+  }
+
+  return true;
+};
   const filteredTickets = tickets
-    .filter(t => filterSeverity ? t.severity == filterSeverity : true)
+    .filter(t => {
+    const matchesSeverity = filterSeverity ? t.severity == filterSeverity : true;
+    const matchesVisibility = isTicketVisible(t.status); // CALL THE FUNCTION HERE
+    return matchesSeverity && matchesVisibility;
+  })
+    
     .sort((a, b) => {
       if (sortBy === 'deadline') return a.deadline - b.deadline;
       if (sortBy === 'severity') return b.severity - a.severity;
@@ -79,6 +94,7 @@ const ticketStat = (status) => {
     (currentPage - 1) * TICKETS_PER_PAGE,
     currentPage * TICKETS_PER_PAGE
   );
+
 
   return (
     <div className="tickets-page">
