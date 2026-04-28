@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { ticketsApi } from '../api/tickets.api';
 import { attachmentsApi } from '../api/attachments.api';
 import '../css/TicketForm.css';
@@ -7,6 +7,7 @@ import CustomerNav from '../components/customerNav';
 
 export default function TicketForm() {
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   const [form, setForm] = useState({
     type: 'Support',
@@ -79,6 +80,13 @@ export default function TicketForm() {
       alert(`Submission failed: ${error.message}`);
     }
   };
+
+  const handleCancel = () => {
+    set('attachments', []);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }
 
   return (
     <div className="ticket-form">
@@ -306,6 +314,7 @@ export default function TicketForm() {
 
                     <input
                       id="file-upload"
+                      ref={fileInputRef}
                       type="file"
                       multiple
                       style={{ display: 'none' }}
@@ -314,10 +323,15 @@ export default function TicketForm() {
                         set('attachments', files);
                       }}
                     />
+                    <button className='cancel-btn'
+                    style={{ margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    onClick={handleCancel}>
+                        Cancel
+                    </button>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px'}}>
                   <button
                     className="btn ticket-btn-cancel"
                     type="button"
