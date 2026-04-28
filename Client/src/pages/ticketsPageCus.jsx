@@ -35,28 +35,29 @@ export default function TicketsPage() {
     fetchTickets();
   }, []);
 
-  const statusColor = (Status) => {
-    if (!Status) return '#6c757d';
-    const s = Status.toLowerCase();
-    if (s === 'qr') return '#236A49';
-    if (s === 'a') return '#236A49';
-    if (s === 'p') return '#B58229';
-    if (s === 'r') return '#75aef4';
-    if (s === 'e') return '#dc3545';
-    return '#6c757d';
-  };
+ const statusColor = (status) => {
+  if (!status) return '#6c757d';
+  const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return '#B58229';
+  if (s === 'qr') return '#236A49';
+  if (s === 'a') return '#236A49';
+  if (s === 'e') return '#dc3545';
+  if (s === 'r') return '#75aef4';
+  if (s === 'rj') return '#9b0303';
+  return '#6c757d';
+};
 
-  const ticketStat = (Status) => {
-    if (!Status) return 'N/A';
-    const s = Status.toLowerCase();
-    if (s === 'qr') return 'Quote Ready';
-    if (s === 'a') return 'Active';
-    if (s === 'p') return 'Pending';
-    if (s === 'r') return 'Resolved';
-    if (s === 'e') return 'Escalated';
-    return 'N/A';
-  };
-
+const ticketStat = (status) => {
+  if (!status) return 'N/A';
+  const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return 'Quote Pending';
+  if (s === 'qr') return 'Quote Ready';
+  if (s === 'a') return 'Active';
+  if (s === 'e') return 'Escalated';
+  if (s === 'r') return 'Resolved';
+  if (s === 'rj') return 'Rejected';
+  return 'N/A';
+};
   const ticketSeverity = (severity) => {
     if (!severity) return 'N/A';
     if (severity == 1) return 'Low';
@@ -125,11 +126,11 @@ export default function TicketsPage() {
           </div>
         </div>
 
-        <div className="row align-items-start justify-content-center mt-4">
+        <div className="row justify-content-center mt-4">
           {pagedTickets.map((ticket) => (
-            <div className="col-auto" key={ticket.id}>
+            <div className="col-lg-3" key={ticket.id}>
               <div className="card tickets">
-                <div className="card-body">
+                <div className="card-body d-flex flex-column">
                   <p className='number'>Ticket {ticket.id}</p>
                   <p className='account'>Account: {ticket.account_Id}</p>
                   <p className='title'>{ticket.title}</p>
@@ -153,7 +154,7 @@ export default function TicketsPage() {
                       </tr>
                     </tbody>
                   </table>
-                  <Link to={`/viewticket/${ticket.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/viewticket/${ticket.id}`} className="mt-auto" style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>
