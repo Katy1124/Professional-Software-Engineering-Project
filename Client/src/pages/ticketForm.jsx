@@ -163,9 +163,11 @@ export default function TicketForm() {
                     placeholder="Briefly describe the issue"
                     value={form.title}
                     onChange={e => set('title', e.target.value)}
+                    maxLength={100}
                     style={errors.title ? { borderColor: '#ff4d4d', borderWidth: '2px' } : {}}
                      />
                     {errors.title && <div style={{ color: '#ff4d4d', marginTop: '5px', fontSize: '14px' }}>{errors.title}</div>}
+                    <div style={{ color: '#d4b8d6', fontSize: '12px', textAlign: 'right' }}>{form.title.length}/100</div>
                 </div>
 
                 <div className="mb-3">
@@ -175,9 +177,11 @@ export default function TicketForm() {
                     rows="3"
                     value={form.description}
                     onChange={e => set('description', e.target.value)}
+                    maxLength={1000}
                     style={errors.description ? { borderColor: '#ff4d4d', borderWidth: '2px' } : {}}
                   ></textarea>
                   {errors.description && <div style={{ color: '#ff4d4d', marginTop: '5px', fontSize: '14px' }}>{errors.description}</div>}
+                  <div style={{ color: '#d4b8d6', fontSize: '12px', textAlign: 'right' }}>{form.description.length}/1000</div>
                 </div>
 
                 <div className="row mb-3">

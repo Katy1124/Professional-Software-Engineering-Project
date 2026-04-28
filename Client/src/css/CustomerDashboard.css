@@ -16,6 +16,9 @@ html, body, #root {
   width: 100%;
   min-height: 100vh;
   background-color: var(--giacom-dark-blue);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;
 }
 
 .customer-dashboard .card {
