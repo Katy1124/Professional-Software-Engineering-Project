@@ -177,3 +177,17 @@ html, body, #root {
 .tickets-page .container.mt-4 {
     flex: 1 0 auto;
 }
+
+.tickets-page .pagination .page-link {
+    background-color: var(--giacom-dark-blue);
+    border-color: var(--giacom-purple);
+    color: white;
+}
+.tickets-page .pagination .page-item.active .page-link {
+    background-color: var(--giacom-purple);
+    border-color: var(--giacom-pink);
+}
+.tickets-page .pagination .page-link:hover {
+    background-color: var(--giacom-purple);
+    color: white;
+}
