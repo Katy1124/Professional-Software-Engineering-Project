@@ -19,10 +19,30 @@ export default function TicketForm() {
     attachments: [],
   });
 
-  const set = (key, val) => setForm(p => ({ ...p, [key]: val }));
+  const [errors, setErrors] = useState({});
+
+  const set = (key, val) => {
+    setForm(p => ({ ...p, [key]: val }));
+    if (errors[key]) {
+      setErrors(p => ({ ...p, [key]: null }));
+    }
+  };
 
   const handleFormSubmit = async () => {
     console.log('1. Submit button clicked');
+
+  const newErrors = {};
+    if (!form.title.trim()) {
+      newErrors.title = 'Title is required.';
+    }
+    if (!form.description.trim()) {
+      newErrors.description = 'Description is required.';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return; // Stops the form from submitting
+    }
 
     const typeMap = {
       'Support': 'S',
@@ -86,7 +106,7 @@ export default function TicketForm() {
 
       <div className="container" style={{ paddingTop: '100px' }}>
         <div className="row">
-          <div className="col-6 mx-auto">
+          <div className="col-11 col-md-6 mx-auto">
             <div className="card ticket-form-card">
               <div className="card-body">
                 <h1 style={{ color: 'white', fontSize: '30px', marginBottom: '20px' }}>
@@ -143,7 +163,9 @@ export default function TicketForm() {
                     placeholder="Briefly describe the issue"
                     value={form.title}
                     onChange={e => set('title', e.target.value)}
-                  />
+                    style={errors.title ? { borderColor: '#ff4d4d', borderWidth: '2px' } : {}}
+                     />
+                    {errors.title && <div style={{ color: '#ff4d4d', marginTop: '5px', fontSize: '14px' }}>{errors.title}</div>}
                 </div>
 
                 <div className="mb-3">
@@ -153,7 +175,9 @@ export default function TicketForm() {
                     rows="3"
                     value={form.description}
                     onChange={e => set('description', e.target.value)}
+                    style={errors.description ? { borderColor: '#ff4d4d', borderWidth: '2px' } : {}}
                   ></textarea>
+                  {errors.description && <div style={{ color: '#ff4d4d', marginTop: '5px', fontSize: '14px' }}>{errors.description}</div>}
                 </div>
 
                 <div className="row mb-3">
