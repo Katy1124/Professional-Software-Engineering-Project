@@ -116,11 +116,11 @@ export default function TicketsPage() {
           </div>
         </div>
         
-      <div className="row align-items-start justify-content-center mt-4">
+      <div className="row justify-content-center mt-4">
         {filteredTickets.map((ticket) => (
-            <div className="col-auto" key={ticket.id}>
+            <div className="col-lg-3" key={ticket.id}>
               <div className="card tickets">
-                <div className="card-body">
+                <div className="card-body d-flex flex-column">
                   <p className='number'>Ticket {ticket.id}</p>
                   <p className='account'>Account: {ticket.account_Id}</p>
                   <p className='title'>{ticket.title}</p>
@@ -153,7 +153,7 @@ export default function TicketsPage() {
                       {ticketStat(ticket.status)}
                     </span> */}
                   {/* </p> */}
-                  <Link to={`/viewticket/${ticket.id}`} style={{ textDecoration: 'none' }}>
+                  <Link to={`/viewticket/${ticket.id}`} className="mt-auto" style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>
