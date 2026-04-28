@@ -62,7 +62,7 @@ export default function CustomerNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/myquotes" onClick={closeMenu}>
+                        <NavLink to="/viewquote" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">

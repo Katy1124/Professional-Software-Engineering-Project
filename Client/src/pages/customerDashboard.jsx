@@ -125,7 +125,7 @@ export default function CustomerDashboard() {
               </Link>
             </div>
             <div className="col-6">
-              <Link to="/myquotes" className="card quick-link-card p-4 text-decoration-none d-block">
+              <Link to="/viewquote" className="card quick-link-card p-4 text-decoration-none d-block">
                 My Quotes
               </Link>
             </div>
