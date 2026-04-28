@@ -37,6 +37,7 @@ export default function TicketsPage() {
     if (s === 'p') return '#B58229';
     if (s === 'r') return '#75aef4';
     if (s === 'e') return '#dc3545';
+    if (s === 'rj') return '#9b0303';
     return '#6c757d';
   };
 
@@ -48,6 +49,7 @@ export default function TicketsPage() {
     if (s === 'p') return 'Pending';
     if (s === 'r') return 'Resolved';
     if (s === 'e') return 'Escalated';
+    if (s === 'rj') return 'Rejected';
     return 'N/A';
   };
   const ticketSeverity = (severity) => {

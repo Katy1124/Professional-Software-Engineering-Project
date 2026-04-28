@@ -5,6 +5,7 @@ import { normType, fmt, fmtH, ROLE_SPLIT } from '../components/quoteLogic';
 import { quotesApi } from '../api/quotes.api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/customerQuote.css';
+import OptionWin from '../components/quoteOptions';
 
 
  
@@ -36,19 +37,24 @@ const ticketImpact = (impact) => {
 const ticketStat = (status) => {
   if (!status) return 'N/A';
   const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return 'Quote Pending';
+  if (s === 'qr') return 'Quote Ready';
   if (s === 'a') return 'Active';
-  if (s === 'p') return 'Pending';
-  if (s === 'c') return 'Closed';
+  if (s === 'e') return 'Escalated';
+  if (s === 'r') return 'Resolved';
+  if (s === 'rj') return 'Rejected';
   return 'N/A';
 };
  
 const statusColor = (status) => {
   if (!status) return '#6c757d';
   const s = status.toLowerCase();
-  if (s === 'a') return '#22c55e';
-  if (s === 'p') return '#f59e0b';
-  if (s === 'r') return '#75aef4';
+  if (s === 'qp' || s === 'p') return '#B58229';
+  if (s === 'qr') return '#236A49';
+  if (s === 'a') return '#236A49';
   if (s === 'e') return '#dc3545';
+  if (s === 'r') return '#75aef4';
+  if (s === 'rj') return '#9b0303';
   return '#6c757d';
 };
 
@@ -152,6 +158,7 @@ export default function QuoteEstimate() {
   const [toast, setToast] = useState(null);
   const [internalNotes, setInternalNotes] = useState('');
   const [quote, setQuote] = useState(null);
+  const [isOptionOpen, setIsOptionOpen] = useState(false);
  
   useEffect(() => {
   const fetchTickets = async () => {
@@ -226,19 +233,40 @@ const effectiveDevHrs = +(effectiveResHrs * 0.6).toFixed(1);
     }
   };
  
-  const handleReject = async () => {
+  // const handleReject = async () => {
+  //   if (!ticket) return;
+  //   setSaving(true);
+  //   try {
+  //     await ticketsApi.update(ticket.id, { ...ticket, status: 'p' });
+  //     setTicket((prev) => ({ ...prev, status: 'p' }));
+  //     showToast('Returned for changes');
+  //   } catch (err) {
+  //     showToast(err.message || 'Reject failed', false);
+  //   } finally {
+  //     setSaving(false);
+  //   }
+  // };
+
+  const handleStatusUpdate = async (newStatus) => {
     if (!ticket) return;
-    setSaving(true);
+    setSaving(true)
     try {
-      await ticketsApi.update(ticket.id, { ...ticket, status: 'p' });
-      setTicket((prev) => ({ ...prev, status: 'p' }));
-      showToast('Returned for changes');
+        await ticketsApi.update(ticket.id, {
+          ...ticket,
+          status: newStatus
+        });
+
+        setTicket((prev) => ({ ...prev, status: newStatus}));
+        setIsOptionWinOpen(false);
+
+        const successMsg = newStatus === 'rj' ? 'Quote Rejected' : 'Change Requested';
+        showToast(successMsg);
     } catch (err) {
-      showToast(err.message || 'Reject failed', false);
+      showToast(err.message || 'Update failed', false)
     } finally {
       setSaving(false);
     }
-  };
+  }
   return (
     <div className="quote-generator">
       <CustomerNav />
@@ -258,6 +286,16 @@ const effectiveDevHrs = +(effectiveResHrs * 0.6).toFixed(1);
           onClose={() => setShowModal(false)}
         />
       )}
+      {isOptionOpen && ticket && (
+    <OptionWin 
+        ticket={ticket} 
+        onClose={() => setIsOptionOpen(false)} 
+        showToast={showToast}
+        onStatusUpdated={(newStatus) => {
+            setTicket(prev => ({ ...prev, status: newStatus }));
+        }}
+    />
+)}
  
       <div className="container-fluid" style={{ paddingTop: '100px' }}>
         <div className="row">
@@ -383,7 +421,7 @@ const effectiveDevHrs = +(effectiveResHrs * 0.6).toFixed(1);
                 <button className="btn quote-btn-accept w-100 mb-2" onClick={handleApprove} disabled={!ticket || saving}>
                   Accept Quote
                 </button>
-                <button className="btn quote-btn-reject w-100" onClick={handleReject} disabled={!ticket || saving}>
+                <button className="btn quote-btn-reject w-100" onClick={() => setIsOptionOpen(true)} disabled={!ticket || saving}>
                   Reject / Request Changes
                 </button>
               </div>

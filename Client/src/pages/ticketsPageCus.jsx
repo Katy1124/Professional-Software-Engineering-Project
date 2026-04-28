@@ -35,27 +35,29 @@ export default function TicketsPage() {
     fetchTickets();
   }, []);
 
-  const statusColor = (Status) => {
-    if (!Status) return '#6c757d';
-    const s = Status.toLowerCase();
-    if (s === 'qr') return '#236A49';
-    if (s === 'a') return '#236A49';
-    if (s === 'p') return '#B58229';
-    if (s === 'r') return '#75aef4';
-    if (s === 'e') return '#dc3545';
-    return '#6c757d';
-  };
+ const statusColor = (status) => {
+  if (!status) return '#6c757d';
+  const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return '#B58229';
+  if (s === 'qr') return '#236A49';
+  if (s === 'a') return '#236A49';
+  if (s === 'e') return '#dc3545';
+  if (s === 'r') return '#75aef4';
+  if (s === 'rj') return '#9b0303';
+  return '#6c757d';
+};
 
-  const ticketStat = (Status) => {
-  if (!Status) return 'N/A';
-    const s = Status.toLowerCase();
-    if (s === 'qr') return 'Quote Ready';
-    if (s === 'a') return 'Active';
-    if (s === 'p') return 'Pending';
-    if (s === 'r') return 'Resolved';
-    if (s === 'e') return 'Escalated';
-    return 'N/A';
-  };
+const ticketStat = (status) => {
+  if (!status) return 'N/A';
+  const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return 'Quote Pending';
+  if (s === 'qr') return 'Quote Ready';
+  if (s === 'a') return 'Active';
+  if (s === 'e') return 'Escalated';
+  if (s === 'r') return 'Resolved';
+  if (s === 'rj') return 'Rejected';
+  return 'N/A';
+};
   const ticketSeverity = (severity) => {
   if (!severity) return 'N/A';
     if(severity == 1) return 'Low'; 
