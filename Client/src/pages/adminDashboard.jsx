@@ -73,7 +73,7 @@ export default function AdminDashboard() {
 </div>
       {/*<div className="container text-center">*/}
         <div className="quick-links-section text-center">
-        <p className='quick-links'>Quick Links</p>
+        <p className='quick-links'></p>
           <h2 className="mb-4" style={{color: 'white', fontWeight: 'bold' , height: 20}}>Quick Links</h2>
           <div className="row justify-content-center gap-3">
           <div className="row justify-content-center">

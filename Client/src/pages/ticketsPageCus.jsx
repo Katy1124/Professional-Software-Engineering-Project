@@ -65,17 +65,18 @@ const ticketStat = (status) => {
     if (severity == 3) return 'High';
     if (severity == 4) return 'Critical';
   };
-  
-  const isTicketVisible = (status) => {
-  if (!status) return false;
-  const s = status.toLowerCase();
 
-  if (s === 'p' || s === 'qp' || s === 'e') {
-    return false;
-  }
+    const isTicketVisible = (status) => {
+      if (!status) return false;
+      const s = status.toLowerCase();
 
-  return true;
-};
+      if (s === 'p' || s === 'qp' || s === 'e') {
+        return false;
+      }
+
+      return true;
+    };
+
   const filteredTickets = tickets
     .filter(t => {
     const matchesSeverity = filterSeverity ? t.severity == filterSeverity : true;

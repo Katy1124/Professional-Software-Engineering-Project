@@ -31,7 +31,8 @@ const ticketType = (type) => {
   const t = normType(type);
   if (t === 'E') return 'Enhancement';
   if (t === 'I') return 'Incident';
-  return 'Support';
+  if (t === 'S') return 'Support';
+  return 'N/A';
 };
  
 const ticketSeverity = (severity) => {
@@ -55,19 +56,22 @@ const ticketImpact = (impact) => {
 const ticketStat = (status) => {
   if (!status) return 'N/A';
   const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return 'Quote Pending';
+  if (s === 'qr') return 'Quote Ready';
   if (s === 'a') return 'Active';
-  if (s === 'p') return 'Pending';
-  if (s === 'c') return 'Closed';
+  if (s === 'e') return 'Escalated';
+  if (s === 'r') return 'Resolved';
   return 'N/A';
 };
  
 const statusColor = (status) => {
   if (!status) return '#6c757d';
   const s = status.toLowerCase();
-  if (s === 'a') return '#22c55e';
-  if (s === 'p') return '#f59e0b';
-  if (s === 'r') return '#75aef4';
+  if (s === 'qp' || s === 'p') return '#B58229';
+  if (s === 'qr') return '#236A49';
+  if (s === 'a') return '#236A49';
   if (s === 'e') return '#dc3545';
+  if (s === 'r') return '#75aef4';
   return '#6c757d';
 };
 
@@ -185,7 +189,10 @@ export default function QuoteEstimate() {
 
       const data = await ticketsApi.list();
       const all = Array.isArray(data) ? data : [];
-      const userTickets = all.filter((t) => t.account_Id === storedUser.id);
+      const userTickets = all.filter((t) => 
+        t.account_Id === storedUser.id && 
+        (t.status || '').toLowerCase() === 'qr'
+      );
       setTickets(userTickets);
     } catch (err) {
       setTicketsError(err.message || 'Failed to load tickets');
