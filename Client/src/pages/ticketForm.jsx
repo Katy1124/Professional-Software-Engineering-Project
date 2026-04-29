@@ -298,7 +298,7 @@ export default function TicketForm() {
 
                 <div className="row mb-3">
                   <div className="col-6">
-                    <label style={{ color: 'white' }}>Date of Issue</label>
+                    <label style={{ color: 'white' }}>Date to be Resolved</label>
                     <input
                       type="date"
                       className="form-control ticket-input"
