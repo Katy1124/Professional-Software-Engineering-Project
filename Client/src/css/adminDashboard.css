@@ -19,6 +19,7 @@
 .admin-dashboard .card {
     background-color: var(--giacom-purple);
     margin-top: 10px;
+    min-height: 10vh;
     color: white;
     transition: all 0.3s ease;
 }
@@ -68,4 +69,7 @@ html, body, #root {
 .admin-dashboard .footer {
     background-color: var(--giacom-purple);
     height: 50px;
+}
+@media (max-width: 768px) {
+
 }

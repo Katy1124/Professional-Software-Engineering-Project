@@ -1,0 +1,53 @@
+:root {
+  --giacom-dark-blue: #100235;
+  --giacom-purple: #67236a;
+  --giacom-pink: #ec008c;
+  --giacom-gold: #ffb91d;
+}
+
+.modal-content {
+    background-color: #fff;
+}
+
+.btn-primary {
+    background-color: var(--giacom-pink);
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 10px;
+}
+.btn-primary:hover {
+    background-color: #f47fc5;
+}
+.btn-primary:active {
+    background-color: #f47fc5;
+}
+
+.btn-close {
+    background-color: var(--giacom-pink);
+}
+
+.change-btn {
+    background-color: #B58229;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    margin-right: 20px;
+    font-size: 20px;
+}
+.reject-btn {
+    background-color: #9b0303;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    margin-left: 20px;
+    font-size: 20px;
+    width: 100px;
+}
+.change-btn:hover {
+    background-color: #ddae5d;
+}
+.reject-btn:hover {
+    background-color: #c32525;
+}

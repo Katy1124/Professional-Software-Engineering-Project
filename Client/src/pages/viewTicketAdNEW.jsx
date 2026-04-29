@@ -102,16 +102,19 @@ export default function ViewTicketAd() {
     }
   };
 
-  const ticketStat = (status) => {
-    if (!status) return 'N/A';
-    const s = status.toLowerCase();
+  const ticketStat = (Status) => {
+    if (!Status) return 'N/A';
+    const s = Status.toLowerCase();
     if (s === 'a') return 'Active';
     if (s === 'p') return 'Pending';
     if (s === 'r') return 'Resolved';
     if (s === 'e') return 'Escalated';
+    if (s === 'qp') return 'Quote Pending';
+    if (s === 'qr') return 'Quote Ready';
+    if (s === 'rj') return 'Quote Rejected';
     return 'N/A';
   };
-
+  
   const tickectSeverity = (severity) => {
     if (!severity) return 'N/A';
     if (severity == 1) return 'Low';

@@ -38,6 +38,7 @@ export default function TicketsPage() {
     if (s === 'p') return '#B58229';
     if (s === 'r') return '#75aef4';
     if (s === 'e') return '#dc3545';
+    if (s === 'rj') return '#9b0303';
     return '#6c757d';
   };
 
@@ -49,6 +50,7 @@ export default function TicketsPage() {
     if (s === 'p') return 'Pending';
     if (s === 'r') return 'Resolved';
     if (s === 'e') return 'Escalated';
+    if (s === 'rj') return 'Rejected';
     return 'N/A';
   };
 
@@ -120,11 +122,11 @@ export default function TicketsPage() {
           </div>
         </div>
 
-        <div className="row align-items-start justify-content-center mt-4">
+      <div className="row justify-content-center mt-4">
           {pagedTickets.map((ticket) => (
             <div className="col-auto" key={ticket.id}>
               <div className="card tickets">
-                <div className="card-body">
+                <div className="card-body d-flex flex-column">
                   <p className='number'>Ticket {ticket.id}</p>
                   <p className='account'>Account: {ticket.account_Id}</p>
                   <p className='title'>{ticket.title}</p>
@@ -148,7 +150,8 @@ export default function TicketsPage() {
                       </tr>
                     </tbody>
                   </table>
-                  <Link to={`/viewticketad/${ticket.id}`} style={{ textDecoration: 'none' }}>
+
+                  <Link to={`/viewticketad/${ticket.id}`} className="mt-auto" style={{ textDecoration: 'none' }}>
                     <button className="view-button">View</button>
                   </Link>
                 </div>
