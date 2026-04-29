@@ -98,8 +98,10 @@ function TicketModal({ tickets, loading, error, onSelect, onClose }) {
           background: '#1e0a3c',
           border: '1px solid #67236a',
           borderRadius: 12,
-          width: '100%',
           maxWidth: 560,
+          width: 'calc(100% - 32px)',
+          paddingTop: '5vh',
+          margin: '0 16px',
           maxHeight: '70vh',
           display: 'flex',
           flexDirection: 'column',
@@ -381,7 +383,7 @@ const handleSaveQuote = async () => {
       <div className="container-fluid" style={{ paddingTop: '100px' }}>
         <div className="row">
  
-          <div className="col-2">
+          <div className="col-12 col-md-2">
             <div className="card quote-ticket-card">
               <div className="card-body">
                 {ticket ? (
@@ -412,7 +414,7 @@ const handleSaveQuote = async () => {
             </button>
           </div>
  
-          <div className="col quote-main-card p-3">
+          <div className="col-12 col-md quote-main-card p-3 mt-2 mt-md-0">
             <p className="quote-heading">Quote Estimate</p>
  
             <div className="row">
@@ -547,7 +549,7 @@ const handleSaveQuote = async () => {
                 )}
               </div>
  
-              <div className="col-3 quote-actions p-3">
+              <div className="col-12 col-md-3 quote-actions p-3 mt-2 mt-md-0">
                 <p className="quote-subheading">Admin Controls</p>
  
                 {ticket && (
