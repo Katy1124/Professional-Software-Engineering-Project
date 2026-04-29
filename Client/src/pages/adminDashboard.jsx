@@ -71,30 +71,26 @@ export default function AdminDashboard() {
     ))}
   </div>
 </div>
-
-      <div className="container text-center">
+      {/*<div className="container text-center">*/}
+        <div className="quick-links-section text-center">
         <p className='quick-links'>Quick Links</p>
-        <div className="row justify-content-center" style={{paddingTop: '5px', marginBottom: '10px'}}>
-          <div className="col-4 links">
-            <Link to="/alltickets" style={{ textDecoration: 'none' }}>
-              <div className="card tickets">
-                <div className="card-body">
-                  <p style={{fontSize: '20px'}}>Tickets</p>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="col-4 links">
-            <Link to="/quotegen" style={{ textDecoration: 'none'}}>
-              <div className="card edits">
-                <div class="card-body">
-                  <p style={{fontSize: '20px'}}>Quote Editor</p>
-                </div>
-              </div>
-            </Link>
-          </div>
+          <h2 className="mb-4" style={{color: 'white', fontWeight: 'bold' , height: 20}}>Quick Links</h2>
+          <div className="row justify-content-center gap-3">
+          <div className="row justify-content-center">
+            <div className="col-6 col-md-4">
+              <Link to="/alltickets" className="card quick-link-card p-4 text-decoration-none d-block">
+                My Tickets
+              </Link>
+            </div>
+            <div className="col-6 col-md-4 ">
+              <Link to="/quotegen" className="card quick-link-card p-4 text-decoration-none d-block">
+                My Quotes
+              </Link>
+            </div>
         </div>
+      <div classname = "container">
 
+      </div>
         {/* <div class="row justify-content-center">
           <div class="col-4 links" style={{marginTop: '10px', marginBottom: '10px'}}>
             <Link to="/quotegen" style={{ textDecoration: 'none' }}>
@@ -107,7 +103,7 @@ export default function AdminDashboard() {
           </div>
         </div> */}
       </div>
-      
+      </div>
       <footer className="footer" />
     </div>
   );
