@@ -62,16 +62,7 @@ export default function AdminNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/allquotes" onClick={closeMenu}>
-                            <li className='nav-link'>
-                                <div className="card menu-item">
-                                    <div className="card-body">
-                                        <p style={{fontSize: '20px'}}>Quotes</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </NavLink>
-                        <NavLink to="/quotegen" onClick={closeMenu}>
+                            <NavLink to="/quotegen" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">

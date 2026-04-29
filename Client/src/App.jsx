@@ -5,7 +5,6 @@ import LoginPage from './pages/loginPage';
 // new commit
 // Admin Pages
 import AdminDashboard from './pages/adminDashboard'; //Admin Dashboard
-import AdminQuotesPage from './pages/adminQuotesPage'; //All Quotes
 import QuoteEstimate from './pages/quoteGenerator'; //Admin Quote Generator
 import ViewTicketAd from './pages/viewTicketAdNEW'; //Admin View Ticket
 import TicketsPageAd from './pages/ticketsPageAd'; //All Tickets
@@ -15,7 +14,6 @@ import CustomerDashboard from './pages/customerDashboard'; //Customer Dashboard
 import TicketForm from './pages/ticketForm'; //Ticket Form
 
 import TicketsPageCus from './pages/ticketsPageCus'; //Customer Tickets
-import CustomerQuotesPage from './pages/customerQuotesPage'; //Customer Quotes
 import CustomerQuote from './pages/customerQuote'; //Customer View Quote
 import ViewTicketCus from './pages/viewTicketCusNEW'; //Customer View Ticket
 
@@ -31,14 +29,6 @@ function App() {
             element={
                 <SecurePath allowedType={1}>
                 <AdminDashboard />
-                </SecurePath>
-            }
-            />
-            <Route
-            path="/allquotes"
-            element={
-                <SecurePath allowedType={1}>
-                <AdminQuotesPage />
                 </SecurePath>
             }
             />
@@ -91,15 +81,7 @@ function App() {
             }
             />
             <Route
-            path="/myquotes"
-            element={
-                <SecurePath allowedType={0}>
-                <CustomerQuotesPage />
-                </SecurePath>
-            }
-            />
-            <Route
-            path="/viewquote/:id"
+            path="/viewquote"
             element={
                 <SecurePath allowedType={0}>
                 <CustomerQuote />

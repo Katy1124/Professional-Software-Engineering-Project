@@ -4,13 +4,13 @@ function getAuthHeaders() {
   const token = localStorage.getItem('token');
 
   return {
-    Authorization: 'Bearer ${token}'
+    Authorization: `Bearer ${token}`
   };
 }
 
 export const attachmentsApi = {
   getByTicketId: async (ticketId) => {
-    const response = await fetch('${API_BASE}/api/tickets/${ticketId}/attachments', {
+    const response = await fetch(`${API_BASE}/api/tickets/${ticketId}/attachments`, {
       method: 'GET',
       headers: getAuthHeaders()
     });
@@ -28,10 +28,10 @@ export const attachmentsApi = {
 
     formData.append('file', file);
 
-    const response = await fetch('${API_BASE}/api/tickets/${ticketId}/attachments', {
+    const response = await fetch(`${API_BASE}/api/tickets/${ticketId}/attachments`, {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ${token}'
+        Authorization: `Bearer ${token}`
       },
       body: formData
     });

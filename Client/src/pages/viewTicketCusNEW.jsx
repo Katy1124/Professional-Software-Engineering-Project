@@ -87,6 +87,9 @@ export default function CustViewTicket() {
     if (s === 'p') return 'Pending';
     if (s === 'r') return 'Resolved';
     if (s === 'e') return 'Escalated';
+    if (s === 'qp') return 'Quote Pending';
+    if (s === 'qr') return 'Quote Ready';
+    if (s === 'rj') return 'Quote Rejected';
     return 'N/A';
   };
 
@@ -222,7 +225,7 @@ export default function CustViewTicket() {
                     <div className="col-6 quote">
                       <p>Quote</p>
                       <p style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                        Â£{quote ? quote.estimated_Cost.toFixed(2) : 'No quote yet'}
+                        {quote ? `£${quote.estimated_Cost.toFixed(2)}` : 'No quote yet'}
                       </p>
                     </div>
                   </div>

@@ -113,8 +113,10 @@ function TicketModal({ tickets, loading, error, onSelect, onClose }) {
           background: '#1e0a3c',
           border: '1px solid #67236a',
           borderRadius: 12,
-          width: '100%',
           maxWidth: 560,
+          width: 'calc(100% - 32px)',
+          paddingTop: '5vh',
+          margin: '0 16px',
           maxHeight: '70vh',
           display: 'flex',
           flexDirection: 'column',
@@ -389,10 +391,10 @@ const handleSaveQuote = async () => {
         />
       )}
  
-      <div className="container-fluid" style={{ paddingTop: '100px' }}>
-        <div className="row">
+      <div className="container-fluid" style={{ paddingTop: '100px', paddingLeft: '12px', paddingRight: '12px' }}>
+        <div className="row g-2 flex-column flex-md-row">
  
-          <div className="col-2">
+          <div className="col-12 col-md-2" style={{ minWidth: 0 }}>
             <div className="card quote-ticket-card">
               <div className="card-body">
                 {ticket ? (
@@ -423,7 +425,7 @@ const handleSaveQuote = async () => {
             </button>
           </div>
  
-          <div className="col quote-main-card p-3">
+          <div className="col-12 col-md quote-main-card p-3 mt-2 mt-md-0">
             <p className="quote-heading">Quote Estimate</p>
  
             <div className="row">
@@ -468,7 +470,7 @@ const handleSaveQuote = async () => {
                     <div className="quote-inner-card p-3 mb-3">
                       <p className="quote-subheading">Quote Inputs</p>
                       <div className="row g-3">
-                        <div className="col-4">
+                        <div className="col-6 col-md-4">
                           <label style={{ color: 'white', fontSize: 13, marginBottom: 4, display: 'block' }}>Resolution Time (hrs)</label>
                           <input
                             type="number"
@@ -481,7 +483,7 @@ const handleSaveQuote = async () => {
                           />
                           <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmtH((RES_HOURS[type] ?? RES_HOURS.S)[sev])}</small>
                         </div>
-                        <div className="col-4">
+                        <div className="col-6 col-md-4">
                           <label style={{ color: 'white', fontSize: 13, marginBottom:4, display: 'block' }}>Hourly Rate (£)</label>
                           <input
                             type="number"
@@ -494,7 +496,7 @@ const handleSaveQuote = async () => {
                           />
                           <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmt(+(baseRate * SEV_MULT[sev] * IMPACT_MULT[impact]).toFixed(2))}/hr</small>
                         </div>
-                        <div className='col-4'>
+                        <div className='col-12 col-md-4'>
                           <button className='btn quote-btn-app w-100 mb-2' onClick={handleApprove} disabled={!ticket || saving || ticketStat == 'qr'}> 
                             Approve 
                           </button>
@@ -504,61 +506,63 @@ const handleSaveQuote = async () => {
                     </div>
                     <div className="quote-inner-card p-3">
                       <p className="quote-subheading">Price Breakdown</p>
-                      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
-                        <thead>
-                          <tr style={{ borderBottom: '2px solid #9b59a0' }}>
-                            <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'left' }}>Item</th>
-                            <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'right' }}>Hours</th>
-                            <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'right' }}>Rate</th>
-                            <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'right' }}>Cost</th>
-                          </tr>
-                        </thead>
-                        <tbody>
- 
-                          <tr style={{ borderBottom: '1px solid #9b59a0' }}>
-                            <td style={{ color: '#ffb91d', padding: '5px 0', fontWeight: 600 }}>Resolution time (total)</td>
-                            <td style={{ color: 'white', textAlign: 'right', padding: '5px 0', fontWeight: 600 }}>{fmtH(effectiveResHrs)}</td>
-                            <td style={{ color: '#d4b8d6', textAlign: 'right', padding: '5px 0' }}>{fmt(effectiveRate)}/hr</td>
-                            <td style={{ color: 'white', textAlign: 'right', padding: '5px 0', fontWeight: 600 }}>{fmt(totalCost)}</td>
-                          </tr>
-                          <tr style={{ borderBottom: '1px solid #67236a' }}>
-                            <td style={{ color: '#ffb91d', padding: '5px 0', fontWeight: 600 }}>Dev time (total)</td>
-                            <td style={{ color: 'white', textAlign: 'right', padding: '5px 0', fontWeight: 600 }}>{fmtH(effectiveDevHrs)}</td>
-                            <td style={{ padding: '5px 0' }} />
-                            <td style={{ padding: '5px 0' }} />
-                          </tr>
- 
-                          {Object.entries(ROLE_SPLIT[type]).map(([role, pct]) => {
-                            const roleHrs = +(effectiveDevHrs * pct).toFixed(2);
-                            const roleCost = +(roleHrs * effectiveRate).toFixed(2);
-                            return (
-                              <tr key={role} style={{ borderBottom: '1px solid #4a1a4e' }}>
-                                <td style={{ color: '#d4b8d6', padding: '5px 0 5px 16px', fontSize: 13 }}>
-                                  ↳ {role} <span style={{ color: '#9b59a0', fontSize: 11, marginLeft: 4 }}>{Math.round(pct * 100)}%</span>
-                                </td>
-                                <td style={{ color: pct > 0 ? 'white' : '#4a3050', textAlign: 'right', padding: '5px 0', fontSize: 13 }}>{fmtH(roleHrs)}</td>
-                                <td style={{ color: pct > 0 ? '#d4b8d6' : '#4a3050', textAlign: 'right', padding: '5px 0', fontSize: 13 }}>{pct > 0 ? `${fmt(effectiveRate)}/hr` : '—'}</td>
-                                <td style={{ color: pct > 0 ? 'white' : '#4a3050', textAlign: 'right', padding: '5px 0', fontSize: 13 }}>{pct > 0 ? fmt(roleCost) : '—'}</td>
+                        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                         <table style={{ width: '100%', minWidth: 480, borderCollapse: 'collapse', fontSize: 14 }}>
+                            <thead>
+                              <tr style={{ borderBottom: '2px solid #9b59a0' }}>
+                                <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'left' }}>Item</th>
+                                <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'right' }}>Hours</th>
+                                <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'right' }}>Rate</th>
+                                <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'right' }}>Cost</th>
                               </tr>
-                            );
-                          })}
+                            </thead>
+                            <tbody>
+                  
+                              <tr style={{ borderBottom: '1px solid #9b59a0' }}>
+                                <td style={{ color: '#ffb91d', padding: '5px 0', fontWeight: 600 }}>Resolution time (total)</td>
+                                <td style={{ color: 'white', textAlign: 'right', padding: '5px 0', fontWeight: 600 }}>{fmtH(effectiveResHrs)}</td>
+                                <td style={{ color: '#d4b8d6', textAlign: 'right', padding: '5px 0' }}>{fmt(effectiveRate)}/hr</td>
+                                <td style={{ color: 'white', textAlign: 'right', padding: '5px 0', fontWeight: 600 }}>{fmt(totalCost)}</td>
+                             </tr>
+                              <tr style={{ borderBottom: '1px solid #67236a' }}>
+                                <td style={{ color: '#ffb91d', padding: '5px 0', fontWeight: 600 }}>Dev time (total)</td>
+                                <td style={{ color: 'white', textAlign: 'right', padding: '5px 0', fontWeight: 600 }}>{fmtH(effectiveDevHrs)}</td>
+                                <td style={{ padding: '5px 0' }} />
+                                <td style={{ padding: '5px 0' }} />
+                              </tr>
  
-                          <tr style={{ borderTop: '2px solid #9b59a0' }}>
-                            <td style={{ color: '#d4b8d6', padding: '10px 0 4px', fontWeight: 'bold', fontSize: 15 }}>Total Quote</td>
-                            <td style={{ color: 'white', textAlign: 'right', padding: '10px 0 4px', fontWeight: 'bold' }}>{fmtH(effectiveResHrs)}</td>
-                            <td style={{ padding: '10px 0 4px' }} />
-                            <td style={{ textAlign: 'right', padding: '10px 0 4px' }}>
-                              <span className="quote-highlight" style={{ fontSize: 16 }}>{fmt(totalCost)}</span>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                             {Object.entries(ROLE_SPLIT[type]).map(([role, pct]) => {
+                                const roleHrs = +(effectiveDevHrs * pct).toFixed(2);
+                                const roleCost = +(roleHrs * effectiveRate).toFixed(2);
+                                return (
+                                  <tr key={role} style={{ borderBottom: '1px solid #4a1a4e' }}>
+                                    <td style={{ color: '#d4b8d6', padding: '5px 0 5px 16px', fontSize: 13 }}>
+                                      ↳ {role} <span style={{ color: '#9b59a0', fontSize: 11, marginLeft: 4 }}>{Math.round(pct * 100)}%</span>
+                                    </td>
+                                    <td style={{ color: pct > 0 ? 'white' : '#4a3050', textAlign: 'right', padding: '5px 0', fontSize: 13 }}>{fmtH(roleHrs)}</td>
+                                    <td style={{ color: pct > 0 ? '#d4b8d6' : '#4a3050', textAlign: 'right', padding: '5px 0', fontSize: 13 }}>{pct > 0 ? `${fmt(effectiveRate)}/hr` : '—'}</td>
+                                    <td style={{ color: pct > 0 ? 'white' : '#4a3050', textAlign: 'right', padding: '5px 0', fontSize: 13 }}>{pct > 0 ? fmt(roleCost) : '—'}</td>
+                                  </tr>
+                               );
+                              })}
+ 
+                              <tr style={{ borderTop: '2px solid #9b59a0' }}>
+                                <td style={{ color: '#d4b8d6', padding: '10px 0 4px', fontWeight: 'bold', fontSize: 15 }}>Total Quote</td>
+                                <td style={{ color: 'white', textAlign: 'right', padding: '10px 0 4px', fontWeight: 'bold' }}>{fmtH(effectiveResHrs)}</td>
+                                <td style={{ padding: '10px 0 4px' }} />
+                                <td style={{ textAlign: 'right', padding: '10px 0 4px' }}>
+                                  <span className="quote-highlight" style={{ fontSize: 16 }}>{fmt(totalCost)}</span>
+                                </td>
+                             </tr>
+                            </tbody>
+                        </table>
+                      </div>
                     </div>
                   </>
                 )}
               </div>
  
-              <div className="col-3 quote-actions p-3">
+              <div className="col-12 col-md-3 quote-actions p-3 mt-2 mt-md-0">
                 <p className="quote-subheading">Admin Controls</p>
  
                 {ticket && (

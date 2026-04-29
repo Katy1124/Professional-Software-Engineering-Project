@@ -28,9 +28,9 @@ export default function CustomerDashboard() {
             const allTickets = Array.isArray(tickets) ? tickets : [];
             const userTickets = allTickets.filter(t => t.account_Id === storedUser.id);
             const counts = {
-                pending: userTickets.filter(t => t.status === 'p' || t.status === 'P').length,
-                active: userTickets.filter(t => t.status === 'a' || t.status === 'A').length,
-                resolved: userTickets.filter(t => t.status === 'r').length
+              pending: userTickets.filter(t => ['p', 'qp'].includes(t.status?.toLowerCase())).length,
+              active: userTickets.filter(t => ['a', 'qr', 'e'].includes(t.status?.toLowerCase())).length,
+              resolved: userTickets.filter(t => ['r', 'rj'].includes(t.status?.toLowerCase())).length
             };
 
             setStats(counts);
@@ -38,30 +38,6 @@ export default function CustomerDashboard() {
             console.error('Error fetching ticket stats:', error);
         }
     };
-
-    //TEMPORARY LOGIC USING SEVERITY INSTEAD OF STATUS
-    // const fetchStats = async () => {
-    //     try {
-    //         const storedUser = JSON.parse(localStorage.getItem('user'));
-    //         if (!storedUser || !storedUser.id) {
-    //           console.error("No userID");
-    //           return;
-    //         }
-
-    //         const tickets = await ticketsApi.list();
-    //         const allTickets = Array.isArray(tickets) ? tickets : [];
-    //         const userTickets = allTickets.filter(t => t.account_Id === storedUser.id);
-    //         const counts = {
-    //             pending: userTickets.filter(t => t.severity == 1).length,
-    //             active: userTickets.filter(t => t.severity == 2).length,
-    //             resolved: userTickets.filter(t => t.severity == 3 || t.severity == 4).length
-    //         };
-
-    //         setStats(counts);
-    //     } catch (error) {
-    //         console.error('Error fetching ticket stats:', error);
-    //     }
-    // };
 
     fetchStats();
   }, []);
@@ -85,34 +61,34 @@ export default function CustomerDashboard() {
       </header>
 
       {/* Adding a Bootstrap container to center content and add padding */}
-              <main className="container" style={{ paddingTop: '100px' }}>
-              <div className="container text-center">
-  <div className="row justify-content-center">
-    {[
-      { label: 'Active Tickets', count: stats.active, colorClass: 'active-tickets' },
-      { label: 'Pending Tickets', count: stats.pending, colorClass: 'pending-tickets' },
-      { label: 'Resolved Tickets', count: stats.resolved, colorClass: 'resolved-tickets' }
-    ].map((stat, idx) => (
-      <div key={idx} className="col-md-4 mb-3">
-        <div className={`card ${stat.colorClass}`} style={{ minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div className="card-body">
-            <h3 style={{ fontSize: '20px', marginBottom: '10px' }}>{stat.label}</h3>
-            <p style={{ fontSize: '40px', fontWeight: 'bold', margin: 0 }}>{stat.count}</p>
-          </div>
+    <main className="container" style={{ paddingTop: '100px' }}>
+      <div className="container text-center">
+        <div className="row justify-content-center">
+          {[
+            { label: 'Active Tickets', count: stats.active, colorClass: 'active-tickets' },
+            { label: 'Pending Tickets', count: stats.pending, colorClass: 'pending-tickets' },
+            { label: 'Resolved Tickets', count: stats.resolved, colorClass: 'resolved-tickets' }
+          ].map((stat, idx) => (
+            <div key={idx} className="col-md-4 mb-3">
+              <div className={`card ${stat.colorClass}`} style={{ minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="card-body">
+                  <h3 style={{ fontSize: '20px', marginBottom: '10px' }}>{stat.label}</h3>
+                  <p style={{ fontSize: '40px', fontWeight: 'bold', margin: 0 }}>{stat.count}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    ))}
-  </div>
-</div>
 
-        {/* Create Ticket Button Area */}
-        <div className="text-center mb-5">
-          <Link to="/create" style={{ textDecoration: 'none' }}>
-            <div className="create-ticket-btn d-inline-block">
-               Create a New Ticket
-            </div>
-          </Link>
-        </div>
+      {/* Create Ticket Button Area */}
+      <div className="text-center mb-5">
+        <Link to="/create" style={{ textDecoration: 'none' }}>
+          <div className="create-ticket-btn d-inline-block">
+              Create a New Ticket
+          </div>
+        </Link>
+      </div>
 
         {/* Quick Links Section */}
         <div className="quick-links-section text-center">
@@ -125,7 +101,7 @@ export default function CustomerDashboard() {
               </Link>
             </div>
             <div className="col-6">
-              <Link to="/myquotes" className="card quick-link-card p-4 text-decoration-none d-block">
+              <Link to="/viewquote" className="card quick-link-card p-4 text-decoration-none d-block">
                 My Quotes
               </Link>
             </div>
