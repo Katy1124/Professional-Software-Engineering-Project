@@ -28,9 +28,9 @@ export default function CustomerDashboard() {
             const allTickets = Array.isArray(tickets) ? tickets : [];
             const userTickets = allTickets.filter(t => t.account_Id === storedUser.id);
             const counts = {
-                pending: userTickets.filter(t => t.status === 'p' || t.status === 'P').length,
-                active: userTickets.filter(t => t.status === 'a' || t.status === 'A').length,
-                resolved: userTickets.filter(t => t.status === 'r').length
+              pending: userTickets.filter(t => ['p', 'qp'].includes(t.status?.toLowerCase())).length,
+              active: userTickets.filter(t => ['a', 'qr', 'e'].includes(t.status?.toLowerCase())).length,
+              resolved: userTickets.filter(t => ['r', 'rj'].includes(t.status?.toLowerCase())).length
             };
 
             setStats(counts);
