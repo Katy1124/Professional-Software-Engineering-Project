@@ -22,6 +22,8 @@ export default function TicketForm() {
 
   const [errors, setErrors] = useState({});
 
+  const todayString = new Date().toISOString().split('T')[0];
+
   const set = (key, val) => {
     setForm(p => ({ ...p, [key]: val }));
     if (errors[key]) {
@@ -39,10 +41,16 @@ export default function TicketForm() {
     if (!form.description.trim()) {
       newErrors.description = 'Description is required.';
     }
+    if (!form.date) {
+      newErrors.date = 'Date is required.';
+    }
+    if (!form.users || form.users < 1) {
+      newErrors.users = 'Must affect at least 1 user.';
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      return; // Stops the form from submitting
+      return;
     }
 
     const typeMap = {
@@ -303,8 +311,11 @@ export default function TicketForm() {
                       type="date"
                       className="form-control ticket-input"
                       value={form.date}
+                      min={todayString}
                       onChange={e => set('date', e.target.value)}
+                      style={errors.date ? { borderColor: '#ff4d4d', borderWidth: '2px' } : {}}
                     />
+                    {errors.date && <div style={{ color: '#ff4d4d', fontSize: '14px' }}>{errors.date}</div>}
                   </div>
 
                   <div className="col-6">
@@ -313,10 +324,17 @@ export default function TicketForm() {
                       type="number"
                       className="form-control ticket-input"
                       min="0"
+                      max="999"
                       placeholder="Enter number"
                       value={form.users}
-                      onChange={e => set('users', e.target.value)}
+                      onChange={e => {
+                        const val = e.target.value.slice(0, 3); 
+                        set('users', val);
+                      }}
+                      style={errors.users ? { borderColor: '#ff4d4d', borderWidth: '2px' } : {}}
                     />
+                    {errors.users && <div style={{ color: '#ff4d4d', fontSize: '14px' }}>{errors.users}</div>}
+                    <div style={{ color: '#d4b8d6', fontSize: '12px', textAlign: 'right' }}>{form.users.length}/3</div>
                   </div>
                 </div>
 
