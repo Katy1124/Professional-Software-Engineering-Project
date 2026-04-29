@@ -135,3 +135,32 @@ html, body, #root {
 .openComment:active {
     background-color: #f47fc5;
 }
+@media (max-width: 768px) {
+  .quote-generator .container-fluid {
+    padding-top: 70px;
+  }
+
+  .quote-main-card {
+    margin-top: 12px;
+    border-radius: 10px;
+  }
+
+  .quote-actions {
+    border-radius: 10px;
+  }
+
+  .quote-heading {
+    font-size: 18px;
+  }
+
+  .quote-ticket-card {
+    word-break: normal;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .quote-ticket-card p {
+    display: block; 
+    margin-bottom: 4px;
+  }
+}
