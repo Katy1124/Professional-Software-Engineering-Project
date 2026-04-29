@@ -14,7 +14,6 @@ import CustomerDashboard from './pages/customerDashboard'; //Customer Dashboard
 import TicketForm from './pages/ticketForm'; //Ticket Form
 
 import TicketsPageCus from './pages/ticketsPageCus'; //Customer Tickets
-import CustomerQuotesPage from './pages/customerQuotesPage'; //Customer Quotes
 import CustomerQuote from './pages/customerQuote'; //Customer View Quote
 import ViewTicketCus from './pages/viewTicketCusNEW'; //Customer View Ticket
 
@@ -82,15 +81,7 @@ function App() {
             }
             />
             <Route
-            path="/myquotes"
-            element={
-                <SecurePath allowedType={0}>
-                <CustomerQuotesPage />
-                </SecurePath>
-            }
-            />
-            <Route
-            path="/viewquote/:id"
+            path="/viewquote"
             element={
                 <SecurePath allowedType={0}>
                 <CustomerQuote />
