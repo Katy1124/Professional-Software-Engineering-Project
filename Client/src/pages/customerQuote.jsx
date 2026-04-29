@@ -300,7 +300,7 @@ const effectiveDevHrs = +(effectiveResHrs * 0.6).toFixed(1);
       <div className="container-fluid" style={{ paddingTop: '100px' }}>
         <div className="row">
  
-          <div className="col-2">
+          <div className="col-12 col-md-2">
             <div className="card quote-ticket-card">
               <div className="card-body">
                 {ticket ? (
@@ -331,7 +331,7 @@ const effectiveDevHrs = +(effectiveResHrs * 0.6).toFixed(1);
             </button>
           </div>
  
-          <div className="col quote-main-card p-3">
+          <div className="col-12 col-md quote-main-card p-3 mt-2 mt-md-0">
             <p className="quote-heading">Quote Estimate</p>
  
             <div className="row">
@@ -407,7 +407,7 @@ const effectiveDevHrs = +(effectiveResHrs * 0.6).toFixed(1);
                 )}
               </div>
  
-              <div className="col-3 quote-actions p-3">
+              <div className="col-12 col-md-3 quote-actions p-3 mt-2 mt-md-0">
                 <p className="quote-subheading">Customer Controls</p>
  
                 {ticket && (
