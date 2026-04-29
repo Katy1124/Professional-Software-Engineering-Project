@@ -1,0 +1,596 @@
+import { useState, useEffect } from 'react';
+import { ticketsApi } from '../api/tickets.api';
+import { quotesApi } from '../api/quotes.api';
+import { logsApi } from '../api/logs.api';
+import { 
+  calculateAutoValues, 
+  normType, 
+  clamp, 
+  fmt, 
+  fmtH, 
+  SEV_MULT, 
+  IMPACT_MULT, 
+  RES_HOURS, 
+  ROLE_SPLIT 
+} from '../components/quoteLogic';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/quoteGenerator.css';
+import AdminNav from '../components/adminNav';
+import CommentWin from '../components/commentWindow';
+ 
+
+ 
+const ticketType = (type) => {
+  const t = normType(type);
+  if (t === 'E') return 'Enhancement';
+  if (t === 'I') return 'Incident';
+  return 'Support';
+};
+ 
+const ticketSeverity = (severity) => {
+  if (!severity) return 'N/A';
+  if (severity == 1) return 'Low';
+  if (severity == 2) return 'Medium';
+  if (severity == 3) return 'High';
+  if (severity == 4) return 'Critical';
+  return 'N/A';
+};
+ 
+const ticketImpact = (impact) => {
+  if (!impact) return 'N/A';
+  if (impact == 1) return 'Low';
+  if (impact == 2) return 'Medium';
+  if (impact == 3) return 'High';
+  if (impact == 4) return 'Critical';
+  return 'N/A';
+};
+ 
+const ticketStat = (status) => {
+  if (!status) return 'N/A';
+  const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return 'Quote Pending';
+  if (s === 'qr') return 'Quote Ready';
+  if (s === 'a') return 'Active';
+  if (s === 'e') return 'Escalated';
+  if (s === 'r') return 'Resolved';
+  return 'N/A';
+};
+ 
+const statusColor = (status) => {
+  if (!status) return '#6c757d';
+  const s = status.toLowerCase();
+  if (s === 'qp' || s === 'p') return '#B58229';
+  if (s === 'qr') return '#236A49';
+  if (s === 'a') return '#236A49';
+  if (s === 'e') return '#dc3545';
+  if (s === 'r') return '#75aef4';
+  return '#6c757d';
+};
+ 
+function TicketModal({ tickets, loading, error, onSelect, onClose }) {
+  const [search, setSearch] = useState('');
+ 
+  const filtered = tickets.filter((t) => {
+    if (!search) return true;
+    return (
+      String(t.id).includes(search) ||
+      (t.title || '').toLowerCase().includes(search.toLowerCase()) ||
+      normType(t.type) === search.toUpperCase()
+    );
+  });
+ 
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 1050,
+        background: 'rgba(0,0,0,0.65)',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        paddingTop: '10vh',
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: '#1e0a3c',
+          border: '1px solid #67236a',
+          borderRadius: 12,
+          width: '100%',
+          maxWidth: 560,
+          maxHeight: '70vh',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div style={{ background: '#67236a', padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>Select a Ticket</span>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'white', fontSize: 20, cursor: 'pointer' }}>×</button>
+        </div>
+ 
+        <div style={{ padding: '12px 20px', borderBottom: '1px solid #67236a' }}>
+          <input
+            className="form-control quote-input"
+            placeholder="Search by id, title or type (E / I / S)…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            autoFocus
+          />
+        </div>
+ 
+        <div style={{ overflowY: 'auto', flex: 1, padding: '8px 12px' }}>
+          {loading && <p style={{ color: '#d4b8d6', padding: '12px 8px' }}>Loading tickets…</p>}
+          {error && <p style={{ color: '#f87171', padding: '12px 8px' }}>Error: {error}</p>}
+          {!loading && filtered.map((t) => (
+            <div
+              key={t.id}
+              onClick={() => { onSelect(t); onClose(); }}
+              style={{ background: '#2d0a3e', border: '1px solid #67236a', borderRadius: 8, padding: '10px 14px', marginBottom: 6, cursor: 'pointer' }}
+              onMouseEnter={(e) => e.currentTarget.style.background = '#3d1452'}
+              onMouseLeave={(e) => e.currentTarget.style.background = '#2d0a3e'}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
+                <span style={{ fontWeight: 'bold', color: '#ffb91d' }}>#{t.id}</span>
+                <span style={{ fontSize: 12, color: '#d4b8d6' }}>{ticketType(t.type)}</span>
+              </div>
+              <p style={{ margin: 0, color: 'white', fontSize: 14 }}>{t.title || '(no title)'}</p>
+              <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+                <span style={{ fontSize: 11, color: '#d4b8d6' }}>Severity: {ticketSeverity(t.severity)}</span>
+                {t.quote != null && (
+                  <span style={{ fontSize: 11, color: '#22c55e', fontWeight: 600 }}>{fmt(t.quote)} quoted</span>
+                )}
+              </div>
+            </div>
+          ))}
+          {!loading && filtered.length === 0 && (
+            <p style={{ color: '#d4b8d6', padding: '12px 8px' }}>No tickets found.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+// Page Function
+export default function QuoteEstimate() {
+  const [tickets, setTickets] = useState([]);
+  const [ticketsLoading, setTicketsLoading] = useState(true);
+  const [ticketsError, setTicketsError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [ticket, setTicket] = useState(null);
+ const [existingQuote, setExistingQuote] = useState(null);
+const [autoResHrs, setAutoResHrs] = useState('');
+const [autoRate,   setAutoRate]   = useState('');
+const [resHours,    setResHours]    = useState('');
+const [devHours,    setDevHours]    = useState('');
+const [hourlyRate,  setHourlyRate]  = useState('');
+const [internalNotes, setInternalNotes] = useState('');
+const [saving,  setSaving]  = useState(false);
+const [toast,   setToast]   = useState(null);
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+const auto = calculateAutoValues(ticket);
+
+  const effectiveResHrs = Math.max(0, parseFloat(resHours || auto.resHrs) || 0);
+  const effectiveRate   = Math.max(0, parseFloat(hourlyRate || auto.rate) || 0);
+  const totalCost       = +(effectiveRate * effectiveResHrs).toFixed(2);
+  
+  const effectiveDevHrs = +(effectiveResHrs * 0.6).toFixed(1);
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const data = await ticketsApi.list();
+        setTickets(Array.isArray(data) ? data : []);
+      } catch (err) {
+        setTicketsError(err.message || 'Failed to load tickets');
+      } finally {
+        setTicketsLoading(false);
+      }
+    };
+    fetchTickets();
+  }, []);
+ 
+useEffect(() => {
+  // If no ticket is selected, reset everything and stop
+  if (!ticket?.id) {
+    setExistingQuote(null);
+    setResHours('');
+    setHourlyRate('');
+    return;
+  }
+
+  console.log(`--- Switching to Ticket #${ticket.id} ---`);
+
+  const fetchExistingQuote = async () => {
+    try {
+      // 1. Clear the old state so we don't show Quote 33 while loading
+      setExistingQuote(null);
+      
+      
+      
+      // Handle both Array and Object responses
+      const data = await quotesApi.getByTicketId(ticket.id);
+
+// Filter the array to find the quote that ACTUALLY matches this ticket ID
+const found = Array.isArray(data) 
+  ? data.find(q => q.ticket_Id === ticket.id) 
+  : (data?.ticket_Id === ticket.id ? data : null);
+
+      if (found && found.id) {
+        console.log(`✅ Found Quote #${found.id} for Ticket #${ticket.id}`);
+        setExistingQuote(found);
+        setResHours(String(found.estimated_Resolution_Time || ''));
+        setHourlyRate(String(found.hourly_Rate || ''));
+      } else {
+        console.log(`ℹ️ No existing quote found for Ticket #${ticket.id}`);
+        // Reset inputs to blank so auto-calculation takes over
+        setExistingQuote(null);
+        setResHours('');
+        setHourlyRate('');
+      }
+    } catch (err) {
+      console.error("❌ Failed to fetch quote for ticket:", ticket.id, err);
+      setExistingQuote(null);
+    }
+  };
+
+  fetchExistingQuote();
+  setInternalNotes('');
+}, [ticket?.id]); // Only re-run when the ID actually changes
+
+  // const type    = ticket ? normType(ticket.type) : 'S';
+  // const sev     = ticket ? clamp(ticket.severity || 1, 1, 4) : 1;
+  // const impact  = ticket ? clamp(ticket.technical_Diffculty || 1, 1, 4) : 1;
+  // const baseRate = BASE_RATE[type] ?? 65;
+
+  // const effectiveResHrs = Math.max(0, parseFloat(resHours  || autoResHrs)  || 0);
+  // const effectiveDevHrs = Math.max(0, parseFloat(devHours  || autoResHrs)  || 0);
+  // const effectiveRate   = Math.max(0, parseFloat(hourlyRate || autoRate)    || 0);
+  // const totalCost       = +(effectiveRate * effectiveResHrs).toFixed(2);
+
+ 
+  const showToast = (msg, ok = true) => {
+    setToast({ msg, ok });
+    setTimeout(() => setToast(null), 3000);
+  };
+  const resHourschange = (Hours) => {
+    setResHours(Hours);
+    setDevHours(String(+(parseFloat(Hours || autoResHrs) * 0.6).toFixed(1)));
+  };
+
+  const handleComment = async () => {
+    if (!internalNotes.trim()) return;
+
+    const today = new Date();
+    const formattedDate = parseInt(
+      `${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`
+    );
+
+    const payload = {
+      ticket_Id: ticket.id,
+      description: `[COMMENT] ${internalNotes}`,
+      date: formattedDate
+    };
+
+    try {
+      await logsApi.create(payload);
+      setInternalNotes('');
+    } catch (error) {
+      console.error('Error adding comment:', error);
+      throw error; // Pass up to handleSaveQuote
+    }
+  };
+
+  const handleApprove = async () => {
+    if (!ticket) return ;
+
+    setSaving(true);
+    try {
+      const updatedStatus = {
+        ...ticket,
+        status: 'qr'
+      };
+      await ticketsApi.update(ticket.id, updatedStatus);
+      setTicket(updatedStatus);
+      showToast('Ticket marked as Quote Ready');
+    } catch (err) {
+    console.error("Failed to approve ticket:", err);
+    showToast(err.message || "Approval failed", false);
+  } finally {
+    setSaving(false);
+  }
+};
+
+const handleSaveQuote = async () => {
+  if (!ticket) {
+    console.log("No ticket selected, stopping.");
+    return;
+  }
+  
+  setSaving(true);
+  console.log("Save Button Clicked for Ticket:", ticket.id);
+
+  try {
+    // 1. Build the payload with the necessary IDs
+    const payload = {
+      // Include the quote's primary key ID
+      id: existingQuote?.id, 
+      hourly_Rate: effectiveRate,
+      estimated_Resolution_Time: effectiveResHrs,
+      estimated_Cost: totalCost,
+      priority_Level: sev,
+      effort_Level: impact,
+      status: 'p', // 'p' for Pending
+      ticket_Id: ticket.id,
+    };
+
+    let result;
+
+    if (existingQuote?.id) {
+      console.log("✅ Attempting PUT (Update) for Quote ID:", existingQuote.id);
+      // Ensure your quotesApi.update is (id, payload) => http.put(`/api/Quotes/${id}`, payload)
+      result = await quotesApi.update(existingQuote.id, payload);
+      showToast('Quote updated successfully');
+    } else {
+      console.log("🆕 Attempting POST (Create) for Ticket:", ticket.id);
+      // If you need to create a new one, uncomment the create call:
+      result = await quotesApi.create(payload);
+      showToast('Quote created successfully');
+    }
+
+    if (internalNotes.trim()) {
+        await handleComment();
+      }
+
+    // Update the state with the response from the server
+    setExistingQuote(result); 
+
+  } catch (err) {
+    console.error("API Error Detail:", err);
+    // This will now show the actual server message if it fails again
+    showToast(err.message || "Save failed", false);
+  } finally {
+    setSaving(false);
+  }
+};
+  // Page
+  return (
+    <div className="quote-generator">
+      <AdminNav />
+ 
+      {toast && (
+        <div style={{ position: 'fixed', top: 76, right: 20, zIndex: 2000, background: toast.ok ? '#065f46' : '#7f1d1d', border: `1px solid ${toast.ok ? '#059669' : '#991b1b'}`, borderRadius: 8, padding: '10px 18px', color: 'white', fontSize: 14, fontWeight: 500 }}>
+          {toast.msg}
+        </div>
+      )}
+ 
+      {showModal && (
+        <TicketModal
+          tickets={tickets}
+          loading={ticketsLoading}
+          error={ticketsError}
+          onSelect={setTicket}
+          onClose={() => setShowModal(false)}
+        />
+      )}
+ 
+      <div className="container-fluid" style={{ paddingTop: '100px' }}>
+        <div className="row">
+ 
+          <div className="col-2">
+            <div className="card quote-ticket-card">
+              <div className="card-body">
+                {ticket ? (
+                  <>
+                    <p style={{ fontWeight: 'bold', color: '#ffb91d' }}>Selected Ticket: #{ticket.id}</p>
+                    <p style={{ fontWeight: 600 }}>{ticket.title}</p>
+                    <p className="quote-muted" style={{ marginBottom: 4, color: 'black' }}>Type: <span style={{ color: 'black' }}>{ticketType(ticket.type)}</span></p>
+                    <p className="quote-muted" style={{ marginBottom: 4, color: 'black' }}>Severity: <span style={{ color: 'black' }}>{ticketSeverity(ticket.severity)}</span></p>
+                    <p className="quote-muted" style={{ marginBottom: 4, color: 'black' }}>Business Impact: <span style={{ color: 'black' }}>{ticketImpact(ticket.technical_Diffculty)}</span></p>
+                    <p className="quote-muted" style={{ marginBottom: 4, color: 'black' }}>Deadline: <span style={{ color: 'black' }}>{ticket.deadline ?? 'N/A'}</span></p>
+                    <p className="quote-muted" style={{ marginBottom: 4, color: 'black' }}>Users Affected: <span style={{ color: 'black' }}>{ticket.users_Affected ?? 'N/A'}</span></p>
+                    <p className="quote-muted" style={{ marginBottom: 0, color: 'black' }}>
+                      Status: <span className="badge" style={{ backgroundColor: statusColor(ticket.status) }}>{ticketStat(ticket.status)}</span>
+                    </p>
+                    {ticket.quote != null && (
+                      <p className="quote-muted" style={{ marginTop: 8, marginBottom: 0 }}>
+                        Current Quote: <span className="quote-highlight">{fmt(ticket.quote)}</span>
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <p style={{ color: '#d4b8d6', fontSize: 13 }}>No ticket selected. Click below to pick one.</p>
+                )}
+              </div>
+            </div>
+            <button className="btn quote-change-btn w-100 mt-2" onClick={() => setShowModal(true)}>
+              {ticket ? 'Change Ticket' : 'Select Ticket'}
+            </button>
+          </div>
+ 
+          <div className="col quote-main-card p-3">
+            <p className="quote-heading">Quote Estimate</p>
+ 
+            <div className="row">
+ 
+              <div className="col">
+ 
+                {!ticket && (
+                  <div className="quote-inner-card p-4 mb-3 text-center">
+                    <p style={{ color: '#d4b8d6', fontSize: 15, marginBottom: 0 }}>
+                      Select a ticket on the left to begin building a quote.
+                    </p>
+                  </div>
+                )}
+ 
+                {ticket && (
+                  <>
+                    <div className="quote-inner-card p-3 mb-3">
+                      <p className="quote-subheading">Auto-calculated from ticket</p>
+                      <div className="row g-2">
+                        <div className="col-6">
+                          <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
+                            Ticket Type: <span className="quote-value" style={{ fontSize: 13 }}>{ticketType(ticket.type)}</span>
+                          </p>
+                        </div>
+                        <div className="col-6">
+                          <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
+                            Base Rate: <span className="quote-value" style={{ fontSize: 13 }}>{fmt(auto.baseRate)}/hr</span>
+                          </p>
+                        </div>
+                        <div className="col-6">
+                          <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
+                            Severity: <span className="quote-value" style={{ fontSize: 13 }}>{ticketSeverity(ticket.severity)} (×{SEV_MULT[auto.sev]})</span>
+                          </p>
+                        </div>
+                        <div className="col-6">
+                          <p className="quote-muted" style={{ marginBottom: 4, fontSize: 13 }}>
+                            Business Impact: <span className="quote-value" style={{ fontSize: 13 }}>{ticketImpact(ticket.technical_Diffculty)} (×{IMPACT_MULT[auto.impact]})</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="quote-inner-card p-3 mb-3">
+                      <p className="quote-subheading">Quote Inputs</p>
+                      <div className="row g-3">
+                        <div className="col-4">
+                          <label style={{ color: 'white', fontSize: 13, marginBottom: 4, display: 'block' }}>Resolution Time (hrs)</label>
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.5"
+                            className="form-control quote-input"
+                            value={resHours}
+                            placeholder={autoResHrs}
+                            onChange={(e) => resHourschange(e.target.value)}
+                          />
+                          <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmtH((RES_HOURS[auto.type] ?? RES_HOURS.S)[auto.sev])}</small>
+                        </div>
+                        <div className="col-4">
+                          <label style={{ color: 'white', fontSize: 13, marginBottom:4, display: 'block' }}>Hourly Rate (£)</label>
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.5"
+                            className="form-control quote-input"
+                            value={hourlyRate}
+                            placeholder={autoRate}
+                            onChange={(e) => setHourlyRate(e.target.value)}
+                          />
+                          <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmt(+(auto.baseRate * SEV_MULT[auto.sev] * IMPACT_MULT[auto.impact]).toFixed(2))}/hr</small>
+                        </div>
+                        <div className='col-4'>
+                          <button className='btn quote-btn-app w-100 mb-2' onClick={handleApprove} disabled={!ticket || saving || ticketStat == 'qr'}> 
+                            Approve 
+                          </button>
+                          {/* <button className='btn quote-btn-save w-100 mb-2'> Reject </button> */}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="quote-inner-card p-3">
+                      <p className="quote-subheading">Price Breakdown</p>
+                      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+                        <thead>
+                          <tr style={{ borderBottom: '2px solid #9b59a0' }}>
+                            <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'left' }}>Item</th>
+                            <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'right' }}>Hours</th>
+                            <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'right' }}>Rate</th>
+                            <th style={{ color: '#d4b8d6', padding: '4px 0 8px', fontWeight: 600, textAlign: 'right' }}>Cost</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+ 
+                          <tr style={{ borderBottom: '1px solid #9b59a0' }}>
+                            <td style={{ color: '#ffb91d', padding: '5px 0', fontWeight: 600 }}>Resolution time (total)</td>
+                            <td style={{ color: 'white', textAlign: 'right', padding: '5px 0', fontWeight: 600 }}>{fmtH(effectiveResHrs)}</td>
+                            <td style={{ color: '#d4b8d6', textAlign: 'right', padding: '5px 0' }}>{fmt(effectiveRate)}/hr</td>
+                            <td style={{ color: 'white', textAlign: 'right', padding: '5px 0', fontWeight: 600 }}>{fmt(totalCost)}</td>
+                          </tr>
+                          <tr style={{ borderBottom: '1px solid #67236a' }}>
+                            <td style={{ color: '#ffb91d', padding: '5px 0', fontWeight: 600 }}>Dev time (total)</td>
+                            <td style={{ color: 'white', textAlign: 'right', padding: '5px 0', fontWeight: 600 }}>{fmtH(effectiveDevHrs)}</td>
+                            <td style={{ padding: '5px 0' }} />
+                            <td style={{ padding: '5px 0' }} />
+                          </tr>
+ 
+                          {Object.entries(ROLE_SPLIT[normType(ticket.type)]).map(([role, pct]) => {
+                            const roleHrs = +(effectiveDevHrs * pct).toFixed(2);
+                            const roleCost = +(roleHrs * effectiveRate).toFixed(2);
+                            return (
+                              <tr key={role} style={{ borderBottom: '1px solid #4a1a4e' }}>
+                                <td style={{ color: '#d4b8d6', padding: '5px 0 5px 16px', fontSize: 13 }}>
+                                  ↳ {role} <span style={{ color: '#9b59a0', fontSize: 11, marginLeft: 4 }}>{Math.round(pct * 100)}%</span>
+                                </td>
+                                <td style={{ color: pct > 0 ? 'white' : '#4a3050', textAlign: 'right', padding: '5px 0', fontSize: 13 }}>{fmtH(roleHrs)}</td>
+                                <td style={{ color: pct > 0 ? '#d4b8d6' : '#4a3050', textAlign: 'right', padding: '5px 0', fontSize: 13 }}>{pct > 0 ? `${fmt(effectiveRate)}/hr` : '—'}</td>
+                                <td style={{ color: pct > 0 ? 'white' : '#4a3050', textAlign: 'right', padding: '5px 0', fontSize: 13 }}>{pct > 0 ? fmt(roleCost) : '—'}</td>
+                              </tr>
+                            );
+                          })}
+ 
+                          <tr style={{ borderTop: '2px solid #9b59a0' }}>
+                            <td style={{ color: '#d4b8d6', padding: '10px 0 4px', fontWeight: 'bold', fontSize: 15 }}>Total Quote</td>
+                            <td style={{ color: 'white', textAlign: 'right', padding: '10px 0 4px', fontWeight: 'bold' }}>{fmtH(effectiveResHrs)}</td>
+                            <td style={{ padding: '10px 0 4px' }} />
+                            <td style={{ textAlign: 'right', padding: '10px 0 4px' }}>
+                              <span className="quote-highlight" style={{ fontSize: 16 }}>{fmt(totalCost)}</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+              </div>
+ 
+              <div className="col-3 quote-actions p-3">
+                <p className="quote-subheading">Admin Controls</p>
+ 
+                {ticket && (
+                  <div className="mb-3 p-2" style={{ background: '#2d0a3e', borderRadius: 8 }}>
+                    <p style={{ color: '#d4b8d6', marginBottom: 2, fontSize: 13 }}>Total Price</p>
+                    <p style={{ margin: 0, fontSize: 20, fontWeight: 'bold' }}>
+                      <span className="quote-highlight">{fmt(totalCost)}</span>
+                    </p>
+                  </div>
+                )}
+ 
+                <div className="mb-3">
+                  <label style={{ color: 'white' }}>Internal Notes</label>
+                  <textarea
+                    className="form-control quote-input mt-1"
+                    rows="3"
+                    placeholder="Internal notes..."
+                    value={internalNotes} 
+                    onChange={e => setInternalNotes(e.target.value)}
+                  />
+                </div>
+ 
+                <button className="btn openComment w-100 mb-2" onClick={() => setIsModalOpen(true)}>
+                      Open Comments
+                    </button>
+                    {isModalOpen && ticket && (
+                    <CommentWin 
+                        ticketId={ticket.id} 
+                        onClose={() => setIsModalOpen(false)} 
+                    />
+                )}
+                <button className="btn quote-btn-save w-100 mb-2" onClick={handleSaveQuote} disabled={!ticket || saving}>
+                  {saving ? 'Saving…' : existingQuote ? 'Update Quote' : 'Create Quote'}
+                </button>
+              </div>
+ 
+            </div>
+          </div>
+ 
+        </div>
+      </div>
+ 
+      <footer className="footer" />
+    </div>
+  );
+}
