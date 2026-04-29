@@ -5,7 +5,7 @@ import LoginPage from './pages/loginPage';
 // new commit
 // Admin Pages
 import AdminDashboard from './pages/adminDashboard'; //Admin Dashboard
-import QuoteEstimate from './pages/quoteGenerator'; //Admin Quote Generator
+import QuoteEstimate from './pages/quoteGeneratorNEW'; //Admin Quote Generator
 import ViewTicketAd from './pages/viewTicketAdNEW'; //Admin View Ticket
 import TicketsPageAd from './pages/ticketsPageAd'; //All Tickets
 
