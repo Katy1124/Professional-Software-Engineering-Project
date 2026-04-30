@@ -172,7 +172,10 @@ export default function QuoteEstimate() {
 
       const data = await ticketsApi.list();
       const all = Array.isArray(data) ? data : [];
-      const userTickets = all.filter((t) => t.account_Id === storedUser.id);
+      const userTickets = all.filter((t) => 
+        t.account_Id === storedUser.id && 
+        (t.status || '').toLowerCase() === 'qr'
+      );
       setTickets(userTickets);
     } catch (err) {
       setTicketsError(err.message || 'Failed to load tickets');

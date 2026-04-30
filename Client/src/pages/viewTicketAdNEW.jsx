@@ -159,11 +159,11 @@ export default function ViewTicketAd() {
     if (!status) return { bg: '#d8acdb', fg: '#b97ebc' };
     const s = status.toLowerCase();
 
-    if (s === 'e') {
+    if (s === 'e' || s === 'rj') {
       return { bg: '#ee9ba4', fg: '#dc3545' };
     } else if (s === 'r') {
       return { bg: '#b1d1f8', fg: '#75aef4' };
-    } else if (s === 'p') {
+    } else if (s === 'p' || s === 'qp') {
       return { bg: '#f7e9c1', fg: '#ffc107' };
     } else {
       return { bg: '#91e0a3', fg: '#28a745' };

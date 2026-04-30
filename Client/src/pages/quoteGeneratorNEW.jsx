@@ -324,8 +324,8 @@ const handleSaveQuote = async () => {
       hourly_Rate: effectiveRate,
       estimated_Resolution_Time: effectiveResHrs,
       estimated_Cost: totalCost,
-      priority_Level: sev,
-      effort_Level: impact,
+      priority_Level: auto.sev,
+      effort_Level: auto.impact,
       status: 'p', // 'p' for Pending
       ticket_Id: ticket.id,
     };
@@ -486,7 +486,7 @@ const handleSaveQuote = async () => {
                           <small style={{ color: '#d4b8d6', fontSize: 11 }}>Auto: {fmt(+(auto.baseRate * SEV_MULT[auto.sev] * IMPACT_MULT[auto.impact]).toFixed(2))}/hr</small>
                         </div>
                         <div className='col-4'>
-                          <button className='btn quote-btn-app w-100 mb-2' onClick={handleApprove} disabled={!ticket || saving || ticketStat == 'qr'}> 
+                          <button className='btn quote-btn-app w-100 mb-2' onClick={handleApprove} disabled={!ticket || saving || !existingQuote || ticketStat == 'qr'}> 
                             Approve 
                           </button>
                           {/* <button className='btn quote-btn-save w-100 mb-2'> Reject </button> */}

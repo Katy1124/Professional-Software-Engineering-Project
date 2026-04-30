@@ -136,11 +136,11 @@ export default function CustViewTicket() {
   const statusColour = (status) => {
     if (!status) return { bg: '#d8acdb', fg: '#b97ebc' };
     const s = status.toLowerCase();
-    if (s === 'e') {
+    if (s === 'e' || s === 'rj') {
       return { bg: '#ee9ba4', fg: '#dc3545' };
     } else if (s === 'r') {
       return { bg: '#b1d1f8', fg: '#75aef4' };
-    } else if (s === 'p') {
+    } else if (s === 'p' || s === 'qp') {
       return { bg: '#ffefc0', fg: '#ffc107' };
     } else {
       return { bg: '#91e0a3', fg: '#28a745' };
@@ -225,7 +225,9 @@ export default function CustViewTicket() {
                     <div className="col-6 quote">
                       <p>Quote</p>
                       <p style={{ fontWeight: 'bold', fontSize: '20px', color: 'black' }}>
-                        {quote ? `£${quote.estimated_Cost.toFixed(2)}` : 'No quote yet'}
+                        {quote && ['qr', 'a', 'e', 'r'].includes(ticket.status?.toLowerCase()) 
+                          ? `£${quote.estimated_Cost.toFixed(2)}` 
+                          : 'No quote yet'}
                       </p>
                     </div>
                   </div>

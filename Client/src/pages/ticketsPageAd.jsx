@@ -35,7 +35,7 @@ export default function TicketsPage() {
     const s = Status.toLowerCase();
     if (s === 'qr') return '#236A49';
     if (s === 'a') return '#236A49';
-    if (s === 'p') return '#B58229';
+    if (s === 'qp') return '#B58229';
     if (s === 'r') return '#75aef4';
     if (s === 'e') return '#dc3545';
     if (s === 'rj') return '#9b0303';
@@ -47,7 +47,7 @@ export default function TicketsPage() {
     const s = Status.toLowerCase();
     if (s === 'qr') return 'Quote Ready';
     if (s === 'a') return 'Active';
-    if (s === 'p') return 'Pending';
+    if (s === 'qp') return 'Quote Pending';
     if (s === 'r') return 'Resolved';
     if (s === 'e') return 'Escalated';
     if (s === 'rj') return 'Rejected';

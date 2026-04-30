@@ -66,14 +66,10 @@ const ticketStat = (status) => {
     if (severity == 4) return 'Critical';
   };
 
+  
     const isTicketVisible = (status) => {
       if (!status) return false;
       const s = status.toLowerCase();
-
-      if (s === 'p' || s === 'qp' || s === 'e') {
-        return false;
-      }
-
       return true;
     };
 

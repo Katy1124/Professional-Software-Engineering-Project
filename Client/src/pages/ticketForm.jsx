@@ -78,7 +78,7 @@ export default function TicketForm() {
       const payload = {
         title: form.title,
         description: form.description,
-        status: 'P',
+        status: 'qp',
         type: typeMap[form.type],
         severity: severityMap[form.severity],
         technical_Diffculty: businessMap[form.impact],
