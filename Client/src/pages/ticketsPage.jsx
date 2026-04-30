@@ -1,65 +1,131 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
+import { ticketsApi } from '../api/tickets.api';
+import { useNavigate } from 'react-router-dom';
 import '../css/ticketsPage.css';
 import AdminNav from '../components/adminNav';
 
+// const ACCOUNT_ID = 1;
+
 export default function TicketsPage() {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [currentTicket, setCurrentTicket] = useState(null);
+  const [tickets, setTickets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const storedUser = localStorage.getItem('user');
+        const userObj = storedUser ? JSON.parse(storedUser) : null;
+        setCurrentUser(userObj);
+
+        const data = await ticketsApi.list();
+        const all = Array.isArray(data) ? data : [];
+        if (userObj && userObj.id) {
+        const filtered = all.filter(t => t.account_Id === userObj.id);
+        setTickets(filtered);
+      } else {
+        setError("No user session found. Please log in again.");
+      }
+        
+      } catch (err) {
+        setError(err.message || 'failed to load tickets');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTickets();
+  }, [])
+
+  const handleViewTicket = (ticket) => {
+    localStorage.setItem('ticketId', ticket.id);
+    navigate(`/viewticket/${ticketId}`);
+  }
+
+  //   const fetchTickets = async () => {
+  //     try {
+  //       const data = await ticketsApi.list();
+  //       const all = Array.isArray(data) ? data : [];
+  //       // Filter client-side by account_Id
+  //       const filtered = all.filter(t => t.account_Id === ACCOUNT_ID);
+  //       setTickets(filtered);
+  //     } catch (err) {
+  //       setError(err.message || 'Failed to load tickets');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchTickets();
+  // }, []);
+
+  const statusColor = (status) => {
+    if (!status) return '#6c757d';
+    const s = status.toLowerCase();
+    if (s === 'a') return '#236A49';
+    if (s === 'p') return '#B58229';
+    if (s === 'r') return '#75aef4';
+    if (s === 'e') return '#dc3545';
+    return '#6c757d';
+  };
+  const ticketStat = (Status) => {
+  if (!Status) return 'N/A';
+    const s = Status.toLowerCase();
+    if (s === 'a') return 'Active';
+    if (s === 'p') return 'Pending';
+    if (s === 'r') return 'Resolved';
+    if (s === 'e') return 'Escalated';
+    return 'N/A';
+  };
+
   return (
-    
     <div className="tickets-page">
 
       <AdminNav />
 
+      <div className="container-fluid text-center" style={{ paddingTop: '25px' }}>
 
-      <div className="container-fluid text-center">
-        <div className="row align-items-center">
+        {loading && <p style={{ color: 'white', marginTop: '2rem' }}>Loading...</p>}
 
-          <div className="col">
+        {error && (
+          <div className="alert alert-danger" style={{ maxWidth: '600px', margin: '2rem auto' }}>
+            <strong>Error:</strong> {error}
+          </div>
+        )}
+
+        {!loading && !error && tickets.length === 0 && (
+          <p style={{ color: 'white', marginTop: '2rem' }}>No tickets found for account {ACCOUNT_ID}.</p>
+        )}
+
+        <div className="row align-items-start justify-content-center mt-4">
+          {tickets.map((ticket) => (
+            <div className="col-auto" key={ticket.id}>
               <div className="card tickets">
                 <div className="card-body">
-                  <p style={{fontSize: '60px', fontWeight: 'bold'}}>Ticket 108</p>
-                  <p style={{fontSize: '40px'}}>User15645</p>
-                  <p style={{fontSize: '20px'}}>Sign-up button not working</p>
-                  <p style={{fontSize: '20px'}}><span>Severity: </span><span>Medium</span></p>
-                  <p style={{fontSize: '20px'}}><span>Impact: </span><span>Medium</span></p>
-                  <p style={{fontSize: '20px'}}><span>Date: </span><span>05/02/2026</span></p>
-                  <p style={{fontSize: '20px'}}><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white'}}>Active</span></p>
-                  <button className="view-button">View</button>
+                  <p style={{ fontSize: '60px', fontWeight: 'bold' }}>Ticket {ticket.id}</p>
+                  <p style={{ fontSize: '40px' }}>Account: {ticket.account_Id}</p>
+                  <p style={{ fontSize: '20px' }}>{ticket.title}</p>
+                  <p style={{ fontSize: '20px' }}><span>Severity: </span><span>{ticket.severity}</span></p>
+                  <p style={{ fontSize: '20px' }}><span>Users Affected: </span><span>{ticket.users_Affected}</span></p>
+                  <p style={{ fontSize: '20px' }}><span>Deadline: </span><span>{ticket.deadline} days</span></p>
+                  <p style={{ fontSize: '20px' }}>
+                    <span>Status: </span>
+                    <span style={{ padding: '5px', borderRadius: '5px', backgroundColor: ticketStat(ticket.status), color: 'white' }}>
+                      {ticket.status || 'Active'}
+                    </span>
+                  </p>
+                  <Link to={`/viewticket/${ticket.id}`} style={{ textDecoration: 'none' }}>
+                    <button className="view-button" onClick={() => handleViewTicket(ticket)}>View</button>
+                  </Link>
                 </div>
               </div>
-          </div>
-
-          <div className="col">
-            <div className="card tickets">
-              <div class="card-body">
-                <p style={{fontSize: '60px', fontWeight: 'bold'}}>Ticket 232</p>
-                  <p style={{fontSize: '40px'}}>User2323</p>
-                  <p style={{fontSize: '20px'}}>Order system down</p>
-                  <p style={{fontSize: '20px'}}><span>Severity: </span><span>Critical</span></p>
-                  <p style={{fontSize: '20px'}}><span>Impact: </span><span>Critical</span></p>
-                  <p style={{fontSize: '20px'}}><span>Date: </span><span>02/02/2026</span></p>
-                  <p style={{fontSize: '20px'}}><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#236A49', color: 'white'}}>Active</span></p>
-                  <button className="view-button">View</button>
-              </div>
             </div>
-          </div>
-
-          <div className="col">
-            <div className="card tickets">
-              <div className="card-body">
-                <p style={{fontSize: '60px', fontWeight: 'bold'}}>Ticket 300</p>
-                  <p style={{fontSize: '40px'}}>User98769</p>
-                  <p style={{fontSize: '20px'}}>Employees not able to login</p>
-                  <p style={{fontSize: '20px'}}><span>Severity: </span><span>High</span></p>
-                  <p style={{fontSize: '20px'}}><span>Impact: </span><span>Critical</span></p>
-                  <p style={{fontSize: '20px'}}><span>Date: </span><span>03/02/2026</span></p>
-                  <p style={{fontSize: '20px'}}><span>Status: </span><span style={{padding: '5px', borderRadius: '5px', backgroundColor: '#B58229', color: 'white'}}>Pending</span></p>
-                  <button className="view-button">View</button>
-              </div>
-            </div>
-          </div>
-
+          ))}
         </div>
+
       </div>
 
       <footer className="footer" />
