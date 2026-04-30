@@ -141,7 +141,7 @@ const ticketStat = (status) => {
 
         <div className="row justify-content-center mt-4">
           {pagedTickets.map((ticket) => (
-            <div className="col-lg-3" key={ticket.id}>
+            <div className="col-auto" key={ticket.id}>
               <div className="card tickets">
                 <div className="card-body d-flex flex-column">
                   <p className='number'>Ticket {ticket.id}</p>

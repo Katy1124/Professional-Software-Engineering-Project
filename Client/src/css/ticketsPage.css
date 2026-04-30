@@ -75,13 +75,15 @@ html, body, #root {
     color: black;
     transition: all 0.3s ease;
     width: 100%;
-    max-width: 320px;
+    width: 320px;
     height: 420px;
 }
 .tickets-page  .tickets .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: -32px;
-    padding-top: 0px;
-    padding-left: 0px;
+    padding: 20px;
 }
 .tickets-page  .tickets .card-body .number {
     color: black;
@@ -114,6 +116,7 @@ html, body, #root {
     line-height: 1.0;
     font-size: 20px;
     text-align: left;
+    white-space: nowrap;
 }
 .tickets-page .tickets .card-body table tr {
     height: auto;
