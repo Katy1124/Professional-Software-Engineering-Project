@@ -7,6 +7,7 @@ This project is a React frontend built with Vite and styled using Bootstrap. It 
 * Frontend: React + Vite + Bootstrap
 * Backend: Azure
 
+The deployed version of our website can be accessed here: https://giacom-g3gvevbkdbcff0e2.norwayeast-01.azurewebsites.net/
 ---
 Login details to the system:
 
