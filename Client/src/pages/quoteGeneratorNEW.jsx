@@ -187,6 +187,11 @@ const auto = calculateAutoValues(ticket);
       try {
         const data = await ticketsApi.list();
         setTickets(Array.isArray(data) ? data : []);
+        const userTickets = (Array.isArray(data) ? data : []).filter((t) =>
+          (t.status || '').toLowerCase() === 'qp' ||
+          (t.status || '').toLowerCase() === 'qr'
+        );
+        setTickets(userTickets);
       } catch (err) {
         setTicketsError(err.message || 'Failed to load tickets');
       } finally {
