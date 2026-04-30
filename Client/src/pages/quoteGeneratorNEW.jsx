@@ -317,9 +317,7 @@ const handleSaveQuote = async () => {
   console.log("Save Button Clicked for Ticket:", ticket.id);
 
   try {
-    // 1. Build the payload with the necessary IDs
     const payload = {
-      // Include the quote's primary key ID
       id: existingQuote?.id, 
       hourly_Rate: effectiveRate,
       estimated_Resolution_Time: effectiveResHrs,
@@ -571,6 +569,14 @@ const handleSaveQuote = async () => {
                     onChange={e => setInternalNotes(e.target.value)}
                   />
                 </div>
+                <button 
+                  className="btn comment btn-sm btn-outline-info mt-2 w-70"
+                  style={{color: 'white', borderColor: 'white', marginBottom: '9px'}} 
+                  onClick={handleComment}
+                  disabled={!internalNotes.trim() || !ticket}
+                >
+                  Add Comment
+                </button>
  
                 <button className="btn openComment w-100 mb-2" onClick={() => setIsModalOpen(true)}>
                       Open Comments
