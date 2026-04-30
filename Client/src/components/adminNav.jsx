@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import giacomLogo from '../assets/giacom-master-white-logo-1.png'; 
 import burger from '../assets/menu.png';
 import './adminNav.css';
@@ -13,6 +13,12 @@ export default function AdminNav() {
         setIsOn(!isOn)
     }
     const closeMenu = () => setIsOn(false);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        navigate('/'); 
+    }
 
     return (
         <div className='adminNavbar'>
@@ -27,11 +33,14 @@ export default function AdminNav() {
                             ><img src={burger} alt="Menu Icon" style={{width: '20px'}}/>
                         </button>
                     </div>
-                    <Link to="/" style={{ textDecoration: 'none' }}>
+                    <Link to="/admin" style={{ textDecoration: 'none' }}>
                         <div className='navbar-brand'>
                             <img src={giacomLogo} alt="Giacom Logo" style={{width: '200px'}}/>
                         </div>
                     </Link>
+                    <div className='logout-button'>
+                        <button onClick={handleLogout}>Logout</button>
+                    </div>
                 </div>
                 <ul>
                     <div className={`navbar-links ${isOn ? 'on' : ''}`}>
@@ -44,7 +53,7 @@ export default function AdminNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/ticketsPage" onClick={closeMenu}>
+                        <NavLink to="/alltickets" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">
@@ -53,16 +62,7 @@ export default function AdminNav() {
                                 </div>
                             </li>
                         </NavLink>
-                        <NavLink to="/adminQuote" onClick={closeMenu}>
-                            <li className='nav-link'>
-                                <div className="card menu-item">
-                                    <div className="card-body">
-                                        <p style={{fontSize: '20px'}}>Quotes</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </NavLink>
-                        <NavLink to="/adminQuote" onClick={closeMenu}>
+                            <NavLink to="/quotegen" onClick={closeMenu}>
                             <li className='nav-link'>
                                 <div className="card menu-item">
                                     <div className="card-body">
