@@ -53,6 +53,7 @@ const ticketStat = (status) => {
   if (s === 'a') return 'Active';
   if (s === 'e') return 'Escalated';
   if (s === 'r') return 'Resolved';
+  if (s === 'rj') return 'Quote Rejected';
   return 'N/A';
 };
  
@@ -189,7 +190,8 @@ const auto = calculateAutoValues(ticket);
         setTickets(Array.isArray(data) ? data : []);
         const userTickets = (Array.isArray(data) ? data : []).filter((t) =>
           (t.status || '').toLowerCase() === 'qp' ||
-          (t.status || '').toLowerCase() === 'qr'
+          (t.status || '').toLowerCase() === 'qr' ||
+          (t.status || '').toLowerCase() === 'rj'
         );
         setTickets(userTickets);
       } catch (err) {

@@ -42,7 +42,7 @@ const ticketStat = (status) => {
   if (s === 'a') return 'Active';
   if (s === 'e') return 'Escalated';
   if (s === 'r') return 'Resolved';
-  if (s === 'rj') return 'Rejected';
+  if (s === 'rj') return 'Quote Rejected';
   return 'N/A';
 };
  
