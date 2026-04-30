@@ -360,12 +360,30 @@ export default function TicketForm() {
 
                     <input
                       id="file-upload"
-                      ref={fileInputRef}
                       type="file"
                       multiple
+                      accept=".jpg,.jpeg,.png,.pdf,.xlsx,.docx,.txt"
                       style={{ display: 'none' }}
                       onChange={(e) => {
                         const files = Array.from(e.target.files);
+                        const allowedTypes = ['.jpg', '.jpeg', '.png', '.pdf', '.xlsx', '.docx', '.txt'];
+                        const invalidTypes = files.filter(f => {
+                          const ext = '.' + f.name.split('.').pop().toLowerCase();
+                          return !allowedTypes.includes(ext);
+                        });
+
+                        if (invalidTypes.length > 0) {
+                          alert(`Invalid file type(s):\n${invalidTypes.map(f => f.name).join('\n')}\n\nAllowed: jpg, png, pdf, xlsx, docx, txt`);
+                          e.target.value = '';
+                          return;
+                        }
+                        const maxSize = 5 * 1024 * 1024;
+                        const invalidFiles = files.filter(f => f.size > maxSize);
+                        if (invalidFiles.length > 0) {
+                          alert(`The following files exceed the 5MB limit:\n${invalidFiles.map(f => f.name).join('\n')}`);
+                          e.target.value = '';
+                          return;
+                        }
                         set('attachments', files);
                       }}
                     />
