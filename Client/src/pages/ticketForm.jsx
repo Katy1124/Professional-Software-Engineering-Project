@@ -14,7 +14,7 @@ export default function TicketForm() {
     title: '',
     description: '',
     severity: 'Low',
-    impact: 'Low',
+    impact: 'Minor',
     date: '',
     users: '',
     attachments: [],
@@ -60,7 +60,7 @@ export default function TicketForm() {
     };
 
     const severityMap = { 'Low': 1, 'Medium': 2, 'High': 3, 'Critical': 4 };
-    const businessMap = { 'Low': 1, 'Medium': 2, 'High': 3, 'Critical': 4 };
+    const businessMap = { 'Minor': 1, 'Moderate': 2, 'Major': 3, 'Critical': 4 };
 
     const selectedDate = new Date(form.date);
     const today = new Date();
@@ -267,27 +267,27 @@ export default function TicketForm() {
                           <button
                             className="dropdown-item"
                             type="button"
-                            onClick={() => set('impact', 'Low')}
+                            onClick={() => set('impact', 'Minor')}
                           >
-                            Low
+                            Minor
                           </button>
                         </li>
                         <li>
                           <button
                             className="dropdown-item"
                             type="button"
-                            onClick={() => set('impact', 'Medium')}
+                            onClick={() => set('impact', 'Moderate')}
                           >
-                            Medium
+                            Moderate
                           </button>
                         </li>
                         <li>
                           <button
                             className="dropdown-item"
                             type="button"
-                            onClick={() => set('impact', 'High')}
+                            onClick={() => set('impact', 'Major')}
                           >
-                            High
+                            Major
                           </button>
                         </li>
                         <li>

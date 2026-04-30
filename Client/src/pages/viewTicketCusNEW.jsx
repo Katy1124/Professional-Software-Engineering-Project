@@ -104,9 +104,9 @@ export default function CustViewTicket() {
 
   const tickectimpact = (impact) => {
     if (!impact) return 'N/A';
-    if (impact == 1) return 'Low';
-    if (impact == 2) return 'Medium';
-    if (impact == 3) return 'High';
+    if (impact == 1) return 'Minor';
+    if (impact == 2) return 'Moderate';
+    if (impact == 3) return 'Major';
     if (impact == 4) return 'Critical';
     return 'N/A';
   };
