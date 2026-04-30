@@ -298,9 +298,9 @@ export default function ViewTicketAd() {
                 <button
                   className="resolved"
                   onClick={handleResolved}
-                  disabled={ticket.status?.toLowerCase() === 'r'}
+                  disabled={!['a', 'e'].includes(ticket.status?.toLowerCase())}
                   style={{
-                    backgroundColor: ticket.status?.toLowerCase() === 'r' ? '#6c757d' : '#ff007f',
+                    backgroundColor: !['a', 'e'].includes(ticket.status?.toLowerCase()) ? '#6c757d' : '#ff007f',
                     color: 'white'
                   }}
                 >
@@ -310,9 +310,9 @@ export default function ViewTicketAd() {
                 <button
                   className="escalated"
                   onClick={handleEscalated}
-                  disabled={ticket.status?.toLowerCase() === 'e'}
+                  disabled={ticket.status?.toLowerCase() !== 'a'}
                   style={{
-                    backgroundColor: ticket.status?.toLowerCase() === 'e' ? '#6c757d' : '#ff007f',
+                    backgroundColor: ticket.status?.toLowerCase() !== 'a' ? '#6c757d' : '#ff007f',
                     color: 'white'
                   }}
                 >
